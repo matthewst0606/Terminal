@@ -1,0 +1,19 @@
+//
+//  RustService.swift
+//  Terminal++
+//
+//  Created by Matt on 6/29/26.
+//
+
+import Foundation
+
+final class RustService {
+    static let shared = RustService()
+
+    private init() {}
+
+    func execute(_ command: String) -> String {
+        return terminal_execute(command).toString()
+    }
+}
+
