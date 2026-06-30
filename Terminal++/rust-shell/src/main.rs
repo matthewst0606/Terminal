@@ -1,8 +1,10 @@
-use std::io::Write;
-
+use std::{io::Write};
 use rust_shell::terminal_execute;
 
+
 fn main() {
+    let mut history: Vec<String> = Vec::new();
+
     loop {
         print!(">> ");
         std::io::stdout().flush().unwrap();
@@ -16,8 +18,22 @@ fn main() {
         }
 
         let output = terminal_execute(command.to_string());
+
         if !output.is_empty() {
-            println!("{}", output);
+            print!("{}", output);
+            if !output.ends_with('\n') {
+                println!();
+            }
+            std::io::stdout().flush().unwrap();
+            history.push(command.to_string());
+
         }
+        print!("history: ");
+        for i in &history {
+            print!("{} ",i);
+
+        }
+        println!();
+
     }
 }

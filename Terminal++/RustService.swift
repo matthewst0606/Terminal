@@ -15,5 +15,10 @@ final class RustService {
     func execute(_ command: String) -> String {
         return terminal_execute(command).toString()
     }
+
+    func history(_ command: String) -> [String] {
+        let rustHistory = terminal_history(command)
+        return rustHistory.map {$0.as_str().toString()}
+    }
 }
 
