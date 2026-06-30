@@ -12,7 +12,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C901D4DD2FF2BE3A00AE67FA /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Terminal++.app"; path = "/Users/matt/Documents/GitHub/Terminal/build/Debug/Terminal++.app"; sourceTree = "<absolute>"; };
+		C90449D52FF46AC300D5B4AD /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,6 +52,7 @@
 				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
 				C93F8F102FF37B7C003A9B8D /* UI */,
 				C93F8F1D2FF37BE0003A9B8D /* Extension */,
+				C90449D52FF46AC300D5B4AD /* Terminal++.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,8 +60,8 @@
 			isa = PBXGroup;
 			children = (
 				C93F8F122FF37B84003A9B8D /* App */,
-				C93F8F182FF37B8B003A9B8D /* View */,
 				C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */,
+				C93F8F182FF37B8B003A9B8D /* View */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -98,7 +99,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Terminal++";
-			productReference = C901D4DD2FF2BE3A00AE67FA /* Terminal++.app */;
+			productReference = C90449D52FF46AC300D5B4AD /* Terminal++.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

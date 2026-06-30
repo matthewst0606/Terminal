@@ -12,14 +12,16 @@ struct ContentView: View {
     @State private var isHovering: Bool = false
     @State private var selectedTab: OverlayTab = .terminal
     @State private var output: String = ""
+    @State private var history: [String] = []
+
     
     
     var body: some View {
         VStack {
             switch selectedTab {
-            case .terminal: TerminalView(output: $output)
+            case .terminal: TerminalView(output: $output, history: $history)
             case .keywords: KeywordsView()
-            case .history: ThemesView()
+            case .history: HistoryView(history: $history)
             case .themes:   ThemesView()
             }
         }
@@ -145,45 +147,25 @@ struct LargeDisplayButton: View {
     var body: some View {
 
         Button { action() } label: {
-
             HStack(spacing: 10) {
-
                 Symbol(
-
                     name: item.image,
-
                     font: .system(size: 28),
-
                     render: .multicolor,
-
                     gradient: .gradient
-
                 )
-
                 .frame(width: 50, alignment: .center)
-
                 Text(item.title)
-
                     .font(.system(size: 14))
-
                     .frame(maxWidth: .infinity, alignment: .leading)
-
             }
-
         }
-
         .buttonStyle(.plain)
-
         .frame(maxWidth: .infinity, alignment: .leading)
-
         .neswPadding(5, 5, 5, 5)
-
         .background(
-
             backgroundColor,
-
             in: RoundedRectangle(cornerRadius: 16)
-
         )
 
         .scaleEffect(isHovering ? 1.08 : 1.0)
