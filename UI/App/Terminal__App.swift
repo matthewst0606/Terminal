@@ -12,7 +12,8 @@ struct Terminal__App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .background(.ultraThinMaterial)
         }
+        
     }
 }
+

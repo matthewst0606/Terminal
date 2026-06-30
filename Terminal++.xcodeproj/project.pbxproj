@@ -6,14 +6,31 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
+		C93F8F012FF3419D003A9B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
-		C901D4DD2FF2BE3A00AE67FA /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C901D4DD2FF2BE3A00AE67FA /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Terminal++.app"; path = "/Users/matt/Documents/GitHub/Terminal/build/Debug/Terminal++.app"; sourceTree = "<absolute>"; };
+		C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Terminal++";
+			sourceTree = "<group>";
+		};
+		C93F8F122FF37B84003A9B8D /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = App;
+			sourceTree = "<group>";
+		};
+		C93F8F182FF37B8B003A9B8D /* View */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -33,16 +50,27 @@
 			isa = PBXGroup;
 			children = (
 				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
-				C901D4DE2FF2BE3A00AE67FA /* Products */,
+				C93F8F102FF37B7C003A9B8D /* UI */,
+				C93F8F1D2FF37BE0003A9B8D /* Extension */,
 			);
 			sourceTree = "<group>";
 		};
-		C901D4DE2FF2BE3A00AE67FA /* Products */ = {
+		C93F8F102FF37B7C003A9B8D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C901D4DD2FF2BE3A00AE67FA /* Terminal++.app */,
+				C93F8F122FF37B84003A9B8D /* App */,
+				C93F8F182FF37B8B003A9B8D /* View */,
+				C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */,
 			);
-			name = Products;
+			path = UI;
+			sourceTree = "<group>";
+		};
+		C93F8F1D2FF37BE0003A9B8D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -63,6 +91,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
+				C93F8F122FF37B84003A9B8D /* App */,
+				C93F8F182FF37B8B003A9B8D /* View */,
 			);
 			name = "Terminal++";
 			packageProductDependencies = (
@@ -96,7 +126,7 @@
 			mainGroup = C901D4D42FF2BE3A00AE67FA;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = C901D4DE2FF2BE3A00AE67FA /* Products */;
+			productRefGroup = C901D4D42FF2BE3A00AE67FA;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -110,6 +140,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93F8F012FF3419D003A9B8D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,8 +310,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGNING_ALLOWED = NO;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
