@@ -20,3 +20,20 @@ struct ThemesView: View {
         }
     }
 }
+
+struct ThemesOverlay: View {    
+    var body: some View {
+        VStack {
+            ScrollView {
+                Text("Glass")
+                Divider()
+                Text("Regular")
+                Divider()
+
+                Text("Custom")
+            }
+            .frame(width: 200, height: 100, alignment: .center)
+            .glassRect(radius: 24)
+        }
+    }
+}

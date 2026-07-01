@@ -6,17 +6,9 @@
 //
 
 import SwiftUI
+
+// ---------- rectangle formatting  ----------
 extension View {
-    func createTransition(from edge: Edge, with transition: AnyTransition) -> some View {
-        return self
-            .transition(
-                .move(edge: edge)
-                .combined(with: transition)
-            )
-            .shadow(radius: 5)
-        
-    }
-    
     func glassRect(
         _ glassColor: Glass = .regular,
         radius: CGFloat = 10,
@@ -31,60 +23,83 @@ extension View {
     }
     
     func bgRect(
-        _ color: NSColor,
+        _ color: Color,
         radius: CGFloat = 10,
         padding: CGFloat = 0,
     ) -> some View {
         return self
         .background(
-            Color(nsColor: color),
+            color,
             in: .rect(cornerRadius: radius)
         )
         .padding(padding)
     }
     
+    func bgRectBorder(
+        _ color: Color = .secondary,
+        opacity: CGFloat = 0.25,
+        radius: CGFloat = 10,
+        padding: CGFloat = 0,
+        lineWidth: CGFloat = 1
+    ) -> some View {
+        self.overlay {
+            RoundedRectangle(cornerRadius: radius)
+                .stroke(
+                    color.opacity(opacity),
+                    lineWidth: lineWidth
+                )
+        }
+    }
+}
+
+
+// ---------- padding ----------
+extension View {
     func neswPadding(
         _ north: CGFloat,
         _ east: CGFloat,
         _ south: CGFloat,
         _ west: CGFloat
     ) -> some View {
+        self.padding(EdgeInsets(
+            top: north,
+            leading: west,
+            bottom: south,
+            trailing: east
+        ))
+    }
+}
+
+
+// ---------- List and list row formatting ----------
+extension View {
+    func terminalList() -> some View {
         self
-            .padding(EdgeInsets(
-                top: north,
-                leading: west,
-                bottom: south,
-                trailing: east
-            ))
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
     }
+
+    func terminalListRow() -> some View {
+        self
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
+    }
+    
+}
+// ---------- Animations ----------
+extension View {
+    func createTransition(from edge: Edge, with transition: AnyTransition) -> some View {
+        return self
+            .transition(
+                .move(edge: edge)
+                .combined(with: transition)
+            )
+            .shadow(radius: 5)
+    }
+    
 }
 
 
-struct Symbol: View {
-    let name: String
-    let font: Font?
-    let render: SymbolRenderingMode?
-    let gradient: SymbolColorRenderingMode?
-    
-    init(
-        name: String,
-        font: Font? = .default,
-        render: SymbolRenderingMode? = nil,
-        gradient: SymbolColorRenderingMode? = .none
-    ) {
-        self.name = name
-        self.font = font
-        self.render = render
-        self.gradient = gradient
-    }
-    
-    var body: some View {
-        Image(systemName: name)
-            .font(font)
-            .symbolRenderingMode(render)
-            .symbolColorRenderingMode(.gradient)
-    }
-}
 
 
 

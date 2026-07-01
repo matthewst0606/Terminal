@@ -9,12 +9,24 @@
 /* Begin PBXBuildFile section */
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
 		C93F8F012FF3419D003A9B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */; };
+		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
+		C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603992FF5948800F5CBD8 /* KeywordsService.swift */; };
+		C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */; };
+		C97603A42FF5D74100F5CBD8 /* FormatKeywordItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */; };
+		C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A72FF5D82300F5CBD8 /* Symbol.swift */; };
+		C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C90449D52FF46AC300D5B4AD /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
+		C97603992FF5948800F5CBD8 /* KeywordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsService.swift; sourceTree = "<group>"; };
+		C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackExtension.swift; sourceTree = "<group>"; };
+		C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatKeywordItemExtension.swift; sourceTree = "<group>"; };
+		C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton.swift; sourceTree = "<group>"; };
+		C97603A72FF5D82300F5CBD8 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -49,10 +61,12 @@
 		C901D4D42FF2BE3A00AE67FA = {
 			isa = PBXGroup;
 			children = (
-				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
+				C97603A52FF5D7EC00F5CBD8 /* Components */,
+				C97603A12FF5D5E900F5CBD8 /* Service */,
 				C93F8F102FF37B7C003A9B8D /* UI */,
 				C93F8F1D2FF37BE0003A9B8D /* Extension */,
 				C90449D52FF46AC300D5B4AD /* Terminal++.app */,
+				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,8 +74,8 @@
 			isa = PBXGroup;
 			children = (
 				C93F8F122FF37B84003A9B8D /* App */,
-				C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */,
 				C93F8F182FF37B8B003A9B8D /* View */,
+				C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -69,9 +83,29 @@
 		C93F8F1D2FF37BE0003A9B8D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */,
+				C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */,
 				C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		C97603A12FF5D5E900F5CBD8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C97603732FF555B200F5CBD8 /* RustService.swift */,
+				C97603992FF5948800F5CBD8 /* KeywordsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C97603A52FF5D7EC00F5CBD8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C97603A72FF5D82300F5CBD8 /* Symbol.swift */,
+				C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,7 +213,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */,
+				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
+				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,
+				C97603A42FF5D74100F5CBD8 /* FormatKeywordItemExtension.swift in Sources */,
+				C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */,
+				C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
