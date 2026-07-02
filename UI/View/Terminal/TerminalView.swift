@@ -7,21 +7,23 @@
 import SwiftUI
 
 struct TerminalView: View {
-    @Binding var output: String
-    @Binding var history: [String]
+    @ObservedObject var terminal: TerminalService
+
+    
     var body: some View {
-        HStack {
-            ScrollView { terminalTextOutput() }
+        VStack(spacing: 0) {
+            ScrollView {
+                terminalTextOutput()
+            }
+
             .frame(
                 maxWidth: .infinity,
-                alignment: .leading
+                maxHeight: .infinity,
+                alignment: .topLeading
             )
+
+            TerminalTextbox(terminal: terminal)
         }
-        
-        TerminalTextbox(
-            output: $output,
-            history: $history
-        )
     }
     
     
@@ -29,32 +31,21 @@ struct TerminalView: View {
     // -- helpers --
     // =============
     private func terminalTextOutput() -> some View {
-        return Text(output)
-        .font(.system(
-            size: 14,
-            weight: .regular,
-            design: .monospaced
-        ))
-        .neswPadding(5, 10, 5, 10)
-        .textSelection(.enabled)
-    }
-}
-
-
-
-
-struct TerminalOverlay: View {
-    var body: some View {
-        VStack {
-            ScrollView {
-                Text("things go here")
-            }
-            .frame(width: 100, height: 100, alignment: .center)
+        Text(terminal.output)
+            .font(.system(
+                size: 14,
+                weight: .regular,
+                design: .monospaced
+            ))
+            .neswPadding(5, 10, 5, 10)
             .textSelection(.enabled)
-            .glassRect(radius: 24)
-        }
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
+
+
+
+
 
 
 

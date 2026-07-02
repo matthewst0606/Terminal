@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A32C22FF6A55300D808A6 /* TerminalService.swift */; };
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
 		C93F8F012FF3419D003A9B8D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */; };
 		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		C90449D52FF46AC300D5B4AD /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C93A32C22FF6A55300D808A6 /* TerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalService.swift; sourceTree = "<group>"; };
 		C93F8EEF2FF3419D003A9B8D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
@@ -33,6 +35,11 @@
 		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Terminal++";
+			sourceTree = "<group>";
+		};
+		C93A32CC2FF6B1D900D808A6 /* Overlay */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Overlay;
 			sourceTree = "<group>";
 		};
 		C93F8F122FF37B84003A9B8D /* App */ = {
@@ -95,6 +102,7 @@
 			children = (
 				C97603732FF555B200F5CBD8 /* RustService.swift */,
 				C97603992FF5948800F5CBD8 /* KeywordsService.swift */,
+				C93A32C22FF6A55300D808A6 /* TerminalService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -102,6 +110,7 @@
 		C97603A52FF5D7EC00F5CBD8 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				C93A32CC2FF6B1D900D808A6 /* Overlay */,
 				C97603A72FF5D82300F5CBD8 /* Symbol.swift */,
 				C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */,
 			);
@@ -126,6 +135,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
+				C93A32CC2FF6B1D900D808A6 /* Overlay */,
 				C93F8F122FF37B84003A9B8D /* App */,
 				C93F8F182FF37B8B003A9B8D /* View */,
 			);
@@ -214,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */,
+				C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */,
 				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
 				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,

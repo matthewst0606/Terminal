@@ -9,13 +9,12 @@ import SwiftUI
 
 @main
 struct Terminal__App: App {
+
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .background(Color(nsColor: .quinarySystemFill ))
         }
-            
-        
     }
 }
 

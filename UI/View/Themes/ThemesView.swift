@@ -6,34 +6,47 @@
 //
 import SwiftUI
 
+enum GlassStyle {
+    case regular, clear, none
+}
+
 struct ThemesView: View {
+    @State var selectedGlass: GlassStyle = .regular
+    
     var body: some View {
         HStack {
-            ScrollView {
-                Text("Glass")
-                Text("Regular")
-                Text("Custom")
+            List {
+                Picker("Glass", selection: $selectedGlass) {
+                    Text("Regular").tag(GlassStyle.regular)
+                    Text("Clear").tag(GlassStyle.clear)
+                    Text("None").tag(GlassStyle.none)
+                }
+                Picker("Mode", selection: $selectedGlass) {
+                    Text("System").tag(GlassStyle.regular)
+                    Text("Dark").tag(GlassStyle.clear)
+                    Text("Light").tag(GlassStyle.none)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .textSelection(.enabled)
             .neswPadding(5, 10, 5, 10)
+            
+            
+        }
+    }
+
+    private var glassSwitch: String {
+        switch selectedGlass {
+        case .regular:"Regular"
+        case .clear: "Clear"
+        case .none: "None"
         }
     }
 }
 
-struct ThemesOverlay: View {    
-    var body: some View {
-        VStack {
-            ScrollView {
-                Text("Glass")
-                Divider()
-                Text("Regular")
-                Divider()
 
-                Text("Custom")
-            }
-            .frame(width: 200, height: 100, alignment: .center)
-            .glassRect(radius: 24)
-        }
-    }
-}
+
+
+
+
+

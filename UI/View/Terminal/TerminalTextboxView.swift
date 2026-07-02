@@ -8,20 +8,21 @@
 import SwiftUI
 
 struct TerminalTextbox: View {
-    @State private var input: String = ""
     @State private var toggleSmallOverlay: Bool = false
-    @Binding var output: String
-    @Binding var history: [String]
+    @State private var selectedSmallTab: SmallTabs = .none
 
+
+    @ObservedObject var terminal: TerminalService
+    
     var body: some View {
         HStack {
             TextField(
                 "Enter a command",
-                text: $input
+                text: $terminal.input
             )
             .padding()
             .textFieldStyle(.plain)
-            .onSubmit { submit() }
+            .onSubmit { terminal.submit() }
             .frame(maxWidth: .infinity, minHeight: 70)
             .glassRect(radius: 24)
             .bgRectBorder(radius: 24)
@@ -39,20 +40,13 @@ struct TerminalTextbox: View {
     @ViewBuilder
     private func displaySmallOverlay() -> some View {
         if toggleSmallOverlay {
-            SmallDisplayOverlay(output: $output, history: $history)
-                .createTransition(
-                    from: Edge.bottom,
-                    with: AnyTransition.opacity
-                )
+
+            SmallOverlay(terminal: terminal, selectedTab: $selectedSmallTab)
+            .createTransition(
+                from: Edge.bottom,
+                with: AnyTransition.opacity
+            )
         }
-    }
-    
-    // textbox submit action
-    private func submit() {
-        output += "\n<User> → \(input)\n"
-        output += "\(RustService.shared.execute(input))"
-        history.append("\(RustService.shared.history(input))")
-        input = ""
     }
 
     // button that displays over the terminal input box

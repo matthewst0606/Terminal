@@ -15,4 +15,3 @@ extension VStack {
             .neswPadding(5, 10, 10, 10)
     }
 }
-

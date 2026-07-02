@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-internal import Combine
+import Combine
 
 class KeywordsService: ObservableObject {
     @Published var defaultKeywords: [KeywordItem]

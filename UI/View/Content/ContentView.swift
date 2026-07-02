@@ -10,42 +10,39 @@ import SwiftUI
 struct ContentView: View {
     @State var toggleLargeOverlay: Bool = false
     @State private var isHovering: Bool = false
-    @State private var selectedTab: OverlayTab = .terminal
-    @State private var output: String = ""
-    @State private var history: [String] = []
+    @State private var selectedTab: LargeTabs = .terminal
+
+    @StateObject private var terminal = TerminalService()
 
     
     var body: some View {
-        VStack {
-            getTab()
-        }
-        .toolbar {
-            toolbarBtn()
-        }
-        .overlay(alignment: .topTrailing) {
-            displayLargeOverlay()
-        }
-        .frame(alignment: .trailing)
+        VStack { getTab() }
+            .toolbar { toolbarBtn() }
+            .overlay(alignment: .topTrailing) { displayLargeOverlay() }
+            .frame(alignment: .trailing)
     }
     
     
     @ViewBuilder
     private func displayLargeOverlay() -> some View {
         if toggleLargeOverlay {
-            LargeDisplayOverlay(selectedTab: $selectedTab, isHovering: $isHovering)
-                .createTransition(
-                    from: Edge.trailing,
-                    with: AnyTransition.opacity
-                )
+            LargeOverlay(
+                selectedTab: $selectedTab,
+                isHovering: $isHovering
+            )
+            .createTransition(
+                from: Edge.trailing,
+                with: AnyTransition.opacity
+            )
         }
     }
     
     @ViewBuilder
     private func getTab() -> some View {
         switch selectedTab {
-        case .terminal: TerminalView(output: $output, history: $history)
+        case .terminal: TerminalView(terminal: terminal)
         case .keywords: KeywordsView()
-        case .history: HistoryView(history: $history)
+        case .history: HistoryView(terminal: terminal)
         case .themes:   ThemesView()
         }
     }
