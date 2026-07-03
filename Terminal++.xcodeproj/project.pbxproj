@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A32C22FF6A55300D808A6 /* TerminalService.swift */; };
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
+		C968EA2A2FF7FF5B00912417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C968EA1E2FF7FF5B00912417 /* Assets.xcassets */; };
 		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
 		C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603992FF5948800F5CBD8 /* KeywordsService.swift */; };
 		C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */; };
-		C97603A42FF5D74100F5CBD8 /* FormatKeywordItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */; };
 		C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A72FF5D82300F5CBD8 /* Symbol.swift */; };
 		C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */; };
 		C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF25372FF7E01D005B3643 /* HistoryService.swift */; };
@@ -22,10 +22,10 @@
 		C90449D52FF46AC300D5B4AD /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93A32C22FF6A55300D808A6 /* TerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalService.swift; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		C968EA1E2FF7FF5B00912417 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
 		C97603992FF5948800F5CBD8 /* KeywordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsService.swift; sourceTree = "<group>"; };
 		C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackExtension.swift; sourceTree = "<group>"; };
-		C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatKeywordItemExtension.swift; sourceTree = "<group>"; };
 		C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton.swift; sourceTree = "<group>"; };
 		C97603A72FF5D82300F5CBD8 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		C9CF25372FF7E01D005B3643 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
@@ -45,6 +45,11 @@
 		C93F8F182FF37B8B003A9B8D /* View */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = View;
+			sourceTree = "<group>";
+		};
+		C968EA442FF7FF6200912417 /* App */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = App;
 			sourceTree = "<group>";
 		};
 		C9CF257A2FF7FB53005B3643 /* Lists */ = {
@@ -81,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				C93F8F182FF37B8B003A9B8D /* View */,
+				C968EA442FF7FF6200912417 /* App */,
+				C968EA1E2FF7FF5B00912417 /* Assets.xcassets */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -88,7 +95,6 @@
 		C93F8F1D2FF37BE0003A9B8D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C97603A32FF5D73500F5CBD8 /* FormatKeywordItemExtension.swift */,
 				C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */,
 				C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */,
 			);
@@ -137,6 +143,7 @@
 				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
 				C93A32CC2FF6B1D900D808A6 /* Overlay */,
 				C93F8F182FF37B8B003A9B8D /* View */,
+				C968EA442FF7FF6200912417 /* App */,
 				C9CF257A2FF7FB53005B3643 /* Lists */,
 			);
 			name = "Terminal++";
@@ -185,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C968EA2A2FF7FF5B00912417 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +236,6 @@
 				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
 				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,
-				C97603A42FF5D74100F5CBD8 /* FormatKeywordItemExtension.swift in Sources */,
 				C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */,
 				C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */,
 			);
