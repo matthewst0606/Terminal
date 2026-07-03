@@ -8,8 +8,8 @@ import SwiftUI
 
 struct TerminalView: View {
     @ObservedObject var terminal: TerminalService
+    @ObservedObject var history: HistoryService
 
-    
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
@@ -22,14 +22,16 @@ struct TerminalView: View {
                 alignment: .topLeading
             )
 
-            TerminalTextbox(terminal: terminal)
+            TerminalTextbox(terminal: terminal, history: history)
         }
     }
-    
-    
-    // =============
-    // -- helpers --
-    // =============
+}
+
+
+// =============
+// -- helpers --
+// =============
+extension TerminalView {
     private func terminalTextOutput() -> some View {
         Text(terminal.output)
             .font(.system(
@@ -42,8 +44,6 @@ struct TerminalView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
-
-
 
 
 

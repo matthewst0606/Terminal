@@ -22,6 +22,7 @@ private extension OverlayMenuItem where Overlay == SmallTabs {
 struct SmallOverlay: View {
     @ObservedObject var terminal: TerminalService
     @Binding var selectedTab: SmallTabs
+    @ObservedObject var history: HistoryService
 
     private let items = OverlayMenuItem<SmallTabs>.smallItems
     
@@ -56,7 +57,7 @@ struct SmallOverlay: View {
             switch selectedTab {
             case .terminal: TerminalOverlay()
             case .keywords: KeywordOverlay()
-            case .history:  HistoryOverlay(terminal: terminal)
+            case .history:  HistoryOverlay(terminal: terminal, history: history)
             case .themes:   ThemesOverlay()
             case .newTab:   ThemesOverlay()
             case .none:     EmptyView()

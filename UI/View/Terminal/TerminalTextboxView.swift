@@ -13,7 +13,8 @@ struct TerminalTextbox: View {
 
 
     @ObservedObject var terminal: TerminalService
-    
+    @ObservedObject var history: HistoryService
+
     var body: some View {
         HStack {
             TextField(
@@ -22,10 +23,14 @@ struct TerminalTextbox: View {
             )
             .padding()
             .textFieldStyle(.plain)
-            .onSubmit { terminal.submit() }
+            .onSubmit {
+                terminal.submit()
+                history.resetIndex()
+            }
             .frame(maxWidth: .infinity, minHeight: 70)
             .glassRect(radius: 24)
             .bgRectBorder(radius: 24)
+
         }
         .padding()
         .overlay(alignment: .trailing) {
@@ -34,21 +39,41 @@ struct TerminalTextbox: View {
         .background(alignment: .bottomTrailing) {
             displaySmallOverlay()
         }
+        
+        
+        
+        
+        .onKeyPress(.upArrow) {
+            prevHistory()
+            return .handled
+        }
+        .onKeyPress(.downArrow) {
+            nextHistory()
+            return .handled
+        }
     }
-    
-    
+}
+
+
+
+
+
+
+
+extension TerminalTextbox {
     @ViewBuilder
     private func displaySmallOverlay() -> some View {
         if toggleSmallOverlay {
 
-            SmallOverlay(terminal: terminal, selectedTab: $selectedSmallTab)
+            SmallOverlay(terminal: terminal, selectedTab: $selectedSmallTab, history: history)
             .createTransition(
                 from: Edge.bottom,
                 with: AnyTransition.opacity
             )
         }
     }
-
+    
+    
     // button that displays over the terminal input box
     private func textboxToggleButton() -> some View {
         return VStack {
@@ -67,5 +92,21 @@ struct TerminalTextbox: View {
         .buttonStyle(.glass)
         .buttonBorderShape(.circle)
         .offset(x: -25)
+    }
+    
+    // get previous item from HistoryService
+    private func prevHistory() {
+        guard let prev = history.getPrevIndex() else { return }
+        DispatchQueue.main.async {
+             terminal.input = prev
+         }
+    }
+    
+    // get next item from HistoryService
+    private func nextHistory() {
+        guard let next = history.getNextIndex() else { return }
+        DispatchQueue.main.async {
+             terminal.input = next
+         }
     }
 }

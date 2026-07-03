@@ -6,14 +6,3 @@
 //
 
 import SwiftUI
-
-extension FormatKeywordItem {
-    func listSeparator() -> some View {
-        self
-            .overlay(alignment: .bottom) {
-                Rectangle()
-                    .fill(.white.opacity(0.06))
-                    .frame(height: 1)
-            }
-    }
-}

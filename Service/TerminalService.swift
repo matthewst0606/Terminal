@@ -13,12 +13,33 @@ final class TerminalService: ObservableObject {
     @Published var history: [String] = []
     @Published var input: String = ""
     
-  
     // textbox submit action
     func submit() {
-        output += "\n<User> → \(input)\n"
-        output += "\(RustService.shared.execute(input))"
-        history.append("\(RustService.shared.history(input))")
+        let command = input
+        let result = RustService.shared.execute(command)
+
+        if result == "__CLEAR__" {
+            output = ""
+        }
+        else if result == "__CLEARLINE__" {
+            if let lastNewLine = output.lastIndex(of: "\n") {
+                output.removeSubrange(lastNewLine..<output.endIndex)
+            }
+            else {
+                output = ""
+            }
+        }
+
+        else {
+            output += "\n<User> → \(command)\n"
+            output += result
+        }
+
+        history.append(RustService.shared.history(command))
         input = ""
     }
+        
+    
+    
 }
+

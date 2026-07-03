@@ -46,41 +46,59 @@ struct DisplayButton<Overlay: Hashable>: View {
         }
     }
     
-    private var LargeButton: some View {
-        HStack {
-            formatSymbol()
-            formatText()
-        }
-        .frame(maxWidth: .infinity)
-        .contentShape(RoundedRectangle(cornerRadius: 10))
-        .bgRect(backgroundColor, radius: 10)
-    }
+
     
     
     
     private var SmallButton: some View {
-        Symbol(
-            name: item.image,
-            font: .system(size: 18),
-            render: .multicolor,
-            gradient: .gradient
+        formatSymbol(
+            fontSize: 18,
+            buttonRadius: 4,
+            paddingSize: 2
         )
-            
-        
-        .background(.clear)
-        .buttonStyle(.plain)
     }
     
-    private func formatSymbol() -> some View {
-        return Symbol(
-            name: item.image,
-            font: .system(size: 20),
-            render: .multicolor,
-            gradient: .gradient
-        )
-        .frame(width: 25, alignment: .center)
-        .neswPadding(10, 0, 10, 10)
+    
+    private var LargeButton: some View {
+        HStack {
+            formatSymbol(
+                fontSize: 20,
+                buttonRadius: 10,
+                paddingSize: 4
+            )
+        }
     }
+    
+    
+    
+    private func formatSymbol(
+        fontSize: CGFloat,
+        buttonRadius: CGFloat,
+        paddingSize: CGFloat,
+    ) -> some View {
+        
+        return HStack {
+            
+            Symbol(
+                name: item.image,
+                font: .system(size: fontSize),
+                render: .multicolor,
+                gradient: .gradient
+            )
+            .frame(maxWidth: 25, maxHeight: 25)
+
+            
+            if item.title != nil {
+                formatText()
+            }
+        }
+        .contentShape(RoundedRectangle(cornerRadius: buttonRadius))
+        .padding(paddingSize)
+
+        .bgRect(backgroundColor, radius: buttonRadius)
+    }
+    
+    
     
     private func formatText() -> some View {
         return Text(item.title!)

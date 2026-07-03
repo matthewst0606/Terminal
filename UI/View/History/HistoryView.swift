@@ -10,61 +10,40 @@ import SwiftUI
 
 struct HistoryView: View {
     @ObservedObject var terminal: TerminalService
+    @ObservedObject var history: HistoryService
+
+    @StateObject private var keywordsService = KeywordsService()
+
 
     var body: some View {
         VStack {
-            List {
-                listItem("Github", symbol: "folder.fill", favoriteStatus: "bookmark.fill")
-                listItem("Docker", symbol: "folder.fill")
-
-
-                ForEach(Array(terminal.history.enumerated()), id: \.offset) { _, command in
-                    Text(command)
-                }
-            }
-            .padding(10)
-            .terminalList()
-
-            
-            
             HStack {
                 pageButton(symbol: "folder.fill.badge.plus") {}
                 pageButton(symbol: "folder.fill.badge.minus") {}
             }
+            .frame(maxWidth:.infinity,alignment: .leading)
+            .neswPadding(10, 20, 0, 20)
+
+
+            TerminalList(
+                items: history.historyItem(),
+                style: .history
+            )
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .textSelection(.enabled)
-        .neswPadding(5, 10, 5, 10)
     }
-    
-    private func listItem(
-        _ title: String,
-        symbol: String,
-        favoriteStatus: String = "bookmark"
-    ) -> some View {
-        HStack {
-            Symbol(
-                name: symbol,
-                render: .multicolor,
-                gradient: .gradient,
-            )
-            Text(title)
-            
-            Spacer()
-            
-            Symbol(
-                name: favoriteStatus,
-                render: .multicolor,
-                gradient: .gradient,
-            )
-        }
-    }
-    
+}
+
+
+
+extension HistoryView {    
     
     private func pageButton(
         _ title: String = "",
         symbol: String,
         action: @escaping () -> Void
+        
     ) -> some View {
         Button(action: action) {
             HStack(spacing: 8) {
@@ -85,4 +64,3 @@ struct HistoryView: View {
         .buttonStyle(.plain)
     }
 }
-

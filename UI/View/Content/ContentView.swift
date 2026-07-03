@@ -12,17 +12,26 @@ struct ContentView: View {
     @State private var isHovering: Bool = false
     @State private var selectedTab: LargeTabs = .terminal
 
-    @StateObject private var terminal = TerminalService()
+    @StateObject private var terminal: TerminalService
+    @StateObject private var history: HistoryService
 
-    
+    init() {
+        let terminal = TerminalService()
+        _terminal = StateObject(wrappedValue: terminal)
+        _history = StateObject(wrappedValue: HistoryService(terminal: terminal))
+    }
     var body: some View {
         VStack { getTab() }
             .toolbar { toolbarBtn() }
             .overlay(alignment: .topTrailing) { displayLargeOverlay() }
             .frame(alignment: .trailing)
     }
-    
-    
+}
+
+
+
+
+extension ContentView {
     @ViewBuilder
     private func displayLargeOverlay() -> some View {
         if toggleLargeOverlay {
@@ -39,10 +48,11 @@ struct ContentView: View {
     
     @ViewBuilder
     private func getTab() -> some View {
+
         switch selectedTab {
-        case .terminal: TerminalView(terminal: terminal)
+        case .terminal: TerminalView(terminal: terminal, history: history)
         case .keywords: KeywordsView()
-        case .history: HistoryView(terminal: terminal)
+        case .history: HistoryView(terminal: terminal, history: history)
         case .themes:   ThemesView()
         }
     }
@@ -61,6 +71,3 @@ struct ContentView: View {
         }
     }
 }
-
-
-

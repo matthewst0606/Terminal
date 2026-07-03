@@ -10,50 +10,34 @@ import SwiftUI
 import Combine
 
 class KeywordsService: ObservableObject {
-    @Published var defaultKeywords: [KeywordItem]
-    @Published var customKeywords: [KeywordItem]
+    @Published var defaultKeywords: [ListElement]
+    @Published var customKeywords: [ListElement]
     
     init(
-        defaultKeywords: [KeywordItem] = KeywordsService.defaultListItems(),
-        customKeywords: [KeywordItem] = KeywordsService.customListItems()
+        defaultKeywords: [ListElement] = KeywordsService.defaultListItems(),
+        customKeywords: [ListElement] = KeywordsService.customListItems()
     ) {
         self.defaultKeywords = defaultKeywords
         self.customKeywords = customKeywords
     }
     
-    static func defaultListItems() -> [KeywordItem] {[
-        KeywordItem(lhs: "help", rhs: "help"),
-        KeywordItem(lhs: "cmd", rhs: "cmd"),
-        KeywordItem(lhs: "cmd", rhs: "cmd"),
-        KeywordItem(lhs: "cmd", rhs: "cmd"),
-        KeywordItem(lhs: "cmd", rhs: "cmd")
+    static func defaultListItems() -> [ListElement] {[
+        ListElement(leadingText: "help", trailingText: "help"),
+        ListElement(leadingText: "cmd", trailingText: "cmd"),
+        ListElement(leadingText: "cmd", trailingText: "cmd"),
+        ListElement(leadingText: "cmd", trailingText: "cmd"),
+        ListElement(leadingText: "cmd", trailingText: "cmd")
     ]}
     
     
-    static func customListItems() -> [KeywordItem] {[
-        KeywordItem(lhs: "git add", rhs: "git add ."),
-        KeywordItem(lhs: "git commit", rhs: "git commit -m \"\""),
-        KeywordItem(lhs: "git push", rhs: "git push"),
+    static func customListItems() -> [ListElement] {[
+        ListElement(leadingText: "git add", trailingText: "git add ."),
+        ListElement(leadingText: "git commit", trailingText: "git commit -m \"\""),
+        ListElement(leadingText: "git push", trailingText: "git push"),
     ]}
     
     func addKeywordItem(lhs: String, rhs: String) {
-        customKeywords.append(KeywordItem(lhs: lhs, rhs: rhs))
+        customKeywords.append(ListElement(leadingText: lhs, trailingText: rhs))
     }
 }
 
-struct KeywordItem: Identifiable {
-    var id = UUID()
-    let lhs: String
-    let rhs: String
-}
-
-struct FormatKeywordItem: View {
-    let item: KeywordItem
-    var body: some View {
-        HStack {
-            Text(item.lhs)
-            Spacer()
-            Text(item.rhs)
-        }
-    }
-}

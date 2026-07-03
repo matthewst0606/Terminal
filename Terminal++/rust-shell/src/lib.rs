@@ -18,6 +18,12 @@ pub fn terminal_history(command: String) -> Vec<String> {
 }
 
 
+
+
+
+
+
+
 fn run_command(command: &str) -> String {
     let tokens: Vec<&str> = command.split_whitespace().collect();
 
@@ -28,10 +34,32 @@ fn run_command(command: &str) -> String {
 
     match tokens[0] {
         "exit" | "quit" => "Close the app window to exit.".to_string(),
+        "clear" => clear(),
+        "clearline" => clear_line(),
         "pwd" => current_directory(),
         "cd" => change_directory(tokens.get(1).copied()),
         _ => run_external_command(&tokens),
     }
+}
+
+
+
+// fn help() {
+
+// }
+
+
+fn clear() -> String {
+    "__CLEAR__".to_string()
+}
+
+fn clear_line() -> String {
+    "__CLEARLINE__".to_string()
+}
+
+
+fn red_err() -> String {
+    "\x1B[31merror:\x1B[0m".to_string()
 }
 
 fn current_directory() -> String {
@@ -40,6 +68,8 @@ fn current_directory() -> String {
         Err(error) => format!("pwd failed: {}", error),
     }
 }
+
+
 
 fn change_directory(path: Option<&str>) -> String {
     let Some(path) = path else {
@@ -76,6 +106,6 @@ fn run_external_command(tokens: &[&str]) -> String {
             }
             text
         }
-        Err(error) => format!("{} failed: {}", command, error),
+        Err(error) => format!("{} {} failed: {}", red_err(), command, error),
     }
 }

@@ -17,7 +17,8 @@ fn main() {
             break;
         }
 
-        let output = terminal_execute(command.to_string());
+        let output: String = terminal_execute(command.to_string());
+           history.push(command.to_string());
 
         if !output.is_empty() {
             print!("{}", output);

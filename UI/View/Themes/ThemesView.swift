@@ -30,11 +30,14 @@ struct ThemesView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .textSelection(.enabled)
             .neswPadding(5, 10, 5, 10)
-            
-            
+
         }
     }
+}
 
+
+
+extension ThemesView {
     private var glassSwitch: String {
         switch selectedGlass {
         case .regular:"Regular"
@@ -43,7 +46,6 @@ struct ThemesView: View {
         }
     }
 }
-
 
 
 
