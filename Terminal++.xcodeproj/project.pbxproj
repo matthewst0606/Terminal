@@ -10,6 +10,8 @@
 		C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A32C22FF6A55300D808A6 /* TerminalService.swift */; };
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
 		C968EA2A2FF7FF5B00912417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C968EA1E2FF7FF5B00912417 /* Assets.xcassets */; };
+		C968EA4A2FF81CCA00912417 /* ListItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968EA492FF81CC500912417 /* ListItemExtension.swift */; };
+		C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */; };
 		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
 		C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603992FF5948800F5CBD8 /* KeywordsService.swift */; };
 		C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */; };
@@ -23,6 +25,8 @@
 		C93A32C22FF6A55300D808A6 /* TerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalService.swift; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		C968EA1E2FF7FF5B00912417 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C968EA492FF81CC500912417 /* ListItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemExtension.swift; sourceTree = "<group>"; };
+		C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayButtonExtension.swift; sourceTree = "<group>"; };
 		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
 		C97603992FF5948800F5CBD8 /* KeywordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsService.swift; sourceTree = "<group>"; };
 		C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackExtension.swift; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 		C93F8F1D2FF37BE0003A9B8D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */,
+				C968EA492FF81CC500912417 /* ListItemExtension.swift */,
 				C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */,
 				C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */,
 			);
@@ -231,10 +237,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */,
+				C968EA4A2FF81CCA00912417 /* ListItemExtension.swift in Sources */,
 				C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */,
 				C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */,
 				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
+				C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */,
 				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,
 				C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */,
 				C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */,
@@ -403,6 +411,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/.build/rust-shell-target/debug/deps",
 					"$(PROJECT_DIR)/.build/rust-shell-target/debug",
+					"$(PROJECT_DIR)/Terminal++/rust-shell/target/debug/deps",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
@@ -458,6 +467,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/.build/rust-shell-target/release/deps",
 					"$(PROJECT_DIR)/.build/rust-shell-target/release",
+					"$(PROJECT_DIR)/Terminal++/rust-shell/target/debug/deps",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (

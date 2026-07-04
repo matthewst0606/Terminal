@@ -17,7 +17,7 @@ extension View {
         return self
             .glassEffect(
                 glassColor,
-                in:RoundedRectangle(cornerRadius: radius)
+                in: .rect(cornerRadius: radius)
             )
             .padding(padding)
     }
@@ -44,10 +44,10 @@ extension View {
     ) -> some View {
         self.overlay {
             RoundedRectangle(cornerRadius: radius)
-                .stroke(
-                    color.opacity(opacity),
-                    lineWidth: lineWidth
-                )
+            .stroke(
+                color.opacity(opacity),
+                lineWidth: lineWidth
+            )
         }
     }
 }
@@ -88,7 +88,10 @@ extension View {
 }
 // ---------- Animations ----------
 extension View {
-    func createTransition(from edge: Edge, with transition: AnyTransition) -> some View {
+    func createTransition(
+        from edge: Edge,
+        with transition: AnyTransition
+    ) -> some View {
         return self
             .transition(
                 .move(edge: edge)

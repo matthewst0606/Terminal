@@ -27,8 +27,9 @@ struct ListTab: View {
             Text(title)
         }
     }
-    
-    
+}
+
+extension ListTab {
     private func formatListHeader(_ title: String, symbol: String) -> some View {
         return HStack {
             Text(title)

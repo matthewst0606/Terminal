@@ -9,16 +9,12 @@ fn main() {
         print!(">> ");
         std::io::stdout().flush().unwrap();
 
+
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
 
         let command = input.trim();
-        if command == "exit" || command == "quit" {
-            break;
-        }
-
         let output: String = terminal_execute(command.to_string());
-           history.push(command.to_string());
 
         if !output.is_empty() {
             print!("{}", output);
@@ -27,14 +23,25 @@ fn main() {
             }
             std::io::stdout().flush().unwrap();
             history.push(command.to_string());
-
         }
-        print!("history: ");
-        for i in &history {
-            print!("{} ",i);
 
-        }
-        println!();
+        print_output(&history);
 
     }
+}
+
+
+
+
+fn print_output(history:  &Vec<String>) {
+    print!("history: [");
+    for (index,item) in history.iter().enumerate() {
+        if index > 0 {
+            print!(", ");
+        }
+
+        print!("{}", item);
+    }
+    print!("]");
+    println!();
 }

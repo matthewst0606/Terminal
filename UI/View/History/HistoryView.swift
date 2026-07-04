@@ -37,7 +37,8 @@ struct HistoryView: View {
 
 
 
-extension HistoryView {    
+extension HistoryView {
+    
     
     private func pageButton(
         _ title: String = "",
@@ -47,9 +48,8 @@ extension HistoryView {
     ) -> some View {
         Button(action: action) {
             HStack(spacing: 8) {
-                if !title.isEmpty {
-                    Text(title)
-                }
+                if !title.isEmpty { Text(title) }
+                
                 Symbol(
                     name: symbol,
                     font: .system(size: 20),

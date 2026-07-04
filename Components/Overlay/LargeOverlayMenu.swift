@@ -8,16 +8,9 @@
 import Foundation
 import SwiftUI
 
-
-private extension OverlayMenuItem where Overlay == LargeTabs {
-    static let largeItems: [OverlayMenuItem] = [
-        OverlayMenuItem(title:"Terminal++", image:"apple.terminal.fill", tab: LargeTabs.terminal),
-        OverlayMenuItem(title:"Keywords", image:"keyboard.macwindow", tab: LargeTabs.keywords),
-        OverlayMenuItem(title:"History", image:"clock.badge.checkmark.fill", tab: LargeTabs.history),
-        OverlayMenuItem(title:"Themes", image:"slider.horizontal.3", tab: LargeTabs.themes)
-    ]
+enum LargeTabs {
+    case terminal, keywords, history, themes
 }
-
 
 struct LargeOverlay: View {
     @Binding var selectedTab: LargeTabs
@@ -36,3 +29,29 @@ struct LargeOverlay: View {
         .neswPadding(10, 10, 0, 0)
     }
 }
+
+private extension OverlayMenuItem where Overlay == LargeTabs {
+    static let largeItems: [OverlayMenuItem] = [
+        OverlayMenuItem(
+            title:"Terminal++",
+            image:"apple.terminal.fill",
+            tab:LargeTabs.terminal
+        ),
+        OverlayMenuItem(
+            title:"Keywords",
+            image:"keyboard.macwindow",
+            tab: LargeTabs.keywords
+        ),
+        OverlayMenuItem(
+            title:"History",
+            image:"clock.badge.checkmark.fill",
+            tab: LargeTabs.history
+        ),
+        OverlayMenuItem(
+            title:"Themes",
+            image:"slider.horizontal.3",
+            tab: LargeTabs.themes
+        )
+    ]
+}
+

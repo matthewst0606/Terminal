@@ -8,24 +8,21 @@
 import Foundation
 import SwiftUI
 
-
-private extension OverlayMenuItem where Overlay == SmallTabs {
-    static let smallItems: [OverlayMenuItem<SmallTabs>] = [
-        OverlayMenuItem(image: "apple.terminal.fill", tab: SmallTabs.terminal),
-        OverlayMenuItem(image: "keyboard.macwindow", tab: SmallTabs.keywords),
-        OverlayMenuItem(image: "clock.badge.checkmark.fill", tab: SmallTabs.history),
-        OverlayMenuItem(image: "slider.horizontal.3", tab: SmallTabs.themes),
-        OverlayMenuItem(image: "macwindow.badge.plus", tab: SmallTabs.newTab)
-    ]
+enum SmallTabs {
+    case none, terminal, keywords, history, themes, newTab
 }
 
+
+
 struct SmallOverlay: View {
+    @Environment(\.openWindow) private var openWindow
+    
     @ObservedObject var terminal: TerminalService
-    @Binding var selectedTab: SmallTabs
     @ObservedObject var history: HistoryService
 
+    @Binding var selectedTab: SmallTabs
+
     private let items = OverlayMenuItem<SmallTabs>.smallItems
-    
     
     var body: some View {
         VStack {
@@ -38,7 +35,12 @@ struct SmallOverlay: View {
                         isSelected: selectedTab == item.tab,
                         style: .small
                     ) {
-                        selectedTab = selectedTab == item.tab ? .none : item.tab
+                        if item.tab == .newTab {
+                            openWindow(id: "content-window")
+                        }
+                        else {
+                            selectedTab = selectedTab == item.tab ? .none : item.tab
+                        }
                     }
                     if item.id != items.last?.id {
                         Divider()
@@ -50,12 +52,14 @@ struct SmallOverlay: View {
         .glassRect(radius: 20, padding: 20)
         .offset(y: -75)
     }
-    
+}
+
+private extension SmallOverlay {
     @ViewBuilder
     private func getTab() -> some View {
         if selectedTab != .none {
             switch selectedTab {
-            case .terminal: TerminalOverlay()
+            case .terminal: ContentView()
             case .keywords: KeywordOverlay()
             case .history:  HistoryOverlay(terminal: terminal, history: history)
             case .themes:   ThemesOverlay()
@@ -64,4 +68,29 @@ struct SmallOverlay: View {
             }
         }
     }
+}
+
+private extension OverlayMenuItem where Overlay == SmallTabs {
+    static let smallItems: [OverlayMenuItem<SmallTabs>] = [
+        OverlayMenuItem(
+            image: "apple.terminal.fill",
+            tab: SmallTabs.terminal
+        ),
+        OverlayMenuItem(
+            image: "keyboard.macwindow",
+            tab: SmallTabs.keywords
+        ),
+        OverlayMenuItem(
+            image: "clock.badge.checkmark.fill",
+            tab: SmallTabs.history
+        ),
+        OverlayMenuItem(
+            image: "slider.horizontal.3", tab:
+                SmallTabs.themes
+        ),
+        OverlayMenuItem(
+            image: "macwindow.badge.plus",
+            tab: SmallTabs.newTab
+        )
+    ]
 }

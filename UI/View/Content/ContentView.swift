@@ -20,11 +20,18 @@ struct ContentView: View {
         _terminal = StateObject(wrappedValue: terminal)
         _history = StateObject(wrappedValue: HistoryService(terminal: terminal))
     }
+    
+    
     var body: some View {
-        VStack { getTab() }
-            .toolbar { toolbarBtn() }
-            .overlay(alignment: .topTrailing) { displayLargeOverlay() }
-            .frame(alignment: .trailing)
+        VStack {
+            getTab()
+        }
+        .toolbar {
+            toolbarBtn()
+        }
+        .overlay(alignment: .topTrailing) {
+            displayLargeOverlay()
+        }
     }
 }
 
@@ -48,7 +55,6 @@ extension ContentView {
     
     @ViewBuilder
     private func getTab() -> some View {
-
         switch selectedTab {
         case .terminal: TerminalView(terminal: terminal, history: history)
         case .keywords: KeywordsView()

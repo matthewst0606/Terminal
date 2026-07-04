@@ -8,6 +8,11 @@
 import Foundation
 import SwiftUI
 
+enum DisplayButtonStyle {
+    case large
+    case small
+}
+
 struct OverlayMenuItem<Overlay: Hashable>: Identifiable {
     let id = UUID()
     let title: String?
@@ -45,86 +50,5 @@ struct DisplayButton<Overlay: Hashable>: View {
             withAnimation(.bouncy(duration: 0.2)) { isHovering = hovering }
         }
     }
-    
-
-    
-    
-    
-    private var SmallButton: some View {
-        formatSymbol(
-            fontSize: 18,
-            buttonRadius: 4,
-            paddingSize: 2
-        )
-    }
-    
-    
-    private var LargeButton: some View {
-        HStack {
-            formatSymbol(
-                fontSize: 20,
-                buttonRadius: 10,
-                paddingSize: 4
-            )
-        }
-    }
-    
-    
-    
-    private func formatSymbol(
-        fontSize: CGFloat,
-        buttonRadius: CGFloat,
-        paddingSize: CGFloat,
-    ) -> some View {
-        
-        return HStack {
-            
-            Symbol(
-                name: item.image,
-                font: .system(size: fontSize),
-                render: .multicolor,
-                gradient: .gradient
-            )
-            .frame(maxWidth: 25, maxHeight: 25)
-
-            
-            if item.title != nil {
-                formatText()
-            }
-        }
-        .contentShape(RoundedRectangle(cornerRadius: buttonRadius))
-        .padding(paddingSize)
-
-        .bgRect(backgroundColor, radius: buttonRadius)
-    }
-    
-    
-    
-    private func formatText() -> some View {
-        return Text(item.title!)
-            .font(.system(size: 14))
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .neswPadding(10, 10, 10, 0)
-    }
-
-    private var backgroundColor: Color {
-        switch true {
-        case isSelected:  return Color.accentColor.opacity(0.5)
-        default:          return Color.clear
-            
-        }
-    }
 }
 
-enum SmallTabs {
-    case none, terminal, keywords, history, themes, newTab
-}
-
-enum LargeTabs {
-    case terminal, keywords, history, themes
-}
-
-enum DisplayButtonStyle {
-    case large
-    case small
-}

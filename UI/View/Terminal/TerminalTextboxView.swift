@@ -65,7 +65,7 @@ extension TerminalTextbox {
     private func displaySmallOverlay() -> some View {
         if toggleSmallOverlay {
 
-            SmallOverlay(terminal: terminal, selectedTab: $selectedSmallTab, history: history)
+            SmallOverlay(terminal: terminal, history: history, selectedTab: $selectedSmallTab)
             .createTransition(
                 from: Edge.bottom,
                 with: AnyTransition.opacity

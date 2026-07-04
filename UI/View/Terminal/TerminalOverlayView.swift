@@ -17,4 +17,8 @@ struct TerminalOverlay: View {
             .glassRect(radius: 24)
         }
     }
+    
+    
+
+
 }

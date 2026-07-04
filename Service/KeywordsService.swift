@@ -22,22 +22,49 @@ class KeywordsService: ObservableObject {
     }
     
     static func defaultListItems() -> [ListElement] {[
-        ListElement(leadingText: "help", trailingText: "help"),
-        ListElement(leadingText: "cmd", trailingText: "cmd"),
-        ListElement(leadingText: "cmd", trailingText: "cmd"),
-        ListElement(leadingText: "cmd", trailingText: "cmd"),
-        ListElement(leadingText: "cmd", trailingText: "cmd")
+        ListElement(
+            leadingText: "help",
+            trailingText: "help"
+        ),
+        ListElement(
+            leadingText: "clear",
+            trailingText: "clear"
+        ),
+        ListElement(
+            leadingText: "clearline",
+            trailingText: "clearline"
+        ),
+        ListElement(
+            leadingText: "cmd",
+            trailingText: "cmd"
+        ),
+        ListElement(
+            leadingText: "cmd",
+            trailingText: "cmd"
+        )
     ]}
-    
     
     static func customListItems() -> [ListElement] {[
-        ListElement(leadingText: "git add", trailingText: "git add ."),
-        ListElement(leadingText: "git commit", trailingText: "git commit -m \"\""),
-        ListElement(leadingText: "git push", trailingText: "git push"),
+        ListElement(
+            leadingText: "git add",
+            trailingText: "git add ."
+        ),
+        ListElement(
+            leadingText: "git commit",
+            trailingText: "git commit -m \"\""
+        ),
+        ListElement(
+            leadingText: "git push",
+            trailingText: "git push"
+        ),
     ]}
     
+    
     func addKeywordItem(lhs: String, rhs: String) {
-        customKeywords.append(ListElement(leadingText: lhs, trailingText: rhs))
+        customKeywords.append(ListElement(
+            leadingText: lhs,
+            trailingText: rhs
+        ))
     }
 }
 

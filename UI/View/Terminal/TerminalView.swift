@@ -22,7 +22,11 @@ struct TerminalView: View {
                 alignment: .topLeading
             )
 
-            TerminalTextbox(terminal: terminal, history: history)
+            
+            TerminalTextbox(
+                terminal: terminal,
+                history: history
+            )
         }
     }
 }
