@@ -1,12 +1,11 @@
-/target
+target/
 .DS_Store
 .vscode/
-.build/
+build/
 
 *.xcuserstate
 *.xcuserdata/
 xcuserdata/
 
-Battery-Monitor/SwiftPy/data/*.csv
-
-ignore.md
+Terminal++/rust-shell/target/
+Terminal++/rust-shell/generated/
