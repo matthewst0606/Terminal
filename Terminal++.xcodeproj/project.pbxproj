@@ -10,7 +10,6 @@
 		C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A32C22FF6A55300D808A6 /* TerminalService.swift */; };
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
 		C968EA2A2FF7FF5B00912417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C968EA1E2FF7FF5B00912417 /* Assets.xcassets */; };
-		C968EA4A2FF81CCA00912417 /* ListItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968EA492FF81CC500912417 /* ListItemExtension.swift */; };
 		C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */; };
 		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
 		C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603992FF5948800F5CBD8 /* KeywordsService.swift */; };
@@ -18,6 +17,8 @@
 		C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A72FF5D82300F5CBD8 /* Symbol.swift */; };
 		C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */; };
 		C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF25372FF7E01D005B3643 /* HistoryService.swift */; };
+		C9D44CF22FF8A1C800E16D37 /* SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */; };
+		C9D44CF32FF8A1C800E16D37 /* rust-shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,6 @@
 		C93A32C22FF6A55300D808A6 /* TerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalService.swift; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		C968EA1E2FF7FF5B00912417 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C968EA492FF81CC500912417 /* ListItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemExtension.swift; sourceTree = "<group>"; };
 		C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayButtonExtension.swift; sourceTree = "<group>"; };
 		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
 		C97603992FF5948800F5CBD8 /* KeywordsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordsService.swift; sourceTree = "<group>"; };
@@ -33,14 +33,19 @@
 		C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedButton.swift; sourceTree = "<group>"; };
 		C97603A72FF5D82300F5CBD8 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		C9CF25372FF7E01D005B3643 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
+		C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Terminal__BridgingHeader.h; sourceTree = "<group>"; };
+		C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/SwiftBridgeCore.swift"; sourceTree = "<group>"; };
+		C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/rust-shell/rust-shell.swift"; sourceTree = "<group>"; };
+		C9D44CF42FF8AFB900E16D37 /* Cargo.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.lock; sourceTree = "<group>"; };
+		C9D44CF52FF8AFB900E16D37 /* Cargo.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.toml; sourceTree = "<group>"; };
+		C9D44CF62FF8AFB900E16D37 /* build.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = build.rs; sourceTree = "<group>"; };
+		C9D44CF72FF8AFB900E16D37 /* lib.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = lib.rs; sourceTree = "<group>"; };
+		C9D44CF82FF8AFB900E16D37 /* main.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = main.rs; sourceTree = "<group>"; };
+		C9D44CF92FF8AFB900E16D37 /* terminal_manager.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = terminal_manager.rs; sourceTree = "<group>"; };
+		C9D44CFA2FF8AFB900E16D37 /* terminal_session.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = terminal_session.rs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Terminal++";
-			sourceTree = "<group>";
-		};
 		C93A32CC2FF6B1D900D808A6 /* Overlay */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Overlay;
@@ -100,11 +105,43 @@
 			isa = PBXGroup;
 			children = (
 				C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */,
-				C968EA492FF81CC500912417 /* ListItemExtension.swift */,
 				C976039C2FF5A1C400F5CBD8 /* StackExtension.swift */,
 				C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
+			isa = PBXGroup;
+			children = (
+				C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */,
+				C9D44CFB2FF8AFB900E16D37 /* rust-shell */,
+				C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */,
+				C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */,
+			);
+			path = "Terminal++";
+			sourceTree = "<group>";
+		};
+		C9D44CFB2FF8AFB900E16D37 /* rust-shell */ = {
+			isa = PBXGroup;
+			children = (
+				C9D44CFC2FF8AFB900E16D37 /* src */,
+				C9D44CF62FF8AFB900E16D37 /* build.rs */,
+				C9D44CF42FF8AFB900E16D37 /* Cargo.lock */,
+				C9D44CF52FF8AFB900E16D37 /* Cargo.toml */,
+			);
+			path = "rust-shell";
+			sourceTree = "<group>";
+		};
+		C9D44CFC2FF8AFB900E16D37 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C9D44CF72FF8AFB900E16D37 /* lib.rs */,
+				C9D44CF82FF8AFB900E16D37 /* main.rs */,
+				C9D44CF92FF8AFB900E16D37 /* terminal_manager.rs */,
+				C9D44CFA2FF8AFB900E16D37 /* terminal_session.rs */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		C97603A12FF5D5E900F5CBD8 /* Service */ = {
@@ -146,7 +183,6 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C901D4DF2FF2BE3A00AE67FA /* Terminal++ */,
 				C93A32CC2FF6B1D900D808A6 /* Overlay */,
 				C93F8F182FF37B8B003A9B8D /* View */,
 				C968EA442FF7FF6200912417 /* App */,
@@ -207,7 +243,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		C901D4EB2FF2C6A800AE67FA /* Build Rust Shell */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -223,10 +258,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"$(PROJECT_DIR)/.build/rust-shell-target/$(CONFIGURATION)-librust_shell.stamp",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\nexport PATH=\"$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif ! command -v cargo >/dev/null 2>&1; then\n    echo \"error: cargo not found. Install Rust from https://rustup.rs or make sure ~/.cargo/bin/cargo exists.\" >&2\n    exit 1\nfi\n\ncd \"$PROJECT_DIR/Terminal++/rust-shell\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ]; then\n    cargo build --release --target-dir \"$PROJECT_DIR/.build/rust-shell-target\"\nelse\n    cargo build --target-dir \"$PROJECT_DIR/.build/rust-shell-target\"\nfi\n";
+			shellScript = "set -eu\nexport PATH=\"$HOME/.cargo/bin:/opt/homebrew/bin:/usr/local/bin:$PATH\"\n\nif ! command -v cargo >/dev/null 2>&1; then\n    echo \"error: cargo not found. Install Rust from https://rustup.rs or make sure ~/.cargo/bin/cargo exists.\" >&2\n    exit 1\nfi\n\ncd \"$PROJECT_DIR/Terminal++/rust-shell\"\n\nif [ \"$CONFIGURATION\" = \"Release\" ]; then\n    cargo build --release --target-dir \"$PROJECT_DIR/.build/rust-shell-target\"\nelse\n    cargo build --target-dir \"$PROJECT_DIR/.build/rust-shell-target\"\nfi\n\ntouch \"$SCRIPT_OUTPUT_FILE_0\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -237,10 +273,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */,
-				C968EA4A2FF81CCA00912417 /* ListItemExtension.swift in Sources */,
 				C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */,
 				C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */,
 				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
+				C9D44CF22FF8A1C800E16D37 /* SwiftBridgeCore.swift in Sources */,
+				C9D44CF32FF8A1C800E16D37 /* rust-shell.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
 				C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */,
 				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,
@@ -411,7 +448,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/.build/rust-shell-target/debug/deps",
 					"$(PROJECT_DIR)/.build/rust-shell-target/debug",
-					"$(PROJECT_DIR)/Terminal++/rust-shell/target/debug/deps",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (
@@ -467,7 +503,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/.build/rust-shell-target/release/deps",
 					"$(PROJECT_DIR)/.build/rust-shell-target/release",
-					"$(PROJECT_DIR)/Terminal++/rust-shell/target/debug/deps",
 				);
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = (

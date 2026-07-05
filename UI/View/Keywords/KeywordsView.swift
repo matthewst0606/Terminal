@@ -24,7 +24,6 @@ struct KeywordsView: View {
                 )
                 
                 
-                
                 ListTab(
                     title: "Custom",
                     symbol: "keyboard.badge.ellipsis.fill",
@@ -71,6 +70,7 @@ extension KeywordsView {
             .glassRect(radius: 24)
             .bgRectBorder(radius: 24)
             .neswPadding(0, 0, 40, 40)
+        
 
 
     }

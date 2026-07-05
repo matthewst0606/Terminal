@@ -9,6 +9,7 @@ crate-type = ["staticlib", "rlib"]
 
 [dependencies]
 swift-bridge = "0.1"
+uuid = { version = "1.23", features = ["v4"] }
 
 [build-dependencies]
 swift-bridge-build = "0.1"

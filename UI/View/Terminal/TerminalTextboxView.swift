@@ -28,8 +28,9 @@ struct TerminalTextbox: View {
                 history.resetIndex()
             }
             .frame(maxWidth: .infinity, minHeight: 70)
+            .background(.clear)
             .glassRect(radius: 24)
-            .bgRectBorder(radius: 24)
+            .bgRectBorder(radius: 24, padding: 10)
 
         }
         .padding()
@@ -39,6 +40,8 @@ struct TerminalTextbox: View {
         .background(alignment: .bottomTrailing) {
             displaySmallOverlay()
         }
+
+
         
         
         

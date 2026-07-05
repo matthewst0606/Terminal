@@ -35,12 +35,12 @@ class KeywordsService: ObservableObject {
             trailingText: "clearline"
         ),
         ListElement(
-            leadingText: "cmd",
-            trailingText: "cmd"
+            leadingText: "sessions",
+            trailingText: "sessions"
         ),
         ListElement(
-            leadingText: "cmd",
-            trailingText: "cmd"
+            leadingText: "jobs",
+            trailingText: "jobs"
         )
     ]}
     
