@@ -2,6 +2,7 @@ target/
 .DS_Store
 .vscode/
 build/
+.build
 
 *.xcuserstate
 *.xcuserdata/

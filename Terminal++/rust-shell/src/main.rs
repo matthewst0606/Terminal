@@ -1,21 +1,19 @@
-use std::io::Write;
 use rust_shell::terminal_execute;
+use std::io::Write;
 
 fn main() {
     loop {
         print!(">> ");
         std::io::stdout().flush().unwrap();
 
-        let mut input = String::new();
-        std::io::stdin().read_line(&mut input).unwrap();
+        let mut stdin = String::new();
+        std::io::stdin().read_line(&mut stdin).unwrap();
 
-        let output = terminal_execute(input.trim().to_string());
-        
-        
-        
-        if !output.is_empty() {
-            print!("{}", output);
-            if !output.ends_with('\n') {
+        let stdout = terminal_execute(stdin.trim().to_string());
+
+        if !stdout.is_empty() {
+            print!("{}", stdout);
+            if !stdout.ends_with('\n') {
                 println!();
             }
         }
