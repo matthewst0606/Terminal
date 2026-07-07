@@ -1,35 +1,21 @@
 //
-//  OverlayMenuItem.swift
+//  OverlayButton.swift
 //  Terminal++
 //
-//  Created by Matt on 7/2/26.
+//  Created by Matt on 7/7/26.
 //
 
-import Foundation
 import SwiftUI
 
-enum DisplayButtonStyle {
+enum OverlayButtonStyle {
     case large
     case small
 }
 
-struct OverlayMenuItem<Overlay: Hashable>: Identifiable {
-    let id = UUID()
-    let title: String?
-    let image: String
-    let tab: Overlay
-
-    init(title: String? = nil, image: String, tab: Overlay) {
-        self.title = title
-        self.image = image
-        self.tab = tab
-    }
-}
-
-struct DisplayButton<Overlay: Hashable>: View {
-    let item: OverlayMenuItem<Overlay>
+struct OverlayButton<Overlay: Hashable>: View {
+    let item: OverlayItem<Overlay>
     let isSelected: Bool
-    let style: DisplayButtonStyle
+    let style: OverlayButtonStyle
     let action: () -> Void
     @State private var isHovering = false
     
@@ -43,6 +29,8 @@ struct DisplayButton<Overlay: Hashable>: View {
             case .small: SmallButton
             }
         }
+        .shadow(radius: 2)
+
         .scaleEffect(isHovering ? 1.1 : 1.0)
         .opacity(isHovering || isSelected ? 1.0 : 0.75)
         .buttonStyle(.plain)
@@ -51,4 +39,3 @@ struct DisplayButton<Overlay: Hashable>: View {
         }
     }
 }
-

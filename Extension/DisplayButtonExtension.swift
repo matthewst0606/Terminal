@@ -1,5 +1,5 @@
 //
-//  DisplayButtonExtension.swift
+//  OverlayButtonExtension.swift
 //  Terminal++
 //
 //  Created by Matt on 7/3/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-extension DisplayButton {
+extension OverlayButton {
     
     var SmallButton: some View {
         formatSymbol(
@@ -53,6 +53,7 @@ extension DisplayButton {
         }
         .contentShape(RoundedRectangle(cornerRadius: buttonRadius))
         .padding(paddingSize)
+
         
         .bgRect(backgroundColor, radius: buttonRadius)
     }
@@ -68,7 +69,7 @@ extension DisplayButton {
     
     var backgroundColor: Color {
         switch true {
-        case isSelected:  return Color.accentColor.opacity(0.5)
+        case isSelected:  return Color(nsColor: .systemBlue).opacity(0.5)
         default:          return Color.clear
             
         }

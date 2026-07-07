@@ -13,18 +13,19 @@ struct HistoryOverlay: View {
     
     
     var body: some View {
-        VStack {
+        HStack {
             TerminalList(
                 items: history.historyItem(),
-                style: .history
+                style: .history,
             )
 
-            .scrollContentBackground(.hidden)
-            .frame(width: 100, height: 100, alignment: .center)
-            .textSelection(.enabled)
-            
-        }
-        .glassRect(radius: 24)
+            .terminalListStyle(style: .overlay)
 
+        }
+        .frame(maxWidth: 250,
+               maxHeight: 250,
+               alignment: .top
+        )
+        .textSelection(.enabled)
     }
 }

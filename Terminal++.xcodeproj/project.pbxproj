@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93A32C22FF6A55300D808A6 /* TerminalService.swift */; };
 		C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */; };
+		C94854632FFCA19A00C5809D /* TerminalTabService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94854622FFCA19700C5809D /* TerminalTabService.swift */; };
+		C94854722FFD56AD00C5809D /* Textbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C94854712FFD56A500C5809D /* Textbox.swift */; };
 		C968EA2A2FF7FF5B00912417 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C968EA1E2FF7FF5B00912417 /* Assets.xcassets */; };
 		C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */; };
 		C97603772FF555B200F5CBD8 /* RustService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603732FF555B200F5CBD8 /* RustService.swift */; };
@@ -17,14 +19,16 @@
 		C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A72FF5D82300F5CBD8 /* Symbol.swift */; };
 		C97603A92FF5D9D500F5CBD8 /* AnimatedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */; };
 		C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CF25372FF7E01D005B3643 /* HistoryService.swift */; };
-		C9D44CF22FF8A1C800E16D37 /* SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */; };
-		C9D44CF32FF8A1C800E16D37 /* rust-shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */; };
+		C9D44CF22FF8A1C800E16D37 /* rust-shell/generated/SwiftBridgeCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CEF2FF8A1C800E16D37 /* rust-shell/generated/SwiftBridgeCore.swift */; };
+		C9D44CF32FF8A1C800E16D37 /* rust-shell/generated/rust-shell/rust-shell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D44CF02FF8A1C800E16D37 /* rust-shell/generated/rust-shell/rust-shell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C90449D52FF46AC300D5B4AD /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93A32C22FF6A55300D808A6 /* TerminalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalService.swift; sourceTree = "<group>"; };
 		C93F8EF42FF3419D003A9B8D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		C94854622FFCA19700C5809D /* TerminalTabService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalTabService.swift; sourceTree = "<group>"; };
+		C94854712FFD56A500C5809D /* Textbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Textbox.swift; sourceTree = "<group>"; };
 		C968EA1E2FF7FF5B00912417 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C968EA4E2FF81DD400912417 /* DisplayButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayButtonExtension.swift; sourceTree = "<group>"; };
 		C97603732FF555B200F5CBD8 /* RustService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RustService.swift; sourceTree = "<group>"; };
@@ -34,15 +38,23 @@
 		C97603A72FF5D82300F5CBD8 /* Symbol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Symbol.swift; sourceTree = "<group>"; };
 		C9CF25372FF7E01D005B3643 /* HistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryService.swift; sourceTree = "<group>"; };
 		C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Terminal__BridgingHeader.h; sourceTree = "<group>"; };
-		C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/SwiftBridgeCore.swift"; sourceTree = "<group>"; };
-		C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/rust-shell/rust-shell.swift"; sourceTree = "<group>"; };
+		C9D44CEF2FF8A1C800E16D37 /* rust-shell/generated/SwiftBridgeCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/SwiftBridgeCore.swift"; sourceTree = "<group>"; };
+		C9D44CF02FF8A1C800E16D37 /* rust-shell/generated/rust-shell/rust-shell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "rust-shell/generated/rust-shell/rust-shell.swift"; sourceTree = "<group>"; };
 		C9D44CF42FF8AFB900E16D37 /* Cargo.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.lock; sourceTree = "<group>"; };
 		C9D44CF52FF8AFB900E16D37 /* Cargo.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.toml; sourceTree = "<group>"; };
 		C9D44CF62FF8AFB900E16D37 /* build.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = build.rs; sourceTree = "<group>"; };
 		C9D44CF72FF8AFB900E16D37 /* lib.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = lib.rs; sourceTree = "<group>"; };
 		C9D44CF82FF8AFB900E16D37 /* main.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = main.rs; sourceTree = "<group>"; };
-		C9D44CF92FF8AFB900E16D37 /* terminal_manager.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = terminal_manager.rs; sourceTree = "<group>"; };
-		C9D44CFA2FF8AFB900E16D37 /* terminal_session.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = terminal_session.rs; sourceTree = "<group>"; };
+		C9D44CF92FF8AFB900E16D37 /* manager.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = manager.rs; sourceTree = "<group>"; };
+		C9D44CFA2FF8AFB900E16D37 /* session.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = session.rs; sourceTree = "<group>"; };
+		C9D44D022FF8B20000E16D37 /* builtin.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = builtin.rs; sourceTree = "<group>"; };
+		C9D44D032FF8B20000E16D37 /* external.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = external.rs; sourceTree = "<group>"; };
+		C9D44D042FF8B20000E16D37 /* input.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = input.rs; sourceTree = "<group>"; };
+		C9D44D052FF8B20000E16D37 /* mod.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = mod.rs; sourceTree = "<group>"; };
+		C9D44D062FF8B20000E16D37 /* output.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = output.rs; sourceTree = "<group>"; };
+		C9D44D082FF8B20000E16D37 /* mod.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = mod.rs; sourceTree = "<group>"; };
+		C9D44D092FF8B20000E16D37 /* record_history.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = record_history.rs; sourceTree = "<group>"; };
+		C9D44D0A2FF8B20000E16D37 /* shell.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = shell.rs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -51,9 +63,14 @@
 			path = Overlay;
 			sourceTree = "<group>";
 		};
-		C93F8F182FF37B8B003A9B8D /* View */ = {
+		C93F8F182FF37B8B003A9B8D /* SidebarViews */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = View;
+			path = SidebarViews;
+			sourceTree = "<group>";
+		};
+		C94854692FFD522E00C5809D /* TerminalOverlayViews */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TerminalOverlayViews;
 			sourceTree = "<group>";
 		};
 		C968EA442FF7FF6200912417 /* App */ = {
@@ -91,12 +108,24 @@
 			);
 			sourceTree = "<group>";
 		};
+		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
+			isa = PBXGroup;
+			children = (
+				C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */,
+				C9D44CFB2FF8AFB900E16D37 /* rust-shell */,
+				C9D44CEF2FF8A1C800E16D37 /* rust-shell/generated/SwiftBridgeCore.swift */,
+				C9D44CF02FF8A1C800E16D37 /* rust-shell/generated/rust-shell/rust-shell.swift */,
+			);
+			path = "Terminal++";
+			sourceTree = "<group>";
+		};
 		C93F8F102FF37B7C003A9B8D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C93F8F182FF37B8B003A9B8D /* View */,
+				C93F8F182FF37B8B003A9B8D /* SidebarViews */,
 				C968EA442FF7FF6200912417 /* App */,
 				C968EA1E2FF7FF5B00912417 /* Assets.xcassets */,
+				C94854692FFD522E00C5809D /* TerminalOverlayViews */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -111,15 +140,28 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		C901D4DF2FF2BE3A00AE67FA /* Terminal++ */ = {
+		C97603A12FF5D5E900F5CBD8 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */,
-				C9D44CFB2FF8AFB900E16D37 /* rust-shell */,
-				C9D44CEF2FF8A1C800E16D37 /* SwiftBridgeCore.swift */,
-				C9D44CF02FF8A1C800E16D37 /* rust-shell.swift */,
+				C94854622FFCA19700C5809D /* TerminalTabService.swift */,
+				C9CF25372FF7E01D005B3643 /* HistoryService.swift */,
+				C97603732FF555B200F5CBD8 /* RustService.swift */,
+				C97603992FF5948800F5CBD8 /* KeywordsService.swift */,
+				C93A32C22FF6A55300D808A6 /* TerminalService.swift */,
 			);
-			path = "Terminal++";
+			path = Service;
+			sourceTree = "<group>";
+		};
+		C97603A52FF5D7EC00F5CBD8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				C9CF257A2FF7FB53005B3643 /* Lists */,
+				C93A32CC2FF6B1D900D808A6 /* Overlay */,
+				C97603A72FF5D82300F5CBD8 /* Symbol.swift */,
+				C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */,
+				C94854712FFD56A500C5809D /* Textbox.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		C9D44CFB2FF8AFB900E16D37 /* rust-shell */ = {
@@ -136,34 +178,36 @@
 		C9D44CFC2FF8AFB900E16D37 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				C9D44D012FF8B20000E16D37 /* command */,
 				C9D44CF72FF8AFB900E16D37 /* lib.rs */,
 				C9D44CF82FF8AFB900E16D37 /* main.rs */,
-				C9D44CF92FF8AFB900E16D37 /* terminal_manager.rs */,
-				C9D44CFA2FF8AFB900E16D37 /* terminal_session.rs */,
+				C9D44D092FF8B20000E16D37 /* record_history.rs */,
+				C9D44D0A2FF8B20000E16D37 /* shell.rs */,
+				C9D44D072FF8B20000E16D37 /* terminal */,
 			);
 			path = src;
 			sourceTree = "<group>";
 		};
-		C97603A12FF5D5E900F5CBD8 /* Service */ = {
+		C9D44D012FF8B20000E16D37 /* command */ = {
 			isa = PBXGroup;
 			children = (
-				C9CF25372FF7E01D005B3643 /* HistoryService.swift */,
-				C97603732FF555B200F5CBD8 /* RustService.swift */,
-				C97603992FF5948800F5CBD8 /* KeywordsService.swift */,
-				C93A32C22FF6A55300D808A6 /* TerminalService.swift */,
+				C9D44D022FF8B20000E16D37 /* builtin.rs */,
+				C9D44D032FF8B20000E16D37 /* external.rs */,
+				C9D44D042FF8B20000E16D37 /* input.rs */,
+				C9D44D052FF8B20000E16D37 /* mod.rs */,
+				C9D44D062FF8B20000E16D37 /* output.rs */,
 			);
-			path = Service;
+			path = command;
 			sourceTree = "<group>";
 		};
-		C97603A52FF5D7EC00F5CBD8 /* Components */ = {
+		C9D44D072FF8B20000E16D37 /* terminal */ = {
 			isa = PBXGroup;
 			children = (
-				C9CF257A2FF7FB53005B3643 /* Lists */,
-				C93A32CC2FF6B1D900D808A6 /* Overlay */,
-				C97603A72FF5D82300F5CBD8 /* Symbol.swift */,
-				C97603A62FF5D7FB00F5CBD8 /* AnimatedButton.swift */,
+				C9D44CF92FF8AFB900E16D37 /* manager.rs */,
+				C9D44D082FF8B20000E16D37 /* mod.rs */,
+				C9D44CFA2FF8AFB900E16D37 /* session.rs */,
 			);
-			path = Components;
+			path = terminal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -184,7 +228,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				C93A32CC2FF6B1D900D808A6 /* Overlay */,
-				C93F8F182FF37B8B003A9B8D /* View */,
+				C93F8F182FF37B8B003A9B8D /* SidebarViews */,
+				C94854692FFD522E00C5809D /* TerminalOverlayViews */,
 				C968EA442FF7FF6200912417 /* App */,
 				C9CF257A2FF7FB53005B3643 /* Lists */,
 			);
@@ -252,7 +297,18 @@
 				"$(PROJECT_DIR)/Terminal++/rust-shell/Cargo.lock",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/Cargo.toml",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/build.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/builtin.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/external.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/output.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/lib.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/main.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/record_history.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/shell.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/terminal/manager.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/terminal/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/terminal/session.rs",
 			);
 			name = "Build Rust Shell";
 			outputFileListPaths = (
@@ -276,13 +332,15 @@
 				C93A32C42FF6A55600D808A6 /* TerminalService.swift in Sources */,
 				C9CF25382FF7E020005B3643 /* HistoryService.swift in Sources */,
 				C97603772FF555B200F5CBD8 /* RustService.swift in Sources */,
-				C9D44CF22FF8A1C800E16D37 /* SwiftBridgeCore.swift in Sources */,
-				C9D44CF32FF8A1C800E16D37 /* rust-shell.swift in Sources */,
+				C9D44CF22FF8A1C800E16D37 /* rust-shell/generated/SwiftBridgeCore.swift in Sources */,
+				C9D44CF32FF8A1C800E16D37 /* rust-shell/generated/rust-shell/rust-shell.swift in Sources */,
+				C94854722FFD56AD00C5809D /* Textbox.swift in Sources */,
 				C93F8EFA2FF3419D003A9B8D /* ViewExtension.swift in Sources */,
 				C968EA4F2FF81DDA00912417 /* DisplayButtonExtension.swift in Sources */,
 				C97603A82FF5D9D000F5CBD8 /* Symbol.swift in Sources */,
 				C976039D2FF5A1CC00F5CBD8 /* StackExtension.swift in Sources */,
 				C976039B2FF5948D00F5CBD8 /* KeywordsService.swift in Sources */,
+				C94854632FFCA19A00C5809D /* TerminalTabService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

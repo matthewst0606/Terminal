@@ -3,7 +3,10 @@ pub(crate) enum Output {
     Exit,
     Clear,
     ClearLine,
-    Error { command: String, message: String },
+    Error { 
+        command: String, 
+        message: String 
+    },
 }
 
 // matches the output to a string.
@@ -13,11 +16,11 @@ pub(crate) enum Output {
 impl Output {
     pub(crate) fn string(self) -> String {
         match self {
-            Output::Text(text) => text,
-            Output::Exit => "__EXIT__".to_string(),
-            Output::Clear => "__CLEAR__".to_string(),
-            Output::ClearLine => "__CLEARLINE__".to_string(),
-            Output::Error { command, message } => {
+            Self::Text(text) => text,
+            Self::Exit => "__EXIT__".to_string(),
+            Self::Clear => "__CLEAR__".to_string(),
+            Self::ClearLine => "__CLEARLINE__".to_string(),
+            Self::Error { command, message } => {
                 format!("__ERROR__|{}|{}", command, message)
             }
         }

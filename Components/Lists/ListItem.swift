@@ -15,7 +15,7 @@ enum ListItemStyle {
 struct ListItem: View {
     let item: ListElement
     let style: ListItemStyle
-    
+
     var body: some View{
         switch style {
         case .keyword: keywordStyle()
@@ -55,6 +55,8 @@ extension ListItem {
         }
         
     }
+    
+    
     
     func listSeparator() -> some View {
         self

@@ -19,8 +19,10 @@ struct ListTab: View {
                 formatListHeader(title, symbol: symbol)
                 TerminalList(
                     items: items,
-                    style: style
+                    style: style,
+
                 )
+                .terminalListStyle(style: .regular)
             }
         }
         .tabItem {
@@ -43,8 +45,6 @@ extension ListTab {
             .neswPadding(10, 0, 0, 0)
 
             
-            Spacer()
-            
             HStack {
                 Text("alias")
                 Spacer()
@@ -52,8 +52,6 @@ extension ListTab {
             }
             .neswPadding(0, 40, 0, 40)
         }
-        .frame(maxWidth: .infinity, maxHeight: 50, alignment: .leading)
 
-            
     }
 }

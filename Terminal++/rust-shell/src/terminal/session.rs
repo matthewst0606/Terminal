@@ -10,8 +10,8 @@ pub(crate) struct TerminalSession {
 }
 
 impl TerminalSession {
-    pub(crate) fn new() -> TerminalSession {
-        let session = TerminalSession {
+    pub(crate) fn new() -> Self {
+        let session = Self {
             id: Uuid::new_v4(),
             history: Vec::new(),
             current_dir: String::new(),
@@ -20,13 +20,13 @@ impl TerminalSession {
         session
     }
 
-    pub(crate) fn output(session: &mut TerminalSession) -> String {
+    pub(crate) fn output(&mut self) -> String {
         let mut i = 0;
         let mut text = String::new();
 
-        while i < session.jobs.len() {
-            if session.jobs[i].is_finished() {
-                let handle = session.jobs.remove(i);
+        while i < self.jobs.len() {
+            if self.jobs[i].is_finished() {
+                let handle = self.jobs.remove(i);
                 let output = handle.join().unwrap();
 
                 text.push_str("background command finished!\n");

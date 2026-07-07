@@ -1,4 +1,3 @@
-
 pub(crate) enum RecordHistory {
     Yes,
     No,

@@ -1,4 +1,3 @@
-use crate::command::builtin::Builtin;
 use crate::command::output::Output;
 
 pub(crate) struct External {
@@ -8,18 +7,16 @@ pub(crate) struct External {
 
 impl External {
     // initialize External
-    pub(crate) fn new(command: String, args: Vec<String>) -> External {
-        External {
-            command: command,
-            args: args,
-        }
+    pub(crate) fn new(command: String, args: Vec<String>) -> Self {
+        Self { command, args }
     }
 
     // run an external command
     pub(crate) fn run(&self) -> String {
         let mut process = std::process::Command::new(&self.command);
-        Builtin::ls(&mut process, &self.command, &self.args);
+        process.args(self.args.iter().map(String::as_str));
 
+        
         match process.output() {
             Ok(output) => {
                 let mut text = String::new();

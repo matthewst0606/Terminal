@@ -45,6 +45,28 @@ class HistoryService: ObservableObject {
     
     
     
+    // get previous item from HistoryService
+    func prevHistory() {
+        guard let prev = getPrevIndex() else { return }
+        DispatchQueue.main.async {
+            self.terminal.input = prev
+         }
+    }
+    
+    // get next item from HistoryService
+    func nextHistory() {
+        guard let next = getNextIndex() else { return }
+        DispatchQueue.main.async {
+            self.terminal.input = next
+         }
+    }
+    
+    func killTerminal() {
+        guard let next = getNextIndex() else { return }
+        DispatchQueue.main.async {
+            self.terminal.input = next
+         }
+    }
     
     func resetIndex() {
         i = nil

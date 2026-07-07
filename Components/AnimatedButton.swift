@@ -29,5 +29,6 @@ struct AnimatedButton<Label: View>: View {
         } label: {
             label()
         }
+        .hoveringCursor()
     }
 }

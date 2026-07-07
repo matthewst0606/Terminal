@@ -1,9 +1,9 @@
 mod command;
+mod record_history;
 mod shell;
 mod terminal;
-mod record_history;
 
-use shell::Shell;
+use shell::with_shell;
 
 #[swift_bridge::bridge]
 
@@ -15,9 +15,9 @@ mod ffi {
 }
 
 pub fn terminal_execute(command: String) -> String {
-    Shell::new().run(command)
+    with_shell(|shell| shell.run(command))
 }
 
 pub fn terminal_history(command: String) -> Vec<String> {
-    Shell::new().history(command)
+    with_shell(|shell| shell.history(command))
 }

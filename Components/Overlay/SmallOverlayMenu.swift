@@ -16,21 +16,20 @@ enum SmallTabs {
 
 struct SmallOverlay: View {
     @Environment(\.openWindow) private var openWindow
-    
+
     @ObservedObject var terminal: TerminalService
     @ObservedObject var history: HistoryService
 
     @Binding var selectedTab: SmallTabs
 
-    private let items = OverlayMenuItem<SmallTabs>.smallItems
+    private let items = OverlayItem<SmallTabs>.terminalOverlayItems
     
     var body: some View {
         VStack {
             getTab()
-
             HStack {
-                ForEach(OverlayMenuItem.smallItems) { item in
-                    DisplayButton(
+                ForEach(OverlayItem.terminalOverlayItems) { item in
+                    OverlayButton(
                         item: item,
                         isSelected: selectedTab == item.tab,
                         style: .small
@@ -48,7 +47,8 @@ struct SmallOverlay: View {
                 }
             }
         }
-        .padding(20)
+        .padding(10)
+        .frame(width: 250)
         .glassRect(radius: 20, padding: 20)
         .offset(y: -75)
     }
@@ -59,7 +59,7 @@ private extension SmallOverlay {
     private func getTab() -> some View {
         if selectedTab != .none {
             switch selectedTab {
-            case .terminal: ContentView()
+            case .terminal: EmptyView()
             case .keywords: KeywordOverlay()
             case .history:  HistoryOverlay(terminal: terminal, history: history)
             case .themes:   ThemesOverlay()
@@ -70,27 +70,4 @@ private extension SmallOverlay {
     }
 }
 
-private extension OverlayMenuItem where Overlay == SmallTabs {
-    static let smallItems: [OverlayMenuItem<SmallTabs>] = [
-        OverlayMenuItem(
-            image: "apple.terminal.fill",
-            tab: SmallTabs.terminal
-        ),
-        OverlayMenuItem(
-            image: "keyboard.macwindow",
-            tab: SmallTabs.keywords
-        ),
-        OverlayMenuItem(
-            image: "clock.badge.checkmark.fill",
-            tab: SmallTabs.history
-        ),
-        OverlayMenuItem(
-            image: "slider.horizontal.3", tab:
-                SmallTabs.themes
-        ),
-        OverlayMenuItem(
-            image: "macwindow.badge.plus",
-            tab: SmallTabs.newTab
-        )
-    ]
-}
+

@@ -27,6 +27,14 @@ class KeywordsService: ObservableObject {
             trailingText: "help"
         ),
         ListElement(
+            leadingText: "pwd | dir",
+            trailingText: "pwd"
+        ),
+        ListElement(
+            leadingText: "ls | list",
+            trailingText: "pwd"
+        ),
+        ListElement(
             leadingText: "clear",
             trailingText: "clear"
         ),
@@ -35,11 +43,11 @@ class KeywordsService: ObservableObject {
             trailingText: "clearline"
         ),
         ListElement(
-            leadingText: "sessions",
+            leadingText: "sessions | session",
             trailingText: "sessions"
         ),
         ListElement(
-            leadingText: "jobs",
+            leadingText: "jobs | job",
             trailingText: "jobs"
         )
     ]}

@@ -103,6 +103,36 @@ extension View {
 }
 
 
+extension View {
+    func kbShortcut(
+        _ key: KeyEquivalent,
+    modifier: EventModifiers = [],
+        action: @escaping () -> Void
+    ) -> some View {
+        self.background {
+            Button("") { action() }
+                .keyboardShortcut(key, modifiers: modifier)
+                .hidden()
+        }
+        
+    }
+}
+
+extension View {
+    func hoveringCursor() -> some View {
+        self
+        .onHover { hovering in
+            if hovering {
+                NSCursor.pointingHand.push()
+
+            } else {
+                NSCursor.pop()
+
+            }
+        }
+    }
+}
+
 
 
 
