@@ -5,7 +5,6 @@
 //  Created by Matt on 7/1/26.
 //
 
-import Foundation
 import SwiftUI
 
 enum SidebarTabs {
@@ -14,11 +13,19 @@ enum SidebarTabs {
 
 struct Sidebar: View {
     @Binding var selectedTab: SidebarTabs
-    @Binding var isHovering: Bool
+
+    init(_ selectedTab: Binding<SidebarTabs>) {
+        self._selectedTab = selectedTab
+    }
+    
     var body: some View {
         VStack {
             ForEach(OverlayItem.sidebarItems) { item in
-                OverlayButton(item: item, isSelected: selectedTab == item.tab, style: .large) {
+                OverlayButton(
+                    item: item,
+                    isSelected: selectedTab == item.tab,
+                    style: .large
+                ) {
                     selectedTab = item.tab
                 }
             }
@@ -29,5 +36,3 @@ struct Sidebar: View {
         .neswPadding(10, 10, 0, 0)
     }
 }
-
-

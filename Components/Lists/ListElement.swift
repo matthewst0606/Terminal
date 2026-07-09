@@ -8,7 +8,6 @@ import SwiftUI
 
 struct ListElement: Identifiable {
     var id = UUID()
-
     var leadingText: String? = nil
     var trailingText: String? = nil
     var leadingSymbol: String? = nil

@@ -20,9 +20,7 @@ struct OverlayButton<Overlay: Hashable>: View {
     @State private var isHovering = false
     
     var body: some View {
-        Button {
-            action()
-        }
+        Button { action() }
         label: {
             switch style {
             case .large: LargeButton

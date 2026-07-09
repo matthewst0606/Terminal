@@ -10,9 +10,7 @@ import SwiftUI
 struct ThemesOverlay: View {
     var body: some View {
         VStack {
-            
             List {
-
                 Text("Glass")
                 Text("Regular")
             }
@@ -21,7 +19,5 @@ struct ThemesOverlay: View {
         }
         .glassRect(radius: 24)
         .neswPadding(0, 0, 10, 0)
-
-
     }
 }

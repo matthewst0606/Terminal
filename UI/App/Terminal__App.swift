@@ -8,13 +8,11 @@
 import SwiftUI
 
 @main
-
 struct Terminal__App: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
-
         WindowGroup(id: "content-window") {
             ContentView()
         }

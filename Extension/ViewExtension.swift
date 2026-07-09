@@ -86,21 +86,7 @@ extension View {
     }
     
 }
-// ---------- Animations ----------
-extension View {
-    func createTransition(
-        from edge: Edge,
-        with transition: AnyTransition
-    ) -> some View {
-        return self
-            .transition(
-                .move(edge: edge)
-                .combined(with: transition)
-            )
-            .shadow(radius: 5)
-    }
-    
-}
+
 
 
 extension View {
@@ -132,20 +118,5 @@ extension View {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

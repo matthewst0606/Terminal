@@ -15,19 +15,20 @@ enum ListItemStyle {
 struct ListItem: View {
     let item: ListElement
     let style: ListItemStyle
+    
 
     var body: some View{
         switch style {
-        case .keyword: keywordStyle()
-        case .history: historyStyle()
+        case .keyword: keywordStyle
+        case .history: historyStyle
         }
     }
 
 }
 
-
+// ListItem styles
 extension ListItem {
-    private func keywordStyle() -> some View {
+    private var keywordStyle: some View {
         HStack {
             Text(item.leadingText!)
             Spacer()
@@ -35,7 +36,7 @@ extension ListItem {
         }
     }
     
-    private func historyStyle() -> some View {
+    private var historyStyle: some View {
         HStack {
             Symbol(
                 name: item.leadingSymbol!,
@@ -53,13 +54,13 @@ extension ListItem {
                 gradient: .gradient,
             )
         }
-        
     }
-    
-    
-    
-    func listSeparator() -> some View {
-        self
+}
+
+// ListItem formatting
+struct ListSeparator: ViewModifier {
+    func body(content: Content) -> some View {
+        content
         .overlay(alignment: .bottom) {
             Rectangle()
                 .fill(.white.opacity(0.06))
@@ -70,4 +71,8 @@ extension ListItem {
     }
 }
 
-
+extension View {
+    func listSeparator() -> some View {
+        modifier(ListSeparator())
+    }
+}

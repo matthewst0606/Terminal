@@ -16,13 +16,10 @@ struct ListTab: View {
     var body: some View {
         HStack {
             VStack {
-                formatListHeader(title, symbol: symbol)
-                TerminalList(
-                    items: items,
-                    style: style,
-
-                )
-                .terminalListStyle(style: .regular)
+                formatListHeader(title, symbol)
+                
+                TerminalList(items: items, style: style)
+                    .terminalListStyle(.regular)
             }
         }
         .tabItem {
@@ -32,7 +29,10 @@ struct ListTab: View {
 }
 
 extension ListTab {
-    private func formatListHeader(_ title: String, symbol: String) -> some View {
+    private func formatListHeader(
+        _ title: String,
+        _ symbol: String
+    ) -> some View {
         return VStack {
             HStack {
                 Text(title)

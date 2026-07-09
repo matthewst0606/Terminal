@@ -5,13 +5,15 @@
 //  Created by Matt on 7/1/26.
 //
 
-import Foundation
-import SwiftUI
+import Observation
 import Combine
+import Foundation
 
-class KeywordsService: ObservableObject {
-    @Published var defaultKeywords: [ListElement]
-    @Published var customKeywords: [ListElement]
+@Observable
+class KeywordsService {
+    var defaultKeywords: [ListElement]
+    var customKeywords: [ListElement]
+    
     
     init(
         defaultKeywords: [ListElement] = KeywordsService.defaultListItems(),
@@ -21,6 +23,17 @@ class KeywordsService: ObservableObject {
         self.customKeywords = customKeywords
     }
     
+    func addKeywordItem(_ leadingText: String, _ trailingText: String) {
+        customKeywords.append(ListElement(
+            leadingText: leadingText,
+            trailingText: trailingText
+        ))
+    }
+}
+
+
+
+extension KeywordsService {
     static func defaultListItems() -> [ListElement] {[
         ListElement(
             leadingText: "help",
@@ -66,13 +79,7 @@ class KeywordsService: ObservableObject {
             trailingText: "git push"
         ),
     ]}
-    
-    
-    func addKeywordItem(lhs: String, rhs: String) {
-        customKeywords.append(ListElement(
-            leadingText: lhs,
-            trailingText: rhs
-        ))
-    }
 }
+
+
 

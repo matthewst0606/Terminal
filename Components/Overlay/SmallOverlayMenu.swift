@@ -12,21 +12,19 @@ enum SmallTabs {
     case none, terminal, keywords, history, themes, newTab
 }
 
-
-
 struct SmallOverlay: View {
     @Environment(\.openWindow) private var openWindow
-
-    @ObservedObject var terminal: TerminalService
-    @ObservedObject var history: HistoryService
-
     @Binding var selectedTab: SmallTabs
+
+    var terminal: Terminal
+    var history: TerminalHistory
 
     private let items = OverlayItem<SmallTabs>.terminalOverlayItems
     
     var body: some View {
         VStack {
-            getTab()
+            getTab
+            
             HStack {
                 ForEach(OverlayItem.terminalOverlayItems) { item in
                     OverlayButton(
@@ -47,16 +45,14 @@ struct SmallOverlay: View {
                 }
             }
         }
-        .padding(10)
+        .padding(20)
         .frame(width: 250)
-        .glassRect(radius: 20, padding: 20)
-        .offset(y: -75)
+        .glassRect(radius: 20, padding: 10)
+        .offset(y: -80)
     }
-}
 
-private extension SmallOverlay {
     @ViewBuilder
-    private func getTab() -> some View {
+    private var getTab: some View {
         if selectedTab != .none {
             switch selectedTab {
             case .terminal: EmptyView()
@@ -69,5 +65,60 @@ private extension SmallOverlay {
         }
     }
 }
+
+struct SmallOverlayView: ViewModifier {
+    @State var toggleSmallOverlay: Bool = false
+    @State var selectedSmallTab: SmallTabs = .none
+    @Bindable var terminal: Terminal
+    var history: TerminalHistory
+    
+    var textboxToggleButton: some View {
+        VStack {
+            AnimatedButton(.bouncy(duration: 0.3)) {
+                toggleSmallOverlay.toggle()
+            }
+            label: {
+                Symbol(
+                    name: "ellipsis",
+                    font: .title2,
+                    render: .multicolor,
+                    gradient: .gradient
+                )
+                .frame(width: 24, height: 24)
+            }
+        }
+        .buttonStyle(.glass)
+        .buttonBorderShape(.circle)
+        .shadow(radius: 3)
+        .padding(.trailing, 25)
+    }
+    
+    @ViewBuilder
+    var displaySmallOverlay: some View {
+        if toggleSmallOverlay {
+            SmallOverlay(
+                selectedTab: $selectedSmallTab,
+                terminal: terminal,
+                history: history
+            )
+            .modifier(OverlayTransition(.bottom))
+//            .createTransition(
+//                from: Edge.bottom,
+//                with: AnyTransition.opacity
+//            )
+        }
+    }
+    
+    func body(content: Content) -> some View {
+        content
+        .overlay(alignment: .trailing) {
+            textboxToggleButton
+        }
+        .background(alignment: .bottomTrailing) {
+            displaySmallOverlay
+        }
+    }
+}
+
 
 

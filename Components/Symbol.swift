@@ -24,6 +24,8 @@ struct Symbol: View {
         self.gradient = gradient
     }
     
+    
+    
     var body: some View {
         Image(systemName: name)
             .font(font)

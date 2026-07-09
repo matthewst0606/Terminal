@@ -15,7 +15,15 @@ struct Textbox: View {
     @State var text: Binding<String>
     var action: () -> Void
     
-
+    init(
+        _ placeholder: String,
+        text: Binding<String>,
+        action: @escaping () -> Void
+    ) {
+        self.placeholder = placeholder
+        self.text = text
+        self.action = action
+    }
     
     var body: some View {
         TextField(
@@ -27,13 +35,9 @@ struct Textbox: View {
         .padding()
         .textFieldStyle(.plain)
     }
-
-    
-    
-    
 }
+
 extension Textbox {
-    
     @ViewBuilder
     func textboxStyle(_ style: TextboxStyle = .plain) -> some View {
         switch style {

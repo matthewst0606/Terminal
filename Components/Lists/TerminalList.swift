@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-
-
 struct TerminalList: View {
     let items: [ListElement]
     let style: ListItemStyle
@@ -16,8 +14,11 @@ struct TerminalList: View {
     var body: some View {
         List {
             ForEach(items) { item in
-                ListItem(item: item, style: style)
-                    .listSeparator()
+                ListItem(
+                    item: item,
+                    style: style
+                )
+                .listSeparator()
             }
             .terminalListRow()
             .neswPadding(2, 5, 2, 5)
@@ -32,21 +33,27 @@ enum displayStyle {
 
 extension TerminalList {
     @ViewBuilder
-    func terminalListStyle(style: displayStyle) -> some View {
+    func terminalListStyle(_ style: displayStyle) -> some View {
         switch style {
-        case .regular: self
-            .frame(
+            
+        case .regular:
+            self.frame(
                 minWidth: 450,
                 maxWidth: .infinity,
                 minHeight: 450,
-                maxHeight: .infinity)
+                maxHeight: .infinity
+            )
             .bgRect(Color(NSColor.separatorColor).opacity(0.5))
             .bgRectBorder(.primary)
             .padding(20)
             
-        case .overlay: self
-            .frame(minWidth: 100, maxWidth: .infinity,
-                   minHeight: 200, maxHeight: .greatestFiniteMagnitude)
+        case .overlay:
+            self.frame(
+                minWidth: 100,
+                maxWidth: .infinity,
+                minHeight: 200,
+                maxHeight: .infinity
+            )
             .bgRect(Color(NSColor.separatorColor).opacity(0.5))
             .bgRectBorder(.primary)
             .padding(5)
