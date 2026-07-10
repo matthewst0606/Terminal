@@ -45,6 +45,9 @@ class TerminalHistory {
         return currentCommand
     }
     
+}
+
+extension TerminalHistory {
     
     private var commands: [String] {
         terminal.history

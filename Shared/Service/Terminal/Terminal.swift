@@ -14,7 +14,6 @@ import SwiftUI
 // gets the output from Rust
 @Observable
 final class Terminal {
-
     struct TerminalOutput: Identifiable, Equatable {
         let id = UUID()
         let kind: Kind
@@ -29,9 +28,6 @@ final class Terminal {
     var output: [TerminalOutput] = []
     var history: [String] = []
 
-    
-    
-    
     
     func submit() {
         let command = input

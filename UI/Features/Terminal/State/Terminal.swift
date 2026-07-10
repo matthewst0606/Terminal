@@ -9,30 +9,33 @@ import Foundation
 import AppKit
 import SwiftUI
 
+enum CommandResult {
+    case exit
+    case clear
+    case clearline
+    case text(String)
+    case error(
+        command: String,
+        message: String
+    )
+}
+    
+struct TerminalOutput: Identifiable, Equatable {
+    let id = UUID()
+    let kind: Kind
 
+    enum Kind: Equatable {
+        case text(String)
+        case error(command: String, message: String)
+    }
+}
 
-// gets the output from Rust
 @Observable
 final class Terminal {
-
-    struct TerminalOutput: Identifiable, Equatable {
-        let id = UUID()
-        let kind: Kind
-
-        enum Kind: Equatable {
-            case text(String)
-            case error(command: String, message: String)
-        }
-    }
-
     var input: String = ""
     var output: [TerminalOutput] = []
     var history: [String] = []
 
-    
-    
-    
-    
     func submit() {
         let command = input
         let result = parseResult(RustService.shared.execute(command))
@@ -56,44 +59,27 @@ final class Terminal {
 
         appendToHistory(command)
     }
-    
-    
-    
 }
 
-// --------------- helpers ---------------
-extension Terminal {
-    private enum CommandResult {
+struct RustCommandResult: Decodable {
+    let kind: Kind
+    let text: String?
+    let command: String?
+    let message: String?
+    
+    enum Kind: String, Decodable {
+        case text
         case exit
         case clear
         case clearline
-        case text(String)
-        case error(
-            command: String,
-            message: String
-        )
+        case error
     }
-    
-    private struct RustCommandResult: Decodable {
-        let kind: Kind
-        let text: String?
-        let command: String?
-        let message: String?
-        
-        enum Kind: String, Decodable {
-            case text
-            case exit
-            case clear
-            case clearline
-            case error
-        }
-    }
+}
 
-    
+extension Terminal {
     private func parseResult(_ result: String) -> CommandResult {
-        guard
-            let data = result.data(using: .utf8),
-            let decoded = try? JSONDecoder().decode(RustCommandResult.self, from: data)
+        guard let data = result.data(using: .utf8),
+              let decoded = try? JSONDecoder().decode(RustCommandResult.self, from: data)
         else {
             return .text(result)
         }
@@ -101,16 +87,12 @@ extension Terminal {
         switch decoded.kind {
         case .text:
             return .text(decoded.text ?? "")
-            
         case .exit:
             return .exit
-            
         case .clear:
             return .clear
-            
         case .clearline:
             return .clearline
-            
         case .error:
             return .error(
                 command: decoded.command ?? "",
@@ -145,5 +127,4 @@ extension Terminal {
         output = output.dropLast()
     }
 }
-
 

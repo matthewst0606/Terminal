@@ -14,7 +14,7 @@ class TerminalTab: Identifiable {
     let title: String
     let terminal: Terminal
     let history: TerminalHistory
-    let autocomplete: TerminalAutocomplete
+    let prediction: PredictionService
 
     init(title: String) {
         let terminal = Terminal()
@@ -24,7 +24,7 @@ class TerminalTab: Identifiable {
         self.title = title
         self.terminal = terminal
         self.history = history
-        self.autocomplete = TerminalAutocomplete(
+        self.prediction = PredictionService(
             terminal: terminal,
             history: history
         )
