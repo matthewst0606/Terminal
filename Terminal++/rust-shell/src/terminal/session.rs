@@ -1,12 +1,14 @@
-use std::thread;
+use std::{path::PathBuf, thread};
 use uuid::Uuid;
+
+use crate::command::output::Output;
 
 #[derive(Debug)]
 pub(crate) struct TerminalSession {
     pub id: Uuid,
     pub history: Vec<String>,
-    pub current_dir: String,
-    pub jobs: Vec<thread::JoinHandle<String>>,
+    pub current_dir: PathBuf,
+    pub jobs: Vec<thread::JoinHandle<Output>>,
 }
 
 impl TerminalSession {
@@ -14,7 +16,7 @@ impl TerminalSession {
         let session = Self {
             id: Uuid::new_v4(),
             history: Vec::new(),
-            current_dir: String::new(),
+            current_dir: std::env::current_dir().unwrap_or_default(),
             jobs: Vec::new(),
         };
         session
@@ -27,12 +29,23 @@ impl TerminalSession {
         while i < self.jobs.len() {
             if self.jobs[i].is_finished() {
                 let handle = self.jobs.remove(i);
-                let output = handle.join().unwrap();
+                
+                
+                let output = handle
+                    .join()
+                    .unwrap_or_else(|_| Output::Error {
+                        command: "background".to_string(),
+                        message: "job panicked".to_string(),
+                    })
+                    .terminal_text();
 
-                text.push_str("background command finished!\n");
-                text.push_str(&output);
+                text.push_str("\x1b[32mbackground command finished!\x1b[0m\n");
 
-                if !output.ends_with('\n') {
+                if !output.is_empty() {
+                    text.push_str(&output);
+                }
+
+                if !output.is_empty() && !output.ends_with('\n') {
                     text.push('\n');
                 }
             } else {

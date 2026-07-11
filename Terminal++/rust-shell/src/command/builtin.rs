@@ -1,5 +1,6 @@
+use crate::command::output::{DirectoryEntry};
 use crate::command::{output::Output};
-use std::process::Command;
+use std::path::{Path, PathBuf};
 pub(crate) enum Builtin {
     Exit,
     Clear,
@@ -21,7 +22,6 @@ impl Builtin {
             "ls" | "list" => Some(Self::Ls),
             "clear" => Some(Self::Clear),
             "clearline" => Some(Self::ClearLine),
-
             "spawn" => Some(Self::Spawn(args.join(" "))),
             "sessions" | "session" => Some(Self::Session),
             "jobs" | "job" => Some(Self::Jobs),
@@ -31,46 +31,94 @@ impl Builtin {
 
     // formats "ls" in columns unless additional
     // arguments are provided
-    pub(crate) fn ls() -> String {
-        Command::new("ls")
-            .arg("-C")
-            .output()
-            .map(|output| 
-                String::from_utf8_lossy(&output.stdout).to_string()
-            )
-            .unwrap_or_else(|message| message.to_string())
+    pub(crate) fn ls(current_dir: &Path) -> Output {
+        
+        let dir = match std::fs::read_dir(current_dir) {
+            Ok(dir) => dir,
+            Err(error) => {
+                return Output::Error {
+                    command: "ls".to_string(),
+                    message: error.to_string(),
+                };
+            }
+        };
+
+        let mut entries = Vec::new();
+
+        for entry in dir.flatten() {
+            let path = entry.path();
+            let kind = if path.is_dir() {
+                "directory"
+            }
+            else {
+                "file"
+            };
+
+
+            entries.push(DirectoryEntry {
+                name: entry.file_name().to_string_lossy().to_string(),
+                path: path.to_string_lossy().to_string(),
+                kind: kind.to_string(),
+            });
+        }
+        
+        Output::Listing { entries }
+
+        // match Command::new("ls")
+        //     .arg("-C")
+        //     .current_dir(current_dir)
+        //     .output()
+        // {
+        //     Ok(output) => Output::Text(String::from_utf8_lossy(&output.stdout).to_string()),
+        //     Err(message) => Output::Error {
+        //         command: "ls".to_string(),
+        //         message: message.to_string(),
+        //     },
+        // }
     }
 
 
     // gets the current directory
-    pub(crate) fn pwd() -> String {
+    pub(crate) fn pwd(current_dir: &Path) -> Output {
+        
         match std::env::current_dir() {
-            Ok(path) => path.display().to_string(),
+            Ok(_) => Output::Text(current_dir.display().to_string()),
             Err(message) => Output::Error {
                 command: "pwd".to_string(),
                 message: message.to_string(),
-            }
-            .string(),
+            },
         }
     }
 
     // changes the current directory
-    pub(crate) fn cd(path: Option<&str>) -> String {
+    pub(crate) fn cd(current_dir: &Path, path: Option<&str>) -> Result<PathBuf, String> {
+
+
         let Some(path) = path else {
-            return Output::Error {
-                command: "cd".to_string(),
-                message: "missing path".to_string(),
-            }
-            .string();
+            return Err("missing path".to_string());
         };
 
-        match std::env::set_current_dir(path) {
-            Ok(()) => String::new(),
-            Err(message) => Output::Error {
-                command: "cd".to_string(),
-                message: message.to_string(),
-            }
-            .string(),
+        let requested_path = Path::new(path);
+
+        let new_dir = if requested_path.is_absolute() {
+            requested_path.to_path_buf()
+        }
+        else {
+            current_dir.join(requested_path)
+        };
+
+
+        if !new_dir.exists() {
+            return Err("directory does not exist".to_string());
+        }
+        if !new_dir.is_dir() {
+            return Err("path is not a directory".to_string());
+        }
+
+        match new_dir.canonicalize() {
+            Ok(path) => Ok(path),
+            Err(error) => Err(error.to_string()),
         }
     }
+
 }

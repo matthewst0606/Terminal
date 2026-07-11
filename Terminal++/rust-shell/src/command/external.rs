@@ -1,4 +1,5 @@
 use crate::command::output::Output;
+use std::{env, path::Path};
 
 pub(crate) struct External {
     command: String,
@@ -12,8 +13,33 @@ impl External {
     }
 
     // run an external command
-    pub(crate) fn run(&self) -> String {
+    pub(crate) fn run(&self, current_dir: &Path) -> Output {
         let mut process = std::process::Command::new(&self.command);
+        
+        process.current_dir(current_dir);
+
+        if self.command == "git" {
+            process.arg("-c").arg("color.ui=always");
+        }
+        
+        let mut paths = vec![
+            "/usr/local/bin".into(),
+            "/opt/homebrew/bin".into(),
+        ];
+
+        if let Some(existing_path) = env::var_os("PATH") {
+            paths.extend(env::split_paths(&existing_path));
+        }
+
+        let path = env::join_paths(paths)
+            .expect("failed to build PATH");
+
+        process
+            .env("PATH", path)
+            .env("TERM", "xterm-256color")
+            .env("CLICOLOR_FORCE", "1")
+            .env("FORCE_COLOR", "1");
+
         process.args(self.args.iter().map(String::as_str));
 
         
@@ -27,16 +53,16 @@ impl External {
                     return Output::Error {
                         command: self.command.to_string(),
                         message: output.status.to_string(),
-                    }
-                    .string();
+                    };
                 }
-                text
+                Output::Text(text)
+
             }
             Err(message) => Output::Error {
                 command: self.command.to_string(),
                 message: message.to_string(),
-            }
-            .string(),
+            },
         }
     }
+    
 }
