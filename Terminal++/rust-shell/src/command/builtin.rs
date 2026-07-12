@@ -1,5 +1,4 @@
-use crate::command::output::{DirectoryEntry};
-use crate::command::{output::Output};
+use crate::command::output::{Output, DirectoryEntry};
 use std::path::{Path, PathBuf};
 pub(crate) enum Builtin {
     Exit,
@@ -29,6 +28,7 @@ impl Builtin {
         }
     }
 
+
     // formats "ls" in columns unless additional
     // arguments are provided
     pub(crate) fn ls(current_dir: &Path) -> Output {
@@ -47,13 +47,8 @@ impl Builtin {
 
         for entry in dir.flatten() {
             let path = entry.path();
-            let kind = if path.is_dir() {
-                "directory"
-            }
-            else {
-                "file"
-            };
-
+            let kind = if path.is_dir() { "directory" }
+            else { "file" };
 
             entries.push(DirectoryEntry {
                 name: entry.file_name().to_string_lossy().to_string(),
@@ -63,18 +58,6 @@ impl Builtin {
         }
         
         Output::Listing { entries }
-
-        // match Command::new("ls")
-        //     .arg("-C")
-        //     .current_dir(current_dir)
-        //     .output()
-        // {
-        //     Ok(output) => Output::Text(String::from_utf8_lossy(&output.stdout).to_string()),
-        //     Err(message) => Output::Error {
-        //         command: "ls".to_string(),
-        //         message: message.to_string(),
-        //     },
-        // }
     }
 
 
@@ -92,18 +75,14 @@ impl Builtin {
 
     // changes the current directory
     pub(crate) fn cd(current_dir: &Path, path: Option<&str>) -> Result<PathBuf, String> {
+        let Some(path) = path else { return Err("missing path".to_string()); };
 
-
-        let Some(path) = path else {
-            return Err("missing path".to_string());
-        };
 
         let requested_path = Path::new(path);
 
         let new_dir = if requested_path.is_absolute() {
             requested_path.to_path_buf()
-        }
-        else {
+        } else {
             current_dir.join(requested_path)
         };
 

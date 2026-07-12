@@ -25,13 +25,13 @@ extension View {
     }
     
     
-    func overlayStyle(_ terminal: Terminal, _ history: TerminalHistory) -> some View {
-        self.modifier (
-            OverlayModifier(
-                terminal: terminal,
-                history: history
-            ))
-    }
+//    func overlayStyle(_ terminal: Terminal, _ history: TerminalHistory) -> some View {
+//        self.modifier (
+//            OverlayModifier(
+//                terminal: terminal,
+//                history: history
+//            ))
+//    }
     
     func shortcutsModifier(
         _ getPrevHistory: @escaping () -> Void,

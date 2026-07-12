@@ -108,9 +108,6 @@ impl Shell {
             Builtin::Pwd =>  Builtin::pwd(current_dir),
             Builtin::Ls => Builtin::ls(&current_dir),
             Builtin::Cd(path) => {
-
-
-
                 match Builtin::cd(&current_dir, path.as_deref()) {
                     Ok(new_dir) => {
                         self.with_manager(|manager| {

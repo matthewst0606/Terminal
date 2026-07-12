@@ -43,6 +43,21 @@ extension Terminal {
         )))
     }
     
+    func outputGitStatus(branch: String, branchStatus: String, entries: [GitStatusEntry]) {
+        output.append(.init(kind: .gitStatus(
+            branch: branch,
+            branchStatus: branchStatus,
+            entries: entries
+        )))
+    }
+    
+    func outputDockerPs(command: String, entries: [DockerPsEntry]) {
+       output.append(.init(kind: .dockePs(
+            entries: entries
+       )))
+   }
+   
+    
     func outputError(command: String, message: String) {
         output.append(.init(kind: .error(
             command: command,
@@ -90,7 +105,19 @@ extension Terminal {
             return .text(
                 decoded.text ?? ""
             )
+        
+        case .gitStatus:
+            return .gitStatus(
+                branch: decoded.branch ?? "",
+                branchStatus: decoded.branch_status ?? "",
+                entries: decoded.git_status_entries ?? []
+            )
             
+        case .dockerPs:
+            return .dockerPs(
+                entries: decoded.docker_ps_entries ?? []
+            )
+
         case .listing:
             return .listing(
                 entries: decoded.entries ?? []
@@ -105,13 +132,21 @@ extension Terminal {
     }
 }
 
+
+
+
 enum CommandResult {
     case exit
     case clear
     case clearline
     case text(String)
     case listing (entries: [DirectoryEntry])
-
+    case gitStatus (
+        branch: String,
+        branchStatus: String,
+        entries: [GitStatusEntry],
+    )
+    case dockerPs(entries: [DockerPsEntry])
     case error(
         command: String,
         message: String
@@ -123,7 +158,13 @@ struct RustCommandResult: Decodable {
     let text: String?
     let command: String?
     let message: String?
+    
+    let branch: String?
+    let branch_status: String?
+
     let entries: [DirectoryEntry]?
+    let git_status_entries: [GitStatusEntry]?
+    let docker_ps_entries: [DockerPsEntry]?
     
     enum Kind: String, Decodable {
         case text
@@ -131,6 +172,8 @@ struct RustCommandResult: Decodable {
         case clear
         case clearline
         case listing
+        case gitStatus = "git_status"
+        case dockerPs = "docker_ps"
         case error
     }
 }
@@ -139,4 +182,26 @@ struct DirectoryEntry: Decodable, Equatable {
     let name: String
     let path: String
     let kind: String
+}
+
+
+struct GitStatusEntry: Decodable, Equatable {
+    let path: String
+    let status: String
+}
+
+struct DockerPsEntry: Decodable, Equatable {
+    let container: String
+    let container_id: String
+    let image: String
+    let status: String
+    let ports: String
+
+    enum CodingKeys: String, CodingKey {
+        case container = "Names"
+        case container_id = "ID"
+        case image = "Image"
+        case status = "Status"
+        case ports = "Ports"
+    }
 }

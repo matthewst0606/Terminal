@@ -38,7 +38,7 @@ struct TerminalTextbox: View {
         .shadow(radius: 10)
         
         
-        .overlayStyle(terminal, history)
+//        .overlayStyle(terminal, history)
         .shortcutsModifier(getPrevHistory, getNextHistory)
     }
 }

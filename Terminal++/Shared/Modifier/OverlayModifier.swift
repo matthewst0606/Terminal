@@ -6,39 +6,39 @@
 //
 import SwiftUI
 
-struct OverlayModifier: ViewModifier {
-    @State var toggleSmallOverlay: Bool = false
-    @State var selectedSmallTab: TerminalItem = .none
-    @Bindable var terminal: Terminal
-    var history: TerminalHistory
-    
-    func body(content: Content) -> some View {
-        content
-        
-        .overlay(alignment: .trailing, content: {
-            textboxToggleButton
-        })
-        .background(alignment: .bottomTrailing, content: {
-            displaySmallOverlay
-        })
-    }
-    
-    var textboxToggleButton: some View {
-        TextBoxButtonView("ellipsis", for: $toggleSmallOverlay)
-    }
-    
-    @ViewBuilder
-    var displaySmallOverlay: some View {
-        if toggleSmallOverlay {
-            OverlayView(
-                selectedTab: $selectedSmallTab,
-                terminal: terminal,
-                history: history
-            )
-            .modifier(OverlayTransition(.bottom))
-        }
-    }
-}
+//struct OverlayModifier: ViewModifier {
+//    @State var toggleSmallOverlay: Bool = false
+//    @State var selectedSmallTab: TerminalItem = .none
+//    @Bindable var terminal: Terminal
+//    var history: TerminalHistory
+//    
+//    func body(content: Content) -> some View {
+//        content
+//        
+//        .overlay(alignment: .trailing, content: {
+////            textboxToggleButton
+//        })
+//        .background(alignment: .bottomTrailing, content: {
+//            displaySmallOverlay
+//        })
+//    }
+//    
+////    var textboxToggleButton: some View {
+////        TextBoxButtonView("ellipsis", for: $toggleSmallOverlay)
+////    }
+//    
+//    @ViewBuilder
+//    var displaySmallOverlay: some View {
+//        if toggleSmallOverlay {
+//            OverlayView(
+//                selectedTab: $selectedSmallTab,
+//                terminal: terminal,
+//                history: history
+//            )
+//            .modifier(OverlayTransition(.bottom))
+//        }
+//    }
+//}
 
 
 

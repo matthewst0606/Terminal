@@ -15,10 +15,13 @@ struct TerminalTabButton: View {
     var body: some View {
         AnimatedButton(.bouncy, action: { action() }, label: {
             Text(title)
+
                 .font(.system(size: 12, weight: .semibold))
                 .lineLimit(1)
                 .padding(.horizontal, 10)
-                .frame(height: 30)
+
+                .frame(height: 20)
+
                 .contentShape(RoundedRectangle(cornerRadius: 12))
                 .background {
                     RoundedRectangle(cornerRadius: 12).fill(
@@ -32,5 +35,7 @@ struct TerminalTabButton: View {
                 }
         })
         .buttonStyle(.plain)
+        .padding(.top, 5)
+
     }
 }

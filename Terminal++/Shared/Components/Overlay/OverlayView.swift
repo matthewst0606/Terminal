@@ -61,7 +61,7 @@ struct TerminalOverlayItem: Identifiable {
     let action: TerminalOverlayAction
 }
 
-enum TerminalItem {
+enum TerminalItem: Equatable {
     case none
     case terminal
     case keywords
