@@ -21,6 +21,7 @@ final class RustService {
         return rustHistory.map {
             $0.as_str().toString()
         }
+        
     }
 }
 
