@@ -2,12 +2,19 @@ use std::path::Path;
 use std::sync::{Mutex, OnceLock};
 use std::thread;
 
-use crate::command::builtin::Builtin;
-use crate::command::input::Input;
-use crate::command::output::Output;
-use crate::record_history::RecordHistory;
-use crate::terminal::manager::TerminalManager;
-use crate::terminal::session::TerminalSession;
+use crate::helpers::record_history::RecordHistory;
+use crate::command::{
+    input::parser::parse_input,
+    input::Input,
+    keywords::builtin::Builtin,
+    output::Output,
+};
+use crate::terminal::{
+    manager::TerminalManager,
+    session::TerminalSession,
+};
+
+
 
 static SHELL: OnceLock<Mutex<Shell>> = OnceLock::new();
 
@@ -19,9 +26,9 @@ pub(crate) struct Shell {
 impl Shell {
     // initialize a new shell
     pub(crate) fn new() -> Self {
-        Self { 
-            current_session: 0, 
-            manager: Mutex::new(TerminalManager::new()) 
+        Self {
+            current_session: 0,
+            manager: Mutex::new(TerminalManager::new()),
         }
     }
 
@@ -41,19 +48,25 @@ impl Shell {
     // runs a regular command.
     // (history is recorded with regular commands)
     pub(crate) fn run(&self, command: String) -> String {
-        let current_dir = self.with_manager(|manager| {
-            manager.sessions[self.current_session]
-                .current_dir
-                .clone()
-        });
-        self.execute(&command, RecordHistory::Yes, &current_dir).string()
+        let current_dir = self.with_manager(|manager| 
+            manager.sessions[self.current_session].current_dir.clone()
+        );
+
+        self.execute(
+            &command, 
+            RecordHistory::Yes, 
+            &current_dir
+        ).string()
     }
 
     // spawns a background command.
     // (history is not recorded with background commands)
     pub(crate) fn spawn(&self, command: &str, current_dir: &Path) -> Output {
-        self.execute(command, RecordHistory::No, current_dir)
-
+        self.execute(
+            command, 
+            RecordHistory::No, 
+            current_dir
+        )
     }
 
     pub(crate) fn history(&self, _command: String) -> Vec<String> {
@@ -62,14 +75,15 @@ impl Shell {
 
 
 
-
     // executes the command
     fn execute(&self, command: &str, history: RecordHistory, current_dir: &Path) -> Output {
         let command = command.trim();
-        let input = Input::parse(command);
+        let input = parse_input(command, current_dir);
 
         if matches!(input, Input::Empty) {
-            return Output::Text(self.finished_jobs(String::new()));
+            return Output::Text {
+                text: self.finished_jobs(String::new()),
+            };
         }
 
         if history.record() {
@@ -78,7 +92,9 @@ impl Shell {
 
         let output = self.run_input(input, current_dir);
         match output {
-            Output::Text(text) => Output::Text(self.finished_jobs(text)),
+            Output::Text { text } => Output::Text {
+                text: self.finished_jobs(text),
+            },
 
             output => output,
         }
@@ -102,52 +118,62 @@ impl Shell {
 
     fn run_builtin(&self, builtin: Builtin, current_dir: &Path) -> Output {
         match builtin {
-            Builtin::Exit => Output::Exit,
-            Builtin::Clear => Output::Clear,
-            Builtin::ClearLine => Output::ClearLine,
-            Builtin::Pwd =>  Builtin::pwd(current_dir),
-            Builtin::Ls => Builtin::ls(&current_dir),
-            Builtin::Cd(path) => {
+            Builtin::Exit => 
+                Output::Exit,
+            Builtin::Clear => 
+                Output::Clear,
+            Builtin::ClearLine => 
+                Output::ClearLine,
+            Builtin::Touch(filename) => 
+                Builtin::touch(current_dir, filename),
+            Builtin::Pwd => 
+                Builtin::pwd(current_dir),
+            Builtin::Ls => 
+                Builtin::ls(&current_dir),
+
+
+            Builtin::Cd(path) => 
                 match Builtin::cd(&current_dir, path.as_deref()) {
                     Ok(new_dir) => {
                         self.with_manager(|manager| {
                             manager.sessions[self.current_session].current_dir = new_dir
                         });
-                        Output::Text(String::new())
+                        Output::Text {
+                            text: String::new(),
+                        }
                     }
+                    Err(message) => 
+                        Output::Error { command: "cd".to_string(),  message },
+                },
 
-                    Err(message) => Output::Error { 
-                        command: "cd".to_string(),
-                        message
-                    }
-                }
 
-            },
-            Builtin::Spawn(command) => Output::Text(self.spawn_background(command)),
-            Builtin::Session => Output::Text(self.sessions()),
-            Builtin::Jobs => Output::Text(self.jobs()),
+
+            Builtin::Spawn(command) => 
+                Output::Text { text: self.spawn_background(command) },
+            Builtin::Session => 
+                Output::Text { text: self.sessions() },
+            Builtin::Jobs => 
+                Output::Text { text: self.jobs() },
         }
     }
 
+
     fn run_input(&self, input: Input, current_dir: &Path) -> Output {
         match input {
-            Input::Empty => Output::Text(String::new()),
-            Input::Builtin(builtin) => self.run_builtin(builtin, current_dir),
-            Input::External(command) => command.run(current_dir),
+            Input::Empty => 
+                Output::Text { text: String::new() },
+            Input::Builtin(builtin) => 
+                self.run_builtin(builtin, current_dir),
+            Input::External(command) => 
+                command.run(current_dir),
         }
     }
 
     fn spawn_background(&self, command: String) -> String {
+        let current_dir =
+            self.with_manager(|manager| manager.sessions[self.current_session].current_dir.clone());
 
-        let current_dir = self.with_manager(|manager| {
-            manager.sessions[self.current_session]
-                .current_dir
-                .clone()
-        });
-
-        let handle = thread::spawn(move || {
-            Self::new().spawn(&command, &current_dir)
-        });
+        let handle = thread::spawn(move || Self::new().spawn(&command, &current_dir));
 
         self.with_manager(|manager| {
             manager.sessions[self.current_session].jobs.push(handle);
@@ -181,6 +207,10 @@ impl Shell {
     }
 }
 
+
+
+
+
 pub(crate) fn with_shell<T>(action: impl FnOnce(&Shell) -> T) -> T {
     let shell = SHELL.get_or_init(|| Mutex::new(Shell::new()));
     let shell = shell
@@ -191,11 +221,11 @@ pub(crate) fn with_shell<T>(action: impl FnOnce(&Shell) -> T) -> T {
 }
 
 fn push_newline(output: &mut String, text: &str) {
-    if text.is_empty() {
-        return;
-    }
+    if text.is_empty() { return; }
 
-    if !output.is_empty() && !output.ends_with('\n') {
+    if !output.is_empty() 
+        && !output.ends_with('\n') 
+    {
         output.push('\n');
     }
 

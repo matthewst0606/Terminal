@@ -24,6 +24,8 @@ extension View {
         )
     }
     
+
+    
     
     func shortcutsModifier(
         _ getPrevHistory: @escaping () -> Void,
@@ -38,6 +40,9 @@ extension View {
     }
 }
 
+
+
+
 // ---------- rectangle formatting  ----------
 extension View {
     func glassRect(
@@ -46,23 +51,17 @@ extension View {
         padding: CGFloat = 0,
     ) -> some View {
         return self
-            .glassEffect(
-                glassColor,
-                in: .rect(cornerRadius: radius)
-            )
+            .glassEffect(glassColor, in: .rect(cornerRadius: radius))
             .padding(padding)
     }
     
-    func bgRect(
+    func backgroundRect(
         _ color: Color,
         radius: CGFloat = 10,
         padding: CGFloat = 0,
     ) -> some View {
         return self
-        .background(
-            color,
-            in: .rect(cornerRadius: radius)
-        )
+        .background(color, in: .rect(cornerRadius: radius))
         .padding(padding)
     }
     
@@ -104,18 +103,46 @@ extension View {
 
 // ---------- List and list row formatting ----------
 extension View {
+
+
+        
+    func listBodyStyle() -> some View {
+        self
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .frame(
+                minWidth: 250,
+                minHeight: 200
+            )
+            .backgroundRect(
+                ColorLib.panelStrong.color,
+                radius: 24
+            )
+            .padding(10)
+    }
+    
+    func toolbarContentTitle() -> some View {
+        self
+            .font(.title3.weight(.semibold))
+            .padding(.horizontal, 18)
+            .padding(.top, 16)
+    }
+    
+    func toolbarContentBackground() -> some View {
+        self
+            .frame(
+                maxWidth: 300,
+                maxHeight: 300,
+                alignment: .topTrailing
+            )
+            .glassRect(radius: 24)
+    }
+    
     func terminalList() -> some View {
         self
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
     }
-
-    func terminalListRow() -> some View {
-        self
-            .listRowSeparator(.hidden)
-            .listRowBackground(Color.clear)
-    }
-    
     
     func listSeparator() -> some View {
         self

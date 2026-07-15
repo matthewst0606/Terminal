@@ -12,6 +12,12 @@ import SwiftUI
 struct TerminalOutput: Identifiable, Equatable {
     let id = UUID()
     let kind: Kind
+    let prompt: Prompt?
+
+    struct Prompt: Equatable {
+        let directory: String
+        let command: String
+    }
 
     enum Kind: Equatable {
         case text(String)
@@ -20,6 +26,12 @@ struct TerminalOutput: Identifiable, Equatable {
             branch: String,
             branchStatus: String,
             entries: [GitStatusEntry]
+        )
+        case gitAdd(
+            added: Int,
+            modified: Int,
+            deleted: Int,
+        
         )
         
         case dockePs(
@@ -38,7 +50,6 @@ final class Terminal {
     
     
     
-    
     var history: [String] = UserDefaults
         .standard
         .stringArray(forKey: "terminalHistory") ?? []
@@ -46,18 +57,20 @@ final class Terminal {
     
     func submit() {
         submitType(prompt: true)
-        refreshDir()
-
     }
 
     func submitNoPrompt(_ command: String) {
         input = command
         submitType(prompt: false)
-        refreshDir()
+        
     }
     
     private func submitType(prompt: Bool) {
         let command = input
+        refreshDir()
+        let promptSnapshot = prompt
+            ? TerminalOutput.Prompt(directory: currentDir, command: command)
+            : nil
         let result = parseResult(RustService.shared.execute(command))
         
         switch result {
@@ -71,33 +84,50 @@ final class Terminal {
             clearline()
             
         case .listing(let entries):
-            promptUserInput(prompt: prompt, command: command)
-            outputList(command: command, entries: entries)
+            outputList(command: command, entries: entries, prompt: promptSnapshot)
             
         case .text(let text):
-            promptUserInput(prompt: prompt, command: command)
-            outputText(text)
+            outputText(text, prompt: promptSnapshot)
+
+        case .external(let stdout, let stderr, let exitCode):
+            displayExternalOutput(
+                command: command,
+                stdout: stdout,
+                stderr: stderr,
+                exitCode: exitCode,
+                prompt: promptSnapshot
+            )
         
             
         case .gitStatus(let branch, let branchStatus, let entries):
-            promptUserInput(prompt: prompt, command: command)
             outputGitStatus(
                 branch: branch,
                 branchStatus: branchStatus,
-                entries: entries
+                entries: entries,
+                prompt: promptSnapshot
+            )
+            
+        case .gitAdd(let added, let modified, let deleted):
+            outputGitAdd(
+                added: added,
+                modified: modified,
+                deleted: deleted,
+                prompt: promptSnapshot
             )
 
         case .dockerPs(let entries):
-            promptUserInput(prompt: prompt, command: command)
             outputDockerPs(
                 command: command,
-                entries: entries
-            
+                entries: entries,
+                prompt: promptSnapshot
             )
         
         case .error(let errorCommand, let message):
-            promptUserInput(prompt: prompt, command: command)
-            outputError(command: errorCommand, message: message)
+            outputError(
+                command: errorCommand,
+                message: message,
+                prompt: promptSnapshot
+            )
         }
         
         if prompt {
@@ -125,12 +155,26 @@ final class Terminal {
             return .clearline
         case .text:
             return .text(decoded.text ?? "")
+
+        case .external:
+            return .external(
+                stdout: decoded.stdout ?? "",
+                stderr: decoded.stderr ?? "",
+                exitCode: decoded.exit_code
+            )
         
         case .gitStatus:
             return .gitStatus(
                 branch: decoded.branch ?? "",
                 branchStatus: decoded.branch_status ?? "",
                 entries: decoded.git_status_entries ?? []
+            )
+            
+        case .gitAdd:
+            return .gitAdd(
+                added: decoded.added ?? 0,
+                modified: decoded.modified ?? 0,
+                deleted: decoded.deleted ?? 0
             )
             
         case .dockerPs:

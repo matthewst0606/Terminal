@@ -22,7 +22,9 @@ struct BackgroundJobsView: View {
             HStack(content: {
                 Text("Background Jobs")
                     .font(.headline)
+                
                 Spacer()
+                
                 Text("\(jobs.count)")
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
@@ -30,15 +32,19 @@ struct BackgroundJobsView: View {
             
             VStack(content: {
                 ForEach(jobs, id: \.0) { job in
-                    DisplayJobRow(title: job.0, status: job.1, symbol: job.2)
+                    DisplayJobRow(
+                        title: job.0,
+                        status: job.1,
+                        symbol: job.2
+                    )
                 }
             })
-            .bgRect(ColorLib.jobsList.color, radius: FrameLib.jobsList.cornerRadius)
+            .backgroundRect(ColorLib.panel.color, radius: 24)
             
         })
-        .padding(FrameLib.backgroundJobsRow.padding)
-        .applyFrame(.backgroundJobsRow)
-        .glassRect(radius: FrameLib.backgroundJobsRow.cornerRadius)
+        .padding(FrameLib.listRow.padding)
+        .applyFrame(.listRow)
+        .glassRect(radius: 24)
     }
 }
 
@@ -52,7 +58,7 @@ private struct DisplayJobRow: View {
     var body: some View {
         HStack(spacing: 10, content: {
             Symbol(symbol)
-                .foregroundStyle(ColorLib.backgroundJobsRow.color)
+                .foregroundStyle(ColorLib.listRow.color)
                 .applyFrame(.smallSymbol)
 
             VStack(alignment: .leading, spacing: 2, content: {
@@ -61,7 +67,7 @@ private struct DisplayJobRow: View {
                     .font(.callout.weight(.medium))
                 Text(status)
                     .font(.caption)
-                    .foregroundStyle(ColorLib.backgroundJobsRow.color)
+                    .foregroundStyle(ColorLib.listRow)
             })
             Spacer()
         })

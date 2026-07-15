@@ -16,11 +16,11 @@ struct ToolbarControlButton: View {
             action()
         }
         label: {
-            Symbol(icon, render: .hierarchical)
+            Symbol(icon, render: .multicolor)
                 .frame(width: 32, height: 32)
             
             .contentShape(RoundedRectangle(cornerRadius: 12))
-            .bgRect(
+            .backgroundRect(
                 isSelected ? ColorLib.selectedButton.color : Color.clear,
                 radius: 24,
             )

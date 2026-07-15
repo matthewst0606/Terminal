@@ -17,27 +17,21 @@ struct TerminalTextbox: View {
             terminal.submit()
             history.resetIndex()
         }
-        .textboxStyle(.glass)
-        
         .overlay(alignment: .leading) {
-            if let suffix = suggestion.suggestionSuffix {
-                
-                HStack(content: {
-                    Text(terminal.input)
-                        .opacity(0)
-                    Text(suffix)
-                        .foregroundStyle(ColorLib.suggestionText.color)
-                })
-                .padding(.leading, 8)
-                .allowsHitTesting(false)
-            }
+            showTextSuggestion
         }
         .padding(8)
         .shadow(radius: 10)
         
-        .shortcutsModifier(getPrevHistory, getNextHistory)
+        .shortcutsModifier(
+            getPrevHistory,
+            getNextHistory
+        )
     }
 
+    
+    
+    
     func getPrevHistory() {
         guard let prev = history.previousCommand() else { return }
         DispatchQueue.main.async {
@@ -49,5 +43,21 @@ struct TerminalTextbox: View {
         DispatchQueue.main.async {
             self.terminal.input = next
         }
+    }
+    
+    @ViewBuilder
+    var showTextSuggestion: some View {
+        if let suffix = suggestion.suggestionSuffix {
+            
+            HStack(content: {
+                Text(terminal.input)
+                    .opacity(0)
+                Text(suffix)
+                    .foregroundStyle(ColorLib.suggestionText.color)
+            })
+            .padding(.leading, 8)
+            .allowsHitTesting(false)
+        }
+    
     }
 }

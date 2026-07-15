@@ -9,7 +9,7 @@ import SwiftUI
 enum FrameLib {
     case sidebar
     case jobsList
-    case backgroundJobsRow
+    case listRow
     case smallSymbol
     case list
     case overlayList
@@ -48,7 +48,7 @@ enum FrameLib {
         case .sidebar:
             return 150
             
-        case .jobsList, .backgroundJobsRow:
+        case .jobsList, .listRow:
             return 280
             
         case .overlay, .overlayList:
@@ -102,7 +102,7 @@ enum FrameLib {
     var alignment: Alignment? {
         switch self {
             
-        case .jobsList, .backgroundJobsRow, .list:
+        case .jobsList, .listRow, .list:
             return .topLeading
             
         case .sidebar:
@@ -119,7 +119,7 @@ enum FrameLib {
         switch self {
         case .sidebar: 8
         case .overlay, .overlayContent, .overlayList: 12
-        case .jobsList, .backgroundJobsRow: 14
+        case .jobsList, .listRow: 14
         case .textbox: 8
         case .smallSymbol: 0
         case .list: 5
@@ -129,7 +129,7 @@ enum FrameLib {
     var cornerRadius: CGFloat {
         switch self {
         case .sidebar, .overlay: 14
-        case .overlayContent, .overlayList, .list, .jobsList, .backgroundJobsRow: 12
+        case .overlayContent, .overlayList, .list, .jobsList, .listRow: 12
         case .textbox: 10
         case .smallSymbol: 6
         }

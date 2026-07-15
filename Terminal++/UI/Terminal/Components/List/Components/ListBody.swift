@@ -35,10 +35,13 @@ struct ListBody: View {
                 .listSeparator()
                 .buttonStyle(.borderless)
             }
-            .terminalListRow()
+            .listRowSeparator(.hidden)
+            .listRowBackground(Color.clear)
             .neswPadding(2, 5, 2, 5)
         }
         .terminalList()
-        .clipShape(RoundedRectangle(cornerRadius: FrameLib.list.cornerRadius))
+        .clipShape(RoundedRectangle(
+            cornerRadius: FrameLib.list.cornerRadius
+        ))
     }
 }

@@ -29,8 +29,7 @@ impl TerminalSession {
         while i < self.jobs.len() {
             if self.jobs[i].is_finished() {
                 let handle = self.jobs.remove(i);
-                
-                
+
                 let output = handle
                     .join()
                     .unwrap_or_else(|_| Output::Error {

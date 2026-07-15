@@ -1,10 +1,7 @@
 mod command;
-mod record_history;
+mod helpers;
 mod shell;
 mod terminal;
-
-
-
 use shell::with_shell;
 
 #[swift_bridge::bridge]

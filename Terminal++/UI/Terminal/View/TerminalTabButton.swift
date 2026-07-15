@@ -22,16 +22,16 @@ struct TerminalTabButton: View {
                 .contentShape(RoundedRectangle(cornerRadius: 12))
                 .background {
                     RoundedRectangle(cornerRadius: 12).fill(
-                        isSelected ?
-                            ColorLib.selectedButton.color :
-                            Color.clear
+                        isSelected
+                        ? ColorLib.selectedButton.color
+                        : Color.clear
                     )
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 12).stroke(
-                        isSelected ?
-                            ColorLib.selectedButton.color :
-                            Color.clear
+                        isSelected
+                            ? ColorLib.selectedButton.color
+                            : Color.clear
                     )
                 }
         })

@@ -14,6 +14,7 @@ struct KeywordsListItem: View {
             Text(item.leadingText ?? "")
                 .font(.system(size: 13, weight: .medium, design: .monospaced))
             Spacer()
+            
             Text(item.trailingText ?? "")
                 .font(.system(size: 13, design: .monospaced))
                 .foregroundStyle(.secondary)

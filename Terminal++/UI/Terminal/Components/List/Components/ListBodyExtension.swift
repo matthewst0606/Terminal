@@ -20,8 +20,8 @@ extension ListBody {
         case .regular: self
             .applyFrame(.list)
 
-            .bgRect(ColorLib.textBackground.color, radius: 12)
-            .bgRectBorder(.primary, opacity: 0.1, radius: 12)
+            .backgroundRect(ColorLib.textBackground.color, radius: 12)
+//            .bgRectBorder(.primary, opacity: 0.1, radius: 12)
             .padding(.horizontal, 18)
             .padding(.bottom, 18)
             
@@ -34,8 +34,8 @@ extension ListBody {
                 minHeight: 200,
                 maxHeight: .infinity
             )
-            .bgRect(ColorLib.textBackground.color, radius: 12)
-            .bgRectBorder(.primary, opacity: 0.1, radius: 10)
+            .backgroundRect(ColorLib.textBackground.color, radius: 12)
+//            .bgRectBorder(.primary, opacity: 0.1, radius: 10)
             .padding(5)
 
         }

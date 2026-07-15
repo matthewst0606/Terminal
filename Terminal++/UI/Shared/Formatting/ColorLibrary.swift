@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ColorLib {
+enum ColorLib: ShapeStyle {
     // Text
     case primaryText
     case secondaryText
@@ -18,25 +18,26 @@ enum ColorLib {
     case panelStrong
     case separator
     case accent
-    case jobsList
-    case backgroundJobsRow
+    case listRow
     case suggestionText
     case textBackground
     case appBG
     case selectedButton
+    case overlayList
+    
 
     var color: Color {
         switch self {
         case .primaryText:
             .primary
 
-        case .secondaryText:
+        case .secondaryText, .listRow, .suggestionText:
             .secondary
 
         case .tertiaryText:
             Color(nsColor: .tertiaryLabelColor)
 
-        case .panel:
+        case .panel, .textBackground:
             Color(nsColor: .textBackgroundColor).opacity(0.5)
 
         case .panelStrong:
@@ -47,19 +48,11 @@ enum ColorLib {
 
         case .accent:
             Color.accentColor
+            
+        case .overlayList:
+            Color(nsColor: .textBackgroundColor).opacity(0.55)
 
-        case .jobsList:
-            ColorLib.panel.color
-            
-        case .backgroundJobsRow:
-            ColorLib.secondaryText.color
-            
-        case .suggestionText:
-            ColorLib.secondaryText.color.opacity(0.5)
-            
-        case .textBackground:
-            ColorLib.panel.color
-            
+
         case .appBG:
             Color(nsColor: .windowBackgroundColor)
             
@@ -70,5 +63,8 @@ enum ColorLib {
 
     static var appBackground: Color { ColorLib.appBG.color }
     static var panelBackground: Color { ColorLib.panel.color }
+    
+    func resolve(in environment: EnvironmentValues) -> Color.Resolved {
+        color.resolve(in: environment)
+    }
 }
-   

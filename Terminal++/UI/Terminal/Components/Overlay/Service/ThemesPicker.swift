@@ -24,6 +24,16 @@ struct ThemesPicker<Option: pickerOption>: View {
     }
 }
 
+enum IconColor: String, CaseIterable, pickerOption {
+    case mono, multi
+    var label: String {
+        switch self {
+        case .mono:  "monochrome"
+        case .multi: "multicolor"
+        }
+    }
+}
+
 enum GlassStyle: String, CaseIterable, pickerOption {
     case regular, clear, none
     var label: String {

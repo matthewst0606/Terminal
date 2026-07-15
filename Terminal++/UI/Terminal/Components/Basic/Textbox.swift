@@ -6,10 +6,6 @@
 //
 import SwiftUI
 
-enum TextboxStyle {
-    case plain, glass
-}
-
 struct Textbox: View {
     var placeholder: String
     let text: Binding<String>
@@ -31,21 +27,8 @@ struct Textbox: View {
         }
         .padding()
         .textFieldStyle(.plain)
-    }
-
-    
-    
-    @ViewBuilder
-    func textboxStyle(_ style: TextboxStyle = .plain) -> some View {
-        switch style {
-            
-        case .glass: self
-            .applyFrame(.textbox)
-            .background(.clear)
-            .glassRect(radius: 24)
-            
-        default: self
-            .applyFrame(.textbox)
-        }
+        .applyFrame(.textbox)
+        .background(.clear)
+        .glassRect(radius: 24)
     }
 }

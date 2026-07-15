@@ -12,7 +12,11 @@ struct TerminalApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-        }.windowStyle(.hiddenTitleBar)
+
+        }
+        .windowStyle(.hiddenTitleBar)
+        
+        
 
         WindowGroup(id: "content-window") {
             ContentView()

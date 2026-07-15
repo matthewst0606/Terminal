@@ -10,36 +10,25 @@ struct ThemesOverlay: View {
     @AppStorage("glassStyle") var selectedGlassStyle: GlassStyle = .regular
     @AppStorage("colorMode") var selectedColorMode: ColorMode = .system
     @AppStorage("fontDesign") var selectedFontDesign: FontPicker = .system
+    @AppStorage("iconColor") var selectedIconColor: IconColor = .multi
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        LazyVStack(alignment: .leading, spacing: 14) {
+           
             Text("Themes")
-                .font(.title3.weight(.semibold))
-                .padding(.horizontal, 18)
-                .padding(.top, 16)
+                .toolbarContentTitle()
 
             List {
                 ThemesPicker(title: "Glass", selection: $selectedGlassStyle)
                 ThemesPicker(title: "Mode", selection: $selectedColorMode)
                 ThemesPicker(title: "Font", selection: $selectedFontDesign)
+                ThemesPicker(title: "Icon Color", selection: $selectedIconColor)
             }
-            .terminalList()
-            .frame(
-                minWidth: 250,
-                minHeight: 200,
-            )
-
-            .bgRect(Color(nsColor: .textBackgroundColor).opacity(0.55), radius: 24)
-            .padding(10)
-
-
+            .listBodyStyle()
         }
-        .frame(
-            maxWidth: 300,
-            maxHeight: 300,
-            alignment: .topTrailing
-        )
-        
-        .glassRect(radius: 24)
-
+        .toolbarContentBackground()
     }
+    
+    
+
 }

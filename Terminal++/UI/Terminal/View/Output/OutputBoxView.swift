@@ -5,6 +5,7 @@
 //  Created by Matt on 7/8/26.
 //
 import SwiftUI
+import FileProvider
 
 struct OutputBox: View {
     @AppStorage("fontDesign") var selectedFont: FontPicker = .system
@@ -12,11 +13,13 @@ struct OutputBox: View {
     var history: TerminalHistory
     var suggestion: InputSuggestions
 
+
     
     var body: some View {
         ZStack(alignment: .bottom) {
             ScrollViewReader { proxy in
                 ScrollView {
+                    
                     terminalTextOutput
                         .padding(.top, 25)
                         .padding(.bottom, 75)
@@ -44,10 +47,20 @@ struct OutputBox: View {
 
     var terminalTextOutput: some View {
         VStack(alignment: .leading, spacing: 0) {
+
+
             ForEach(terminal.output) { item in
+                
+                
+                if let prompt = item.prompt {
+                    inputPrompt(prompt: prompt)
+                }
+                
+                
                 switch item.kind {
                 case .text(let text):
-                    Text("\(ANSIParser.attributedString(from: text))")                
+                    Text("\(ANSIParser.attributedString(from: text))")
+                    
                     
                 case .listing(let entries):
                     ListingCommandView(
@@ -60,6 +73,13 @@ struct OutputBox: View {
                         branch: branch,
                         branchStatus: branchStatus,
                         entries: entries
+                    )
+                    
+                case .gitAdd(let added, let modified, let deleted):
+                    GitAddView(
+                        added: added,
+                        modified: modified,
+                        deleted: deleted
                     )
                     
                 case .dockePs(let entries):
@@ -84,33 +104,62 @@ struct OutputBox: View {
         .textSelection(.enabled)
     }
     
+    
     @ViewBuilder
     func errorFormat(
         _ command: String,
         _ message: String
     ) -> some View {
-        VStack(alignment: .leading,spacing: 6) {
-            HStack {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 0) {
 
-            Symbol("exclamationmark.triangle",render: .palette)
 
-                Text("Error:")
+                Text("Command Error: ")
                     .foregroundStyle(Color(NSColor.systemRed))
                     .fontWeight(.semibold)
                 
-                Text(command)
-                    .foregroundStyle(Color(NSColor.systemBlue))
+                Text("\"\(command)\"")
+                    .foregroundStyle(Color(nsColor: .linkColor))
                     .fontWeight(.semibold)
                 
             }
-            Text(message)
-                .foregroundStyle(.secondary)
-                .fontWeight(.regular)
+            HStack(spacing: 4) {
+                Symbol("exclamationmark.triangle", render: .palette)
+                
+                Text(message)
+                    .foregroundStyle(.secondary)
+                    .fontWeight(.light)
+            }
 
         }
     }
+    
+    
+    func inputPrompt(prompt: TerminalOutput.Prompt) -> some View {
+            HStack(spacing: 3) {
+                Text(prompt.directory)
+                    .foregroundStyle(.secondary)
+                    .lineLimit(1)
+ 
+                
+                Symbol("chevron.forward",
+                       font: .system(.caption, weight: .regular),
+                       gradient: .flat
+                )
+                .padding(.trailing, 5)
+                    
+                
+                Text(prompt.command)
+                    .fontWeight(.semibold)
+                
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.top, 5)
+            .padding(.bottom, 10)
+        }
+        
+    
 }
-
 
 
 

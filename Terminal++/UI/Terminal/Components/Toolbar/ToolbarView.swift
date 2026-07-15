@@ -39,6 +39,9 @@ struct ToolbarView: View {
                 }
             }
     }
+    
+    
+    
 
     
     private func displayToolbar<Content: View>(content: Content) -> some View {
@@ -95,7 +98,6 @@ struct ToolbarView: View {
     
     private var rhsToolbar: some View {
         HStack(spacing: 8) {
-            
             ToolbarControlButton(icon: "macwindow.badge.plus")
                 { openWindow(id: "content-window") }
             

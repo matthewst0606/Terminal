@@ -1,9 +1,12 @@
-use crate::command::output::{Output, DirectoryEntry};
+use crate::command::output::{DirectoryEntry, Output};
+use std::fs::File;
 use std::path::{Path, PathBuf};
+
 pub(crate) enum Builtin {
     Exit,
     Clear,
     ClearLine,
+    Touch(Option<String>),
     Session,
     Jobs,
     Pwd,
@@ -13,26 +16,7 @@ pub(crate) enum Builtin {
 }
 
 impl Builtin {
-    pub(crate) fn parse(command: &str, args: &[String]) -> Option<Builtin> {
-        match command {
-            "exit" | "quit" => Some(Self::Exit),
-            "dir" | "pwd" => Some(Self::Pwd),
-            "cd" => Some(Self::Cd(args.first().cloned())),
-            "ls" | "list" => Some(Self::Ls),
-            "clear" => Some(Self::Clear),
-            "clearline" => Some(Self::ClearLine),
-            "spawn" => Some(Self::Spawn(args.join(" "))),
-            "sessions" | "session" => Some(Self::Session),
-            "jobs" | "job" => Some(Self::Jobs),
-            _ => None,
-        }
-    }
-
-
-    // formats "ls" in columns unless additional
-    // arguments are provided
     pub(crate) fn ls(current_dir: &Path) -> Output {
-        
         let dir = match std::fs::read_dir(current_dir) {
             Ok(dir) => dir,
             Err(error) => {
@@ -47,8 +31,7 @@ impl Builtin {
 
         for entry in dir.flatten() {
             let path = entry.path();
-            let kind = if path.is_dir() { "directory" }
-            else { "file" };
+            let kind = if path.is_dir() { "directory" } else { "file" };
 
             entries.push(DirectoryEntry {
                 name: entry.file_name().to_string_lossy().to_string(),
@@ -56,41 +39,53 @@ impl Builtin {
                 kind: kind.to_string(),
             });
         }
-        
+
         Output::Listing { entries }
     }
 
-
-    // gets the current directory
     pub(crate) fn pwd(current_dir: &Path) -> Output {
-        
-        match std::env::current_dir() {
-            Ok(_) => Output::Text(current_dir.display().to_string()),
-            Err(message) => Output::Error {
-                command: "pwd".to_string(),
-                message: message.to_string(),
+        Output::Text {
+            text: current_dir.display().to_string(),
+        }
+    }
+
+    pub(crate) fn touch(current_dir: &Path, filename: Option<String>) -> Output {
+        let Some(filename) = filename else {
+            return Output::Error {
+                command: "touch".to_string(),
+                message: "missing filename".to_string(),
+            };
+        };
+
+        match File::create(current_dir.join(filename)) {
+            Ok(_) => Output::Text {
+                text: String::new(),
+            },
+
+            Err(error) => Output::Error {
+                command: "touch".to_string(),
+                message: error.to_string(),
             },
         }
     }
 
-    // changes the current directory
     pub(crate) fn cd(current_dir: &Path, path: Option<&str>) -> Result<PathBuf, String> {
-        let Some(path) = path else { return Err("missing path".to_string()); };
-
-
-        let requested_path = Path::new(path);
-
-        let new_dir = if requested_path.is_absolute() {
-            requested_path.to_path_buf()
-        } else {
-            current_dir.join(requested_path)
+        let Some(path) = path else {
+            return Err("missing path".to_string());
         };
 
+        let requested_path = Path::new(path);
+        let new_dir: PathBuf;
+
+        if requested_path.is_absolute() {
+            new_dir = requested_path.to_path_buf();
+        } else {
+            new_dir = current_dir.join(requested_path);
+        };
 
         if !new_dir.exists() {
             return Err("directory does not exist".to_string());
-        }
-        if !new_dir.is_dir() {
+        } else if !new_dir.is_dir() {
             return Err("path is not a directory".to_string());
         }
 
@@ -99,5 +94,4 @@ impl Builtin {
             Err(error) => Err(error.to_string()),
         }
     }
-
 }

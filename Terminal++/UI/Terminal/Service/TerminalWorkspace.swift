@@ -16,7 +16,6 @@ final class TerminalWorkspace {
         } ?? tabs.first
     }
 
-    
     init() {
         let firstTab = TerminalTab(title: "Shell 1")
         tabs = [firstTab]

@@ -13,6 +13,7 @@ fn main() {
 
         if !stdout.is_empty() {
             print!("{}", stdout);
+            
             if !stdout.ends_with('\n') {
                 println!();
             }

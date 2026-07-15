@@ -12,12 +12,18 @@ struct ListHeader: View {
     var body: some View {
         VStack(spacing: 8) {
             HStack {
-                titleContent
-                symbolContent
+                Text(title)
+                    .toolbarContentTitle()
+                
+                
+                Symbol(
+                    symbol,
+                    font: .system(size: 18),
+                    render: .hierarchical
+                )
+                .foregroundStyle(.secondary)
                 Spacer()
             }
-            .padding(.horizontal, 18)
-
             
             HStack {
                 Text("alias")
@@ -29,15 +35,5 @@ struct ListHeader: View {
             .textCase(.uppercase)
             .padding(.horizontal, 32)
         }
-    }
-    
-    private var titleContent: some View {
-        Text(title)
-            .font(.title3.weight(.semibold))
-    }
-    
-    private var symbolContent: some View {
-        Symbol(symbol, font: .system(size: 18), render: .hierarchical)
-            .foregroundStyle(.secondary)
     }
 }

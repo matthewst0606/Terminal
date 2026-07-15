@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+
+
 struct KeywordOverlay: View {
     @AppStorage("keywords") var input = ""
     var keywords = KeywordsService()
@@ -14,16 +16,16 @@ struct KeywordOverlay: View {
 
     var body: some View {
         LazyVStack(alignment: .leading, spacing: 10) {
-            
+            Text("Keywords")
+                .toolbarContentTitle()
+
             ListBody(
                 items: keywords.builtin,
                 style: .keyword,
                 terminal: terminal,
                 executesOnTap: true
             )
-            .terminalList()
-            .frame(minWidth: 250, minHeight: 200)
-            .bgRect(Color(nsColor: .textBackgroundColor).opacity(0.75), radius: 24)
+            .listBodyStyle()
 
             ListBody(
                 items: keywords.custom,
@@ -31,25 +33,12 @@ struct KeywordOverlay: View {
                 terminal: terminal,
                 executesOnTap: false
             )
-            .terminalList()
-            .frame(minWidth: 250, minHeight: 200)
-            .bgRect(Color(nsColor: .textBackgroundColor).opacity(0.75), radius: 24)
-            
-            
+            .listBodyStyle()
         }
-
         .padding(10)
         .glassRect(radius: 24)
-        
-        .frame(
-            maxWidth: 300,
-            maxHeight: 450,
-            alignment: .topTrailing
-        )
+        .frame(maxWidth: 300, maxHeight: 450, alignment: .topTrailing)
         .textSelection(.enabled)
         .scrollIndicators(.hidden)
-        
-
-
     }
 }
