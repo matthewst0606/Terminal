@@ -7,9 +7,9 @@
 import SwiftUI
 
 struct Symbol: View {
-    let name: String
-    let font: Font?
-    let render: SymbolRenderingMode?
+    let name:     String
+    let font:     Font?
+    let render:   SymbolRenderingMode?
     let gradient: SymbolColorRenderingMode?
     
     init(

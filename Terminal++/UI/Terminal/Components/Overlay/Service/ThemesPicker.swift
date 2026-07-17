@@ -21,11 +21,13 @@ struct ThemesPicker<Option: pickerOption>: View {
                     .tag(option)
             }
         }
+        .padding(.vertical, 10)
     }
 }
 
 enum IconColor: String, CaseIterable, pickerOption {
     case mono, multi
+    
     var label: String {
         switch self {
         case .mono:  "monochrome"
@@ -36,6 +38,7 @@ enum IconColor: String, CaseIterable, pickerOption {
 
 enum GlassStyle: String, CaseIterable, pickerOption {
     case regular, clear, none
+    
     var label: String {
         switch self {
         case .regular: "Regular"
@@ -47,6 +50,7 @@ enum GlassStyle: String, CaseIterable, pickerOption {
 
 enum ColorMode: String, CaseIterable, pickerOption {
     case system, light, dark
+    
     var label: String {
         switch self {
         case .system: "System"
@@ -60,19 +64,19 @@ enum FontPicker: String, CaseIterable, pickerOption {
     case system, monospaced, rounded, serif
     var label: String {
         switch self {
-        case .system: "Default"
+        case .system:     "Default"
         case .monospaced: "Monospaced"
-        case .rounded: "Rounded"
-        case .serif: "Serif"
+        case .rounded:    "Rounded"
+        case .serif:      "Serif"
         }
     }
     
     var design: Font.Design {
         switch self {
-        case .system: .default
+        case .system:     .default
         case .monospaced: .monospaced
-        case .rounded: .rounded
-        case .serif: .serif
+        case .rounded:    .rounded
+        case .serif:      .serif
         }
     }
 }

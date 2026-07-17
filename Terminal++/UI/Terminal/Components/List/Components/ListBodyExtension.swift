@@ -15,17 +15,14 @@ extension ListBody {
     @ViewBuilder
     func terminalListStyle(_ style: DisplayStyle) -> some View {
         switch style {
-            
-            
         case .regular: self
-            .applyFrame(.list)
-
-            .backgroundRect(ColorLib.textBackground.color, radius: 12)
-//            .bgRectBorder(.primary, opacity: 0.1, radius: 12)
-            .padding(.horizontal, 18)
-            .padding(.bottom, 18)
-            
-            
+//            .frame(
+//                maxWidth: .infinity,
+//                maxHeight: .infinity
+//            )
+//            .backgroundRect(.secondary, radius: 12)
+//            .padding(.horizontal, 18)
+//            .padding(.bottom, 18)
             
         case .overlay: self
             .frame(
@@ -34,8 +31,7 @@ extension ListBody {
                 minHeight: 200,
                 maxHeight: .infinity
             )
-            .backgroundRect(ColorLib.textBackground.color, radius: 12)
-//            .bgRectBorder(.primary, opacity: 0.1, radius: 10)
+            .backgroundRect(.secondary, radius: 12)
             .padding(5)
 
         }

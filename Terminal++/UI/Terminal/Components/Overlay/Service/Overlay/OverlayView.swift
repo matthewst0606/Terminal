@@ -40,13 +40,12 @@ struct OverlayView: View {
             }
         }
         .frame(
-            minWidth: FrameLib.overlay.width,
-            maxWidth: FrameLib.overlay.width
+            minWidth: 250,
+            maxWidth: 250
         )
-        .glassRect(radius: FrameLib.overlay.cornerRadius)
-        .padding(FrameLib.overlay.padding)
+        .glassRect(.clear, radius: 14)
+        .padding(12)
         .offset(y: -75)
     }
     
 }
-

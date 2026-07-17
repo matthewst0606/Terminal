@@ -31,9 +31,9 @@ struct Sidebar: View {
                 }
             }
         }
-        .padding(FrameLib.sidebar.padding)
-        .applyFrame(.sidebar)
-        .glassRect(radius: FrameLib.sidebar.cornerRadius)
+        .padding(8)
+        .frame(width: 150, alignment: .topTrailing)
+        .glassRect(radius: 14)
     }
     
     private func isSelected(_ item: SidebarItem) -> Bool {
@@ -44,6 +44,5 @@ struct Sidebar: View {
         selectedTab = item.tab
     }
 }
-
 
 

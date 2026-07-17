@@ -16,24 +16,34 @@ struct ListBody: View {
     var body: some View {
         List {
             ForEach(items) { item in
-                Button {
-                    let command = item.trailingText ?? ""
-                    if executesOnTap {
-                        terminal.submitNoPrompt(command)
-                    } else {
-                        terminal.input = command
+                
+                
+                if style == .history {
+                    HistoryListItem(item: item, onCommand: {
+                        terminal.submitNoPrompt(item.leadingText ?? "")
+                    })
+                }
+                
+                else {
+                    Button {
+                        let command = item.trailingText ?? ""
+                        if executesOnTap {
+                            terminal.submitNoPrompt(command)
+                        } else {
+                            terminal.input = command
+                        }
                     }
-                    
+                    label: {
+                        ListContentView(
+                            item: item,
+                            style: style,
+                            onCommand: {}
+                        )
+                        
+                    }
+                    .listSeparator()
+                    .buttonStyle(.borderless)
                 }
-                label: {
-                    ListContentView(
-                        item: item,
-                        style: style
-                    )
-                    
-                }
-                .listSeparator()
-                .buttonStyle(.borderless)
             }
             .listRowSeparator(.hidden)
             .listRowBackground(Color.clear)
@@ -41,7 +51,7 @@ struct ListBody: View {
         }
         .terminalList()
         .clipShape(RoundedRectangle(
-            cornerRadius: FrameLib.list.cornerRadius
+            cornerRadius: 12
         ))
     }
 }

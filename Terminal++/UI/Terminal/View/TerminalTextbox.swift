@@ -8,30 +8,53 @@ import SwiftUI
 
 struct TerminalTextbox: View {
     @Bindable var terminal: Terminal
+    @State private var textboxToggle: Bool = true
+
     var history: TerminalHistory
     var suggestion: InputSuggestions
 
 
     var body: some View {
-        Textbox("Enter a command", for: $terminal.input) {
-            terminal.submit()
-            history.resetIndex()
+        VStack {
+            if textboxToggle {
+                Textbox("Enter a command", for: $terminal.input) {
+                    terminal.submit()
+                    history.resetIndex()
+                }
+                .modifier(OverlayTransition(.bottom))
+                
+            }
         }
+        .frame(maxWidth: .infinity, minHeight: 70, maxHeight: 70)
+        
         .overlay(alignment: .leading) {
             showTextSuggestion
         }
         .padding(8)
-        .shadow(radius: 10)
         
-        .shortcutsModifier(
-            getPrevHistory,
-            getNextHistory
-        )
+        .overlay(alignment: .trailing) {
+            
+            Button {
+                textboxToggle.toggle()
+            }
+            label: {
+                Symbol("chevron.down")
+                    .contentShape(.circle)
+                    .frame(width: 25, height: 25)
+                
+            }
+            .buttonBorderShape(.circle)
+            .padding(.trailing, 25)
+        }
+        
+        .kbShortcut(key: .upArrow,   action: { getPrevHistory() })
+        .kbShortcut(key: .downArrow, action: { getPrevHistory() })
+        
     }
+}
 
-    
-    
-    
+
+private extension TerminalTextbox {
     func getPrevHistory() {
         guard let prev = history.previousCommand() else { return }
         DispatchQueue.main.async {
@@ -50,10 +73,8 @@ struct TerminalTextbox: View {
         if let suffix = suggestion.suggestionSuffix {
             
             HStack(content: {
-                Text(terminal.input)
-                    .opacity(0)
-                Text(suffix)
-                    .foregroundStyle(ColorLib.suggestionText.color)
+                Text(terminal.input).opacity(0)
+                Text(suffix        ).foregroundStyle(Color(nsColor: .tertiaryLabelColor))
             })
             .padding(.leading, 8)
             .allowsHitTesting(false)

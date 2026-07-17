@@ -56,22 +56,24 @@ final class Terminal {
 
     
     func submit() {
-        submitType(prompt: true)
+        _ = submitType(prompt: true)
     }
 
-    func submitNoPrompt(_ command: String) {
+    @discardableResult
+    func submitNoPrompt(_ command: String) -> Bool {
         input = command
-        submitType(prompt: false)
-        
+        return submitType(prompt: false)
     }
     
-    private func submitType(prompt: Bool) {
+    private func submitType(prompt: Bool) -> Bool {
         let command = input
         refreshDir()
         let promptSnapshot = prompt
             ? TerminalOutput.Prompt(directory: currentDir, command: command)
             : nil
         let result = parseResult(RustService.shared.execute(command))
+        
+        var success = true
         
         switch result {
         case .exit:
@@ -84,7 +86,11 @@ final class Terminal {
             clearline()
             
         case .listing(let entries):
-            outputList(command: command, entries: entries, prompt: promptSnapshot)
+            outputList(
+                command: command,
+                entries: entries,
+                prompt: promptSnapshot
+            )
             
         case .text(let text):
             outputText(text, prompt: promptSnapshot)
@@ -123,6 +129,7 @@ final class Terminal {
             )
         
         case .error(let errorCommand, let message):
+            success = false
             outputError(
                 command: errorCommand,
                 message: message,
@@ -134,6 +141,7 @@ final class Terminal {
             appendToHistory(command)
         }
         input = ""
+        return success
     }
     
     func parseResult(_ result: String) -> CommandResult {
@@ -149,10 +157,13 @@ final class Terminal {
         switch decoded.kind {
         case .exit:
             return .exit
+            
         case .clear:
             return .clear
+            
         case .clearline:
             return .clearline
+            
         case .text:
             return .text(decoded.text ?? "")
 

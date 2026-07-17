@@ -15,11 +15,13 @@ enum ListItemStyle {
 struct ListContentView: View {
     let item: ListElement
     let style: ListItemStyle
+    let onCommand: () -> Void
+
     
     var body: some View{
         switch style {
         case .keyword: KeywordsListItem(item: item)
-        case .history: HistoryListItem(item: item)
+        case .history: HistoryListItem(item: item, onCommand: onCommand)
         }
     }
 }

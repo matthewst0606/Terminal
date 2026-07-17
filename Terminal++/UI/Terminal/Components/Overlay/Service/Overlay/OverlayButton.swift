@@ -46,7 +46,7 @@ struct OverlayButton: View {
             }
             .padding(title == nil ? 4 : 6)
             .background(
-                isSelected ? ColorLib.selectedButton.color : .clear,
+                isSelected ? selectedButton : .clear,
                 in: RoundedRectangle(cornerRadius: title == nil ? 6 : 8)
             )
         }

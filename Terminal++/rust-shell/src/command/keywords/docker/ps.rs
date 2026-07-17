@@ -6,7 +6,7 @@ pub(crate) struct DockerPsEntry {
     pub container: String,
 
     #[serde(rename = "ID")]
-    pub container_id: String,
+    pub id: String,
 
     #[serde(rename = "Image")]
     pub image: String,

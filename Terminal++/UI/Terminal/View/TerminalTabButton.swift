@@ -23,14 +23,14 @@ struct TerminalTabButton: View {
                 .background {
                     RoundedRectangle(cornerRadius: 12).fill(
                         isSelected
-                        ? ColorLib.selectedButton.color
+                        ? selectedButton
                         : Color.clear
                     )
                 }
                 .overlay {
                     RoundedRectangle(cornerRadius: 12).stroke(
                         isSelected
-                            ? ColorLib.selectedButton.color
+                            ? selectedButton
                             : Color.clear
                     )
                 }

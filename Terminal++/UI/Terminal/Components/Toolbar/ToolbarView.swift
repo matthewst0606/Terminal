@@ -8,17 +8,13 @@ import SwiftUI
 
 struct ToolbarView: View {
     @Bindable var workspace: TerminalWorkspace
-    @State private var selectedTab: TerminalItem = .none
-    @State var bgCommands: Bool = false
     @Environment(\.openWindow) var openWindow
 
-    private var terminal: Terminal? {
-        workspace.selectedTab?.terminal
-    }
-
-    private var history: TerminalHistory? {
-        workspace.selectedTab?.history
-    }
+    @State private var selectedTab: TerminalItem = .none
+    @State private var bgCommands:  Bool = false
+    
+    private var terminal: Terminal?        { workspace.selectedTab?.terminal }
+    private var history:  TerminalHistory? { workspace.selectedTab?.history  }
 
     var body: some View {
         displayToolbar(content: Color.clear)
@@ -48,15 +44,10 @@ struct ToolbarView: View {
         content
             .frame(maxWidth: .infinity, maxHeight: 30)
             .glassEffect(.regular, in: .rect)
-            .overlay(alignment: .top) {
-                toolbarTabs
-            }
-            .overlay(alignment: .topLeading) {
-                lhsToolbar
-            }
-            .overlay(alignment: .topTrailing) {
-                rhsToolbar
-            }
+        
+            .overlay(alignment: .top)         { toolbarTabs }
+            .overlay(alignment: .topLeading)  { lhsToolbar  }
+            .overlay(alignment: .topTrailing) { rhsToolbar  }
     }
     
 
@@ -85,6 +76,8 @@ struct ToolbarView: View {
         }
     }
     
+
+    
     private var lhsToolbar: some View {
         HStack(spacing: 8) {
             ToolbarControlButton(icon: "rectangle.stack.badge.play", isSelected: bgCommands)
@@ -92,23 +85,32 @@ struct ToolbarView: View {
             
             ToolbarControlButton(icon: "plus")
                 { workspace.createNewTab() }
+            
+            
+            
+            ToolbarControlButton(icon: "chevron.left") {
+                if terminal?.submitNoPrompt("cd ..") == true {
+                    terminal?.submitNoPrompt("clear")
+                    terminal?.submitNoPrompt("ls")
+                }
+            }
+            
+            ToolbarControlButton(icon: "chevron.right") {
+                if terminal?.submitNoPrompt("cd -") == true {
+                    terminal?.submitNoPrompt("clear")
+                    terminal?.submitNoPrompt("ls")
+                }
+            }
         }
         .padding(.leading, 100)
     }
     
     private var rhsToolbar: some View {
         HStack(spacing: 8) {
-            ToolbarControlButton(icon: "macwindow.badge.plus")
-                { openWindow(id: "content-window") }
-            
-            ToolbarControlButton(icon: "keyboard.macwindow")
-                { togglePanel(.keywords) }
-            
-            ToolbarControlButton(icon: "clock.badge.checkmark.fill")
-                { togglePanel(.history) }
-            
-            ToolbarControlButton(icon: "slider.horizontal.3")
-                { togglePanel(.themes) }
+            ToolbarControlButton(icon: "macwindow.badge.plus"      ) { openWindow(id: "content-window") }
+            ToolbarControlButton(icon: "keyboard.macwindow"        ) { togglePanel(.keywords) }
+            ToolbarControlButton(icon: "clock.badge.checkmark.fill") { togglePanel(.history) }
+            ToolbarControlButton(icon: "slider.horizontal.3"       ) { togglePanel(.themes) }
         }
         .padding(.trailing, 10)
     }

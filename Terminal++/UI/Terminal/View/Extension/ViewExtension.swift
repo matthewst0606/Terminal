@@ -7,90 +7,29 @@
 
 import SwiftUI
 
-extension View {
-    
-    func applyFrame(_ frame: FrameLib) -> some View {
-        self.frame(
-            width: frame.width,
-            height: frame.height,
-            alignment: frame.alignment ?? .center
-        )
-        .frame(
-            minWidth: frame.minWidth,
-            maxWidth: frame.maxWidth,
-            minHeight: frame.minHeight,
-            maxHeight: frame.maxHeight,
-            alignment: frame.alignment ?? .center
-        )
-    }
-    
-
-    
-    
-    func shortcutsModifier(
-        _ getPrevHistory: @escaping () -> Void,
-        _ getNextHistory: @escaping () -> Void
-    
-    ) -> some View {
-        self.modifier(
-            ShortcutsModifier(
-                getPrevHistory: getPrevHistory,
-                getNextHistory: getNextHistory
-            ))
-    }
-}
 
 
 
 
 // ---------- rectangle formatting  ----------
 extension View {
-    func glassRect(
-        _ glassColor: Glass = .regular,
-        radius: CGFloat = 10,
-        padding: CGFloat = 0,
-    ) -> some View {
+    func glassRect(_ glass: Glass = .regular, radius: CGFloat = 10, padding: CGFloat = 0) -> some View {
         return self
-            .glassEffect(glassColor, in: .rect(cornerRadius: radius))
+            .glassEffect(glass, in: .rect(cornerRadius: radius))
             .padding(padding)
     }
     
-    func backgroundRect(
-        _ color: Color,
-        radius: CGFloat = 10,
-        padding: CGFloat = 0,
-    ) -> some View {
+    func backgroundRect(_ color: Color, radius: CGFloat = 10, padding: CGFloat = 0) -> some View {
         return self
         .background(color, in: .rect(cornerRadius: radius))
         .padding(padding)
-    }
-    
-    func bgRectBorder(
-        _ color: Color = .secondary,
-        opacity: CGFloat = 0.25,
-        radius: CGFloat = 10,
-        padding: CGFloat = 0,
-        lineWidth: CGFloat = 1
-    ) -> some View {
-        self.overlay {
-            RoundedRectangle(cornerRadius: radius)
-            .stroke(
-                color.opacity(opacity),
-                lineWidth: lineWidth
-            )
-        }
     }
 }
 
 
 // ---------- padding ----------
 extension View {
-    func neswPadding(
-        _ north: CGFloat,
-        _ east: CGFloat,
-        _ south: CGFloat,
-        _ west: CGFloat
-    ) -> some View {
+    func neswPadding(_ north: CGFloat, _ east: CGFloat, _ south: CGFloat, _ west: CGFloat) -> some View {
         self.padding(EdgeInsets(
             top: north,
             leading: west,
@@ -101,23 +40,21 @@ extension View {
 }
 
 
+
 // ---------- List and list row formatting ----------
 extension View {
 
-
-        
+    
     func listBodyStyle() -> some View {
         self
             .listStyle(.plain)
             .scrollContentBackground(.hidden)
             .frame(
-                minWidth: 250,
-                minHeight: 200
+                minWidth: 400,
+                minHeight: 250,
+                maxHeight: .infinity
             )
-            .backgroundRect(
-                ColorLib.panelStrong.color,
-                radius: 24
-            )
+            .background(.clear)
             .padding(10)
     }
     
@@ -131,11 +68,11 @@ extension View {
     func toolbarContentBackground() -> some View {
         self
             .frame(
-                maxWidth: 300,
-                maxHeight: 300,
+                maxWidth: 450,
+                maxHeight: .infinity,
                 alignment: .topTrailing
             )
-            .glassRect(radius: 24)
+            .glassRect(radius: 24, padding: 5)
     }
     
     func terminalList() -> some View {
@@ -148,7 +85,7 @@ extension View {
         self
         .overlay(alignment: .bottom) {
             Rectangle()
-                .fill(ColorLib.separator.color)
+                .fill(separator)
                 .frame(height: 1)
                 .offset(y: 7)
         }
@@ -157,20 +94,21 @@ extension View {
     
 }
 
+// ---------- shortcuts ----------
+
 
 extension View {
     func kbShortcut(
         key: KeyEquivalent,
-        with modifier: EventModifiers = [],
-        _ action: @escaping () -> Void
+        with modifiers: EventModifiers = [],
+        action: @escaping () -> Void
     ) -> some View {
-        self.background {
-            Button("") { action() }
-                .keyboardShortcut(key, modifiers: modifier)
-                .hidden()
-        }
-        
+        modifier(
+            KeyboardShortcutModifier(
+                key: key,
+                modifiers: modifiers,
+                action: action
+            )
+        )
     }
 }
-
-

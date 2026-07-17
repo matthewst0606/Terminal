@@ -38,8 +38,7 @@ extension InputSuggestions {
     }
     
     private func showPredictiveText() -> String? {
-        guard !terminal.input.isEmpty,
-              !terminal.history.isEmpty
+        guard !terminal.input.isEmpty, !terminal.history.isEmpty
         else { return nil }
 
         return mostRecentCommand(

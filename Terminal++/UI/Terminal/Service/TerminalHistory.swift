@@ -16,11 +16,21 @@ class TerminalHistory {
         self.terminal = terminal
     }
     
+    private var commands: [String] {
+        terminal.history
+    }
+
+    private var currentCommand: String? {
+        guard let historyIndex else { return nil }
+        return commands[historyIndex]
+    }
+    
+    
     
     func resetIndex() {
         historyIndex = nil
     }
- 
+    
     func previousCommand() -> String? {
         guard !commands.isEmpty else { return nil }
         
@@ -44,15 +54,5 @@ class TerminalHistory {
         
         historyIndex = min(commands.count - 1, i + 1)
         return currentCommand
-    }
-    
-    
-    private var commands: [String] {
-        terminal.history
-    }
-
-    private var currentCommand: String? {
-        guard let historyIndex else { return nil }
-        return commands[historyIndex]
     }
 }

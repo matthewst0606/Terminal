@@ -8,19 +8,43 @@ import SwiftUI
 // ---------- formatting for a history list item ----------
 struct HistoryListItem: View {
     let item: ListElement
+    let onCommand: () -> Void
+    
+    @State private var isFavorite: Bool = false
+    
     var body: some View {
         HStack(spacing: 10) {
-            Symbol(item.leadingSymbol ?? "", font: .system(size: 13), render: .hierarchical)
-                .foregroundStyle(.secondary)
+            Symbol(
+                "clock",
+                font: .system(size: 13),
+                render: .hierarchical
+            )
+            .foregroundStyle(.secondary)
 
             Text(item.leadingText ?? "")
                 .font(.system(size: 13, design: .monospaced))
             
             Spacer()
             
-            Symbol(item.trailingSymbol ?? "", font: .system(size: 13), render: .hierarchical,)
+            Button {
+                isFavorite.toggle()
+            }
+            label: {
+                Symbol(
+                    isFavorite ? "star.fill" : "star",
+                    font: .system(size: 13),
+                    render: .hierarchical
+                )
                 .foregroundStyle(.tertiary)
+            }
+            .buttonStyle(.plain)
+
         }
         .padding(.vertical, 7)
+        Divider()
+
+
     }
+    
+
 }

@@ -3,6 +3,9 @@ target/
 .vscode/
 build/
 .build
+*.app/
+*.dSYM/
+DerivedData/
 
 *.xcuserstate
 *.xcuserdata/

@@ -27,7 +27,7 @@ struct Textbox: View {
         }
         .padding()
         .textFieldStyle(.plain)
-        .applyFrame(.textbox)
+        .frame(maxWidth: .infinity, minHeight: 70, maxHeight: 70)
         .background(.clear)
         .glassRect(radius: 24)
     }

@@ -29,7 +29,13 @@ struct ListTab: View {
             )
             .terminalListStyle(.regular)
         }
-        .applyFrame(.overlayContent)
+        .frame(minWidth: 200, maxWidth: .infinity, alignment: .top)
+        .frame(
+            minWidth: 200,
+            maxWidth: .infinity,
+            minHeight: 100,
+            alignment: .top
+        )
         .padding(.top, 16)
         .tabItem {
             Text(title)

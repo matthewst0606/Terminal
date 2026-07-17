@@ -19,21 +19,6 @@
 		C988574330003768008AE3FD /* ANSIParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANSIParser.swift; sourceTree = "<group>"; };
 		C991101630029FED00D1483B /* Terminal++.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Terminal++.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9D44CEE2FF8A1C800E16D37 /* Terminal__BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Terminal__BridgingHeader.h; sourceTree = "<group>"; };
-		C9D44CF42FF8AFB900E16D37 /* Cargo.lock */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.lock; sourceTree = "<group>"; };
-		C9D44CF52FF8AFB900E16D37 /* Cargo.toml */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cargo.toml; sourceTree = "<group>"; };
-		C9D44CF62FF8AFB900E16D37 /* build.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = build.rs; sourceTree = "<group>"; };
-		C9D44CF72FF8AFB900E16D37 /* lib.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = lib.rs; sourceTree = "<group>"; };
-		C9D44CF82FF8AFB900E16D37 /* main.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = main.rs; sourceTree = "<group>"; };
-		C9D44CF92FF8AFB900E16D37 /* manager.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = manager.rs; sourceTree = "<group>"; };
-		C9D44CFA2FF8AFB900E16D37 /* session.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = session.rs; sourceTree = "<group>"; };
-		C9D44D022FF8B20000E16D37 /* builtin.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = builtin.rs; sourceTree = "<group>"; };
-		C9D44D032FF8B20000E16D37 /* external.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = external.rs; sourceTree = "<group>"; };
-		C9D44D042FF8B20000E16D37 /* input.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = input.rs; sourceTree = "<group>"; };
-		C9D44D052FF8B20000E16D37 /* mod.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = mod.rs; sourceTree = "<group>"; };
-		C9D44D062FF8B20000E16D37 /* output.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = output.rs; sourceTree = "<group>"; };
-		C9D44D082FF8B20000E16D37 /* mod.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = mod.rs; sourceTree = "<group>"; };
-		C9D44D092FF8B20000E16D37 /* record_history.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = record_history.rs; sourceTree = "<group>"; };
-		C9D44D0A2FF8B20000E16D37 /* shell.rs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.rust; path = shell.rs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -47,14 +32,14 @@
 			path = Generated;
 			sourceTree = "<group>";
 		};
+		C9D44CFB2FF8AFB900E16D37 /* rust-shell */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "rust-shell";
+			sourceTree = "<group>";
+		};
 		C9E6F10F300347C100C50281 /* Terminal */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Terminal;
-			sourceTree = "<group>";
-		};
-		C9F11EF93003E62D003AD12C /* Formatting */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Formatting;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -93,7 +78,6 @@
 		C93F8F102FF37B7C003A9B8D /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				C9F11EF13003E623003AD12C /* Shared */,
 				C968EA442FF7FF6200912417 /* App */,
 				C9E6F10F300347C100C50281 /* Terminal */,
 			);
@@ -116,60 +100,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C9D44CFB2FF8AFB900E16D37 /* rust-shell */ = {
-			isa = PBXGroup;
-			children = (
-				C9D44CFC2FF8AFB900E16D37 /* src */,
-				C9D44CF62FF8AFB900E16D37 /* build.rs */,
-				C9D44CF42FF8AFB900E16D37 /* Cargo.lock */,
-				C9D44CF52FF8AFB900E16D37 /* Cargo.toml */,
-			);
-			path = "rust-shell";
-			sourceTree = "<group>";
-		};
-		C9D44CFC2FF8AFB900E16D37 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				C9D44D012FF8B20000E16D37 /* command */,
-				C9D44CF72FF8AFB900E16D37 /* lib.rs */,
-				C9D44CF82FF8AFB900E16D37 /* main.rs */,
-				C9D44D092FF8B20000E16D37 /* record_history.rs */,
-				C9D44D0A2FF8B20000E16D37 /* shell.rs */,
-				C9D44D072FF8B20000E16D37 /* terminal */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
-		C9D44D012FF8B20000E16D37 /* command */ = {
-			isa = PBXGroup;
-			children = (
-				C9D44D022FF8B20000E16D37 /* builtin.rs */,
-				C9D44D032FF8B20000E16D37 /* external.rs */,
-				C9D44D042FF8B20000E16D37 /* input.rs */,
-				C9D44D052FF8B20000E16D37 /* mod.rs */,
-				C9D44D062FF8B20000E16D37 /* output.rs */,
-			);
-			path = command;
-			sourceTree = "<group>";
-		};
-		C9D44D072FF8B20000E16D37 /* terminal */ = {
-			isa = PBXGroup;
-			children = (
-				C9D44CF92FF8AFB900E16D37 /* manager.rs */,
-				C9D44D082FF8B20000E16D37 /* mod.rs */,
-				C9D44CFA2FF8AFB900E16D37 /* session.rs */,
-			);
-			path = terminal;
-			sourceTree = "<group>";
-		};
-		C9F11EF13003E623003AD12C /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				C9F11EF93003E62D003AD12C /* Formatting */,
-			);
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,7 +120,6 @@
 				C968EA442FF7FF6200912417 /* App */,
 				C991101030029F3800D1483B /* Generated */,
 				C9E6F10F300347C100C50281 /* Terminal */,
-				C9F11EF93003E62D003AD12C /* Formatting */,
 			);
 			name = "Terminal++";
 			packageProductDependencies = (
@@ -262,14 +191,28 @@
 				"$(PROJECT_DIR)/Terminal++/rust-shell/Cargo.lock",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/Cargo.toml",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/build.rs",
-				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/builtin.rs",
-				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/external.rs",
-				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input/input.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input/lexer.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/input/parser.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/builtin.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/docker/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/docker/ps.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/external.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/add.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/checkout.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/commit.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/push.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/git/status.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/keywords/mod.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/mod.rs",
-				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/output.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/output/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/command/output/output.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/helpers/mod.rs",
+				"$(PROJECT_DIR)/Terminal++/rust-shell/src/helpers/record_history.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/lib.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/main.rs",
-				"$(PROJECT_DIR)/Terminal++/rust-shell/src/record_history.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/shell.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/terminal/manager.rs",
 				"$(PROJECT_DIR)/Terminal++/rust-shell/src/terminal/mod.rs",

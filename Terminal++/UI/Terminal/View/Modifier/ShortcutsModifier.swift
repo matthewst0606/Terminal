@@ -6,19 +6,16 @@
 //
 import SwiftUI
 
-struct ShortcutsModifier: ViewModifier {
-    let getPrevHistory: () -> Void
-    let getNextHistory: () -> Void
+struct KeyboardShortcutModifier: ViewModifier {
+    let key: KeyEquivalent
+    let modifiers: EventModifiers
+    let action: () -> Void
 
-    func body(content: Content) -> some View { content
-        .kbShortcut(key: .upArrow) {
-            getPrevHistory()
-        }
-        .kbShortcut(key: .downArrow) {
-            getNextHistory()
-        }
-        .kbShortcut(key: "c", with: .control) {
-            
+    func body(content: Content) -> some View {
+        content.background {
+            Button("", action: action)
+                .keyboardShortcut(key, modifiers: modifiers)
+                .hidden()
         }
     }
 }

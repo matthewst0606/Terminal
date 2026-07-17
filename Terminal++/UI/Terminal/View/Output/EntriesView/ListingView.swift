@@ -11,75 +11,146 @@ struct ListingCommandView: View {
     let entries: [DirectoryEntry]
     
     
+    @State var isHovering: Bool = false
+    @State private var hoveredFolderPath: String?
     
-    var body: some View {
-        let folders = entries
-            .filter { $0.kind == "directory" }
-            .sorted {$0.name.localizedStandardCompare($1.name) == .orderedAscending}
-        let files = entries
-            .filter { $0.kind == "file" }
-            .sorted {$0.name.localizedStandardCompare($1.name) == .orderedAscending}
+    let folderColumns = [
+        GridItem(.adaptive(minimum: 90, maximum: 120), spacing: 12)
+    ]
 
-        
-        
+    // displays a custom view when "ls" is typed in the terminal
+    // entries are sorted alphabetically, files and folders are
+    //separated by dividers
+    var body: some View {
         LazyVStack(alignment: .leading, spacing: 4) {
             
-            if !folders.isEmpty {
-                ForEach(folders, id: \.path) { entry in
-                    Button {
-                        terminal.submitNoPrompt("cd \(entry.path)")
-                        terminal.submitNoPrompt("ls")
-                    } label: {
-                        listingRow(entry)
-                    }
-                    .buttonStyle(.plain)
-                    .frame(width: 200, alignment: .leading)
-                }
-            }
-            else {
-                noneFound(
-                    for: "folders",
-                    icon: "questionmark.folder.fill"
-                )
-            }
+            displayFolders
 
-            Divider().padding(.vertical, 6)
+            Divider()
+                .padding(.vertical, 6)
             
-            
-            
-            if !files.isEmpty {
-                ForEach(files, id: \.path) { entry in
-                    listingRow(entry)
-                }
-            }
-            else {
-                noneFound(
-                    for: "files",
-                    icon: "questionmark.app"
-                )
-            }
+            displayFiles
             
             Divider()
                 .padding(.vertical, 6)
                 .padding(.bottom, 20)
         }
     }
+}
+
+extension ListingCommandView {
     
     @ViewBuilder
-    private func listingRow(_ entry: DirectoryEntry) -> some View {
-        HStack(spacing: 10) {
-            Symbol(entry.kind == "directory" ? "folder.fill" : "document")
+    var displayFolders: some View {
+        
+        let folders = entries
+            .filter { $0.kind == "directory" }
+            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        
+        if !folders.isEmpty {
+            LazyVGrid(columns: folderColumns, alignment: .leading, spacing: 12) {
+                
+                ForEach(folders, id: \.path) { entry in
+                    
+                    let isHovering = hoveredFolderPath == entry.path
 
-            Text(entry.name)
-                .fontWeight(.semibold)
-                .frame(width: 220, alignment: .leading)
+                    VStack(spacing: 4) {
+                        Symbol(
+                            isHovering ? "folder.fill" : "folder",
+                            font: .system(size:32)
+                        )
 
-            Text(entry.path)
-                .font(.system(size: 12))
-                .foregroundStyle(.secondary)
-                .lineLimit(1)
+                        Text(entry.name)
+                            .font(.system(size: 12, weight: .semibold))
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .lineLimit(1)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .textSelection(.disabled)
+                    .pointerStyle(.link)
+                    
+                    .padding(5)
+                    .contentShape(.rect(cornerRadius: 24))
+                    .background{
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(isHovering ? Color(nsColor: .tertiarySystemFill) : .clear)
+                    }
+                    
+                    .scaleEffect(isHovering ? 1.1 : 1)
+                    .animation(.smooth(duration: 0.2), value: isHovering)
+
+                    .onTapGesture {
+                        if terminal.submitNoPrompt("cd \(entry.path)") == true {
+                            terminal.submitNoPrompt("clear")
+                            terminal.submitNoPrompt("ls")
+
+                        }
+                    }
+
+                    .onHover {
+                        hoveredFolderPath = $0 ? entry.path : nil
+                    }
+                }
+            }
+        }
+        else {
+            noneFound(
+                for: "folders",
+                icon: "questionmark.folder.fill"
+            )
         }
     }
+    
+    
+    @ViewBuilder
+    var displayFiles: some View {
+        let files = entries
+            .filter { $0.kind == "file" }
+            .sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        
+        if !files.isEmpty {
+            
+            LazyVGrid(
+                columns: folderColumns,
+                alignment: .leading,
+                spacing: 12
+            ) {
+                ForEach(files, id: \.path) { entry in
+                    
+                    let fileExtension = URL(fileURLWithPath: entry.name)
+                        .pathExtension
+                        .lowercased()
+                    
+                    let icon = ["jpg", "jpeg", "png", "webp"].contains(fileExtension)
+                    ? "photo"
+                    : "document"
+                    
+                    VStack(spacing: 4) {
+                        Symbol(icon, font: .system(size: 24))
+                        
+                        
+                        Text(entry.name)
+                            .font(.system(size: 12, weight: .semibold))
+                            .lineLimit(1)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .onTapGesture {
+                        terminal.submitNoPrompt("open \"\(entry.path)\"")
+
+                    }
+                }
+            }
+        }
+        else {
+            noneFound(
+                for: "files",
+                icon: "questionmark.app"
+            )
+        }
+    }
+    
     
     private func noneFound(for item: String, icon: String) -> some View {
         HStack {

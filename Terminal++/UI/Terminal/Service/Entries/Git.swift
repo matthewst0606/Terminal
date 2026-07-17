@@ -5,6 +5,8 @@
 //  Created by Matt on 7/12/26.
 //
 
+import Observation
+
 struct GitStatusEntry: Decodable, Equatable {
     let path: String
     let status: String
@@ -15,3 +17,5 @@ struct GitAddSummary: Decodable, Equatable {
     var modified = 0
     var deleted = 0
 }
+
+

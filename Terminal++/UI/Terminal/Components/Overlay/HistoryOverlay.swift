@@ -26,16 +26,20 @@ struct HistoryOverlay: View {
             .listBodyStyle()
         }
         .toolbarContentBackground()
+        .scrollIndicators(.hidden)
+
     }
 
+    
+    
     
     var historyItem: [ListElement] {
         terminal.history.map { command in
             ListElement(
                 leadingText: command,
-                leadingSymbol: "clock",
-                trailingSymbol: "bookmark"
             )
+            
         }
+        
     }
 }

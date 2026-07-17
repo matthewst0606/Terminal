@@ -10,16 +10,15 @@ import Observation
 final class TerminalWorkspace {
     var tabs: [TerminalTab]
     var id: TerminalTab.ID
-    var selectedTab: TerminalTab? {
-        tabs.first {
-            $0.id == id
-        } ?? tabs.first
-    }
 
     init() {
         let firstTab = TerminalTab(title: "Shell 1")
         tabs = [firstTab]
         id = firstTab.id
+    }
+    
+    var selectedTab: TerminalTab? {
+        tabs.first { $0.id == id } ?? tabs.first
     }
 
     func createNewTab() {
@@ -28,16 +27,11 @@ final class TerminalWorkspace {
         id = tab.id
     }
     
-    
     func closeTab(_ tab: TerminalTab.ID) {
         guard tabs.count > 1 else { return }
+        tabs.removeAll { $0.id == tab }
 
-        let wasSelected = id == tab
-        tabs.removeAll {
-            $0.id == tab
-        }
-
-        if wasSelected {
+        if id == tab {
             id = tabs.first!.id
         }
     }

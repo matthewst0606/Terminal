@@ -45,11 +45,14 @@ struct OverlayTransition: ViewModifier {
     func body(content: Content) -> some View {
         content
         .transition(
-            .move(edge: from)
-            .combined(with: .opacity)
-            .combined(with: .blurReplace)
-            .animation(.bouncy)
+//            .move(edge: from)
+
+            
+            .opacity
+            .combined(with: .blurReplace())
+            .animation(.bouncy(duration: 0.3))
         )
+        
         .shadow(radius: 5)
     }
 }

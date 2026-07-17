@@ -15,10 +15,16 @@ struct KeywordOverlay: View {
     let terminal: Terminal
 
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Keywords")
                 .toolbarContentTitle()
+                .padding(.bottom, 10)
 
+            Text("Built-in")
+                .font(.callout.weight(.thin))
+                .foregroundStyle(Color(nsColor: .secondaryLabelColor))
+                .padding(.horizontal, 8)
+            
             ListBody(
                 items: keywords.builtin,
                 style: .keyword,
@@ -26,7 +32,14 @@ struct KeywordOverlay: View {
                 executesOnTap: true
             )
             .listBodyStyle()
+            
 
+            Text("Custom")
+                .font(.callout.weight(.thin))
+                .foregroundStyle(Color(nsColor: .secondaryLabelColor))
+                .padding(.horizontal, 8)
+            
+            
             ListBody(
                 items: keywords.custom,
                 style: .keyword,
@@ -34,11 +47,22 @@ struct KeywordOverlay: View {
                 executesOnTap: false
             )
             .listBodyStyle()
+
         }
         .padding(10)
         .glassRect(radius: 24)
-        .frame(maxWidth: 300, maxHeight: 450, alignment: .topTrailing)
+        .frame(
+            maxWidth: 450,
+            maxHeight: .infinity,
+            alignment: .topTrailing
+        )
         .textSelection(.enabled)
         .scrollIndicators(.hidden)
+        
+
+        
+
     }
+    
 }
+

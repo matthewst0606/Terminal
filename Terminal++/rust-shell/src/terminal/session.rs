@@ -13,10 +13,16 @@ pub(crate) struct TerminalSession {
 
 impl TerminalSession {
     pub(crate) fn new() -> Self {
+        let current_dir = std::env::var_os("HOME")
+            .map(PathBuf::from)
+            .filter(|path| path.is_dir())
+            .or_else(|| std::env::current_dir().ok())
+            .unwrap_or_else(|| PathBuf::from("/"));
+
         let session = Self {
             id: Uuid::new_v4(),
             history: Vec::new(),
-            current_dir: std::env::current_dir().unwrap_or_default(),
+            current_dir,
             jobs: Vec::new(),
         };
         session

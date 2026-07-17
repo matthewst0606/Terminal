@@ -12,11 +12,10 @@ struct OutputBox: View {
     var terminal: Terminal
     var history: TerminalHistory
     var suggestion: InputSuggestions
-
-
     
     var body: some View {
         ZStack(alignment: .bottom) {
+            
             ScrollViewReader { proxy in
                 ScrollView {
                     
@@ -25,6 +24,7 @@ struct OutputBox: View {
                         .padding(.bottom, 75)
                         .id("bottom")
                 }
+                
                 .contentMargins(16, for: .scrollContent)
                 .onChange(of: terminal.output) {
                     proxy.scrollTo("bottom", anchor: .bottom)
@@ -44,50 +44,36 @@ struct OutputBox: View {
             )
         }
     }
+}
 
+
+extension OutputBox {
     var terminalTextOutput: some View {
         VStack(alignment: .leading, spacing: 0) {
-
-
             ForEach(terminal.output) { item in
-                
                 
                 if let prompt = item.prompt {
                     inputPrompt(prompt: prompt)
                 }
                 
-                
                 switch item.kind {
                 case .text(let text):
                     Text("\(ANSIParser.attributedString(from: text))")
                     
-                    
                 case .listing(let entries):
-                    ListingCommandView(
-                        terminal: terminal,
-                        entries: entries
-                    )
+                    ListingCommandView(terminal: terminal, entries: entries)
 
                 case .gitStatus(let branch, let branchStatus, let entries):
-                    GitCommandsView(
-                        branch: branch,
-                        branchStatus: branchStatus,
-                        entries: entries
-                    )
+                    GitCommandsView(branch: branch, branchStatus: branchStatus, entries: entries)
                     
                 case .gitAdd(let added, let modified, let deleted):
-                    GitAddView(
-                        added: added,
-                        modified: modified,
-                        deleted: deleted
-                    )
+                    GitAddView(added: added, modified: modified, deleted: deleted)
                     
                 case .dockePs(let entries):
                     DockerCommandsView(entries: entries)
                     
                 case .error(let command, let message):
                     errorFormat(command, message)
-                    
                 }
             }
         }
@@ -97,69 +83,81 @@ struct OutputBox: View {
             design: selectedFont.design
         ))
         .frame(
+            minWidth: 500,
             maxWidth: .infinity,
+            maxHeight: .infinity,
             alignment: .topLeading
         )
         .lineSpacing(2)
         .textSelection(.enabled)
     }
-    
-    
+}
+
+
+extension OutputBox {
     @ViewBuilder
     func errorFormat(
         _ command: String,
         _ message: String
     ) -> some View {
         VStack(alignment: .leading, spacing: 6) {
-            HStack(spacing: 0) {
-
-
-                Text("Command Error: ")
-                    .foregroundStyle(Color(NSColor.systemRed))
+            HStack(spacing: 6) {
+                    
+                
+                let errorStart = Text("Command")
+                    .foregroundStyle(Color(nsColor: .systemRed))
                     .fontWeight(.semibold)
                 
-                Text("\"\(command)\"")
+                let errorCommand = Text("\"\(command)\"")
                     .foregroundStyle(Color(nsColor: .linkColor))
                     .fontWeight(.semibold)
                 
-            }
-            HStack(spacing: 4) {
-                Symbol("exclamationmark.triangle", render: .palette)
+                let errorEnd = Text("not found.")
+                    .foregroundStyle(Color(nsColor: .systemRed))
+                    .fontWeight(.semibold)
                 
-                Text(message)
+                let warningIcon = Text("\(Image(systemName: "exclamationmark.triangle"))")
+                    .font(.system(size: 14, weight: .regular))
+                    .foregroundStyle(.secondary)
+                
+                let warningMessage = Text(message)
                     .foregroundStyle(.secondary)
                     .fontWeight(.light)
-            }
+                    
+                
+                Text(
+                    """
+                    \(errorStart) \(errorCommand) \(errorEnd)
+                    \(warningIcon) \(warningMessage)
+                    """
+                )
 
+                
+            }
+            .textSelection(.enabled)
         }
     }
     
-    
     func inputPrompt(prompt: TerminalOutput.Prompt) -> some View {
-            HStack(spacing: 3) {
-                Text(prompt.directory)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
- 
-                
-                Symbol("chevron.forward",
-                       font: .system(.caption, weight: .regular),
-                       gradient: .flat
-                )
-                .padding(.trailing, 5)
-                    
-                
-                Text(prompt.command)
-                    .fontWeight(.semibold)
-                
-            }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 5)
-            .padding(.bottom, 10)
-        }
-        
-    
-}
+        HStack(spacing: 3) {
+            Text(prompt.directory)
+                .foregroundStyle(.secondary)
+                .lineLimit(1)
 
+            Symbol("chevron.forward",
+                   font: .system(.caption, weight: .regular),
+                   gradient: .flat
+            )
+            .padding(.trailing, 5)
+                
+            Text(prompt.command)
+                .fontWeight(.semibold)
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.top, 5)
+        .padding(.bottom, 10)
+    }
+}
 
 

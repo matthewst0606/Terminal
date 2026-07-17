@@ -19,15 +19,15 @@ enum CommandOutputCustomizer {
     static func customize(command: String, output: String) -> CustomizedCommandOutput {
         let words = command.split(whereSeparator: { $0.isWhitespace }).map(String.init)
 
-        if words == ["git", "status"], let status = parseGitStatus(output) {
+        if  words == ["git", "status"], let status = parseGitStatus(output) {
             return status
         }
         
-        if words.count >= 2, words[0] == "git", words[1] == "add" {
+        if  words.count >= 2, words[0] == "git", words[1] == "add" {
             return .gitAdd
         }
         
-        if words == ["docker", "ps"], let containers = parseDockerPs(output) {
+        if  words == ["docker", "ps"], let containers = parseDockerPs(output) {
             return .dockerPs(entries: containers)
         }
 
@@ -44,13 +44,17 @@ enum CommandOutputCustomizer {
         enum Section: Equatable {
             case none, staged, changed, untracked
         }
+        
 
         var section = Section.none
         var branchStatus = ""
         var entries: [GitStatusEntry] = []
 
+        
+        
         for line in lines.dropFirst() {
-            let trimmed = line.trimmingCharacters(in: .whitespaces)
+            let trimmed = line
+                .trimmingCharacters(in: .whitespaces)
 
             if trimmed.hasPrefix("Your branch ") {
                 branchStatus = trimmed
@@ -58,31 +62,33 @@ enum CommandOutputCustomizer {
             }
 
             switch trimmed {
-            case "Changes to be committed:":
-                section = .staged
-                continue
-                
-            case "Changes not staged for commit:":
-                section = .changed
-                continue
-                
-            case "Untracked files:":
-                section = .untracked
-                continue
-                
-            default:
-                break
+                case "Changes to be committed:":
+                    section = .staged
+                    continue
+                    
+                case "Changes not staged for commit:":
+                    section = .changed
+                    continue
+                    
+                case "Untracked files:":
+                    section = .untracked
+                    continue
+                    
+                default:
+                    break
             }
 
-            guard !trimmed.isEmpty, !trimmed.hasPrefix("(")
-            else { continue }
-
+            guard !trimmed.isEmpty, !trimmed.hasPrefix("(") else {
+                continue
+            }
+            
+            
             switch section {
                 
-                
             case .staged, .changed:
-                guard let separator = trimmed.firstIndex(of: ":")
-                else { continue }
+                guard let separator = trimmed.firstIndex(of: ":") else {
+                    continue
+                }
                 
                 let label = trimmed[..<separator]
                 let path = trimmed[trimmed.index(after: separator)...]
@@ -105,7 +111,10 @@ enum CommandOutputCustomizer {
                 
             case .untracked:
                 if !trimmed.hasPrefix("nothing added") {
-                    entries.append(.init(path: trimmed, status: "untracked"))
+                    entries.append(.init(
+                        path: trimmed,
+                        status: "untracked"
+                    ))
                 }
 
             case .none:
@@ -115,28 +124,33 @@ enum CommandOutputCustomizer {
         return (branchStatus: branchStatus, entries: entries)
     }
     
+    
     private static func parseGitStatus(_ output: String) -> CustomizedCommandOutput? {
         let lines = output.components(separatedBy: .newlines)
+        guard let firstLine = lines.first else {
+            return nil
+        }
         
-        guard let firstLine = lines.first
-        else { return nil }
         
         let branch: String
         
         if firstLine.hasPrefix("On branch ") {
-            branch = String(firstLine.dropFirst("On branch ".count))
+            branch = String(firstLine.dropFirst(
+                "On branch ".count
+            ))
         }
-        
         else if firstLine.hasPrefix("HEAD detached ") {
-            branch = String(firstLine.dropFirst("HEAD ".count))
+            branch = String(firstLine.dropFirst(
+                "HEAD ".count
+            ))
         }
-        
         else {
             return nil
         }
-
-        let (branchStatus, entries) = gitStatusDetails(from: lines)
         
+
+        
+        let (branchStatus, entries) = gitStatusDetails(from: lines)
         return .gitStatus(
             branch: branch,
             branchStatus: branchStatus,
@@ -148,17 +162,17 @@ enum CommandOutputCustomizer {
     
     static func gitAddSummary(from output: String) -> GitAddSummary {
         var summary = GitAddSummary()
+        let splitOutput = output.split(
+            whereSeparator: {$0.isNewline}
+        )
         
-        for line in output.split(whereSeparator: {$0.isNewline}) {
+        
+        for line in splitOutput {
             switch line.first {
-            case "A":
-                summary.added += 1
-            case "M":
-                summary.modified += 1
-            case "D":
-                summary.deleted += 1
-            default:
-                break
+            case "A": summary.added += 1
+            case "M": summary.modified += 1
+            case "D": summary.deleted += 1
+            default:  break
             }
         }
         
@@ -166,11 +180,15 @@ enum CommandOutputCustomizer {
     }
 
     private static func parseDockerPs(_ output: String) -> [DockerPsEntry]? {
-        let lines = output.split(whereSeparator: { $0.isNewline })
-            .map(String.init)
+        let lines = output.split(
+            whereSeparator: { $0.isNewline }
+        )
+        .map(String.init)
         
-        guard let header = lines.first
-        else { return nil }
+        
+        guard let header = lines.first else {
+            return nil
+        }
 
         let columnNames = [
             "CONTAINER ID", 
@@ -182,23 +200,24 @@ enum CommandOutputCustomizer {
             "NAMES"
         ]
         
+        
         let headerString = header as NSString
         
-        let starts = columnNames
-            .map { headerString.range(of: $0).location }
+        let starts = columnNames.map {
+            headerString.range(of: $0).location
+        }
         
-        guard !starts.contains(NSNotFound)
-        else { return nil }
+        guard !starts.contains(NSNotFound) else {
+            return nil
+        }
 
-        func value(_ name: String, in line: String) -> String {
-            
+        
+        func value(_ name: String, in line: String) -> String{
+
             let index = columnNames.firstIndex(of: name)!
-            
             let row = line as NSString
-            
             let start = min(starts[index], row.length)
             
-
             
             let end = if index + 1 < starts.count {
                 min(starts[index + 1], row.length)
@@ -207,10 +226,10 @@ enum CommandOutputCustomizer {
                 row.length
             }
             
+            guard end >= start else {
+                return ""
+            }
             
-            
-            guard end >= start
-            else { return "" }
             
             return row.substring(with: NSRange(
                 location: start,
@@ -219,10 +238,12 @@ enum CommandOutputCustomizer {
             .trimmingCharacters(in: .whitespaces)
         }
 
+        
+        
         return lines.dropFirst().map { line in
             DockerPsEntry(
                 container: value("NAMES", in: line),
-                container_id: value("CONTAINER ID", in: line),
+                id: value("CONTAINER ID", in: line),
                 image: value("IMAGE", in: line),
                 status: value("STATUS", in: line),
                 ports: value("PORTS", in: line)

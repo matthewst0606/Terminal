@@ -12,7 +12,7 @@ struct ToolbarControlButton: View {
     let action: () -> Void
 
     var body: some View {
-        AnimatedButton(.smooth) {
+        Button {
             action()
         }
         label: {
@@ -21,7 +21,7 @@ struct ToolbarControlButton: View {
             
             .contentShape(RoundedRectangle(cornerRadius: 12))
             .backgroundRect(
-                isSelected ? ColorLib.selectedButton.color : Color.clear,
+                isSelected ? selectedButton : Color.clear,
                 radius: 24,
             )
         }

@@ -12,9 +12,9 @@ import SwiftUI
 struct BackgroundJobsView: View {
 
     private let jobs = [
-        ("Shell", "Idle", "terminal.fill"),
-        ("Index", "Watching", "arrow.triangle.2.circlepath"),
-        ("Build", "No active task", "hammer.fill")
+        ("Shell", "Idle",           "terminal.fill"              ),
+        ("Index", "Watching",       "arrow.triangle.2.circlepath"),
+        ("Build", "No active task", "hammer.fill"                )
     ]
     
     var body: some View {
@@ -33,17 +33,17 @@ struct BackgroundJobsView: View {
             VStack(content: {
                 ForEach(jobs, id: \.0) { job in
                     DisplayJobRow(
-                        title: job.0,
+                        title:  job.0,
                         status: job.1,
                         symbol: job.2
                     )
                 }
             })
-            .backgroundRect(ColorLib.panel.color, radius: 24)
+            .backgroundRect(panel, radius: 24)
             
         })
-        .padding(FrameLib.listRow.padding)
-        .applyFrame(.listRow)
+        .padding(14)
+        .frame(width: 280, alignment: .topLeading)
         .glassRect(radius: 24)
     }
 }
@@ -51,15 +51,15 @@ struct BackgroundJobsView: View {
 
 
 private struct DisplayJobRow: View {
-    let title: String
+    let title:  String
     let status: String
     let symbol: String
     
     var body: some View {
         HStack(spacing: 10, content: {
             Symbol(symbol)
-                .foregroundStyle(ColorLib.listRow.color)
-                .applyFrame(.smallSymbol)
+                .foregroundStyle(.secondary)
+                .frame(width: 24, height: 24)
 
             VStack(alignment: .leading, spacing: 2, content: {
                 
@@ -67,7 +67,7 @@ private struct DisplayJobRow: View {
                     .font(.callout.weight(.medium))
                 Text(status)
                     .font(.caption)
-                    .foregroundStyle(ColorLib.listRow)
+                    .foregroundStyle(.secondary)
             })
             Spacer()
         })
@@ -75,3 +75,4 @@ private struct DisplayJobRow: View {
         .padding(.vertical, 8)
     }
 }
+
